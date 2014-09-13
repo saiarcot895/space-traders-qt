@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QQmlApplicationEngine>
+#include "newgame.h"
 
 class MainWindow : public QObject
 {
@@ -17,6 +18,7 @@ public:
 private:
     QQmlApplicationEngine* engine;
     QObject* rootObject;
+    NewGame* newGame;
 
 };
 

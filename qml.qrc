@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>2015-Star-Citizen.jpg</file>
         <file>mainwindow.qml</file>
+        <file>newgame.qml</file>
     </qresource>
 </RCC>
