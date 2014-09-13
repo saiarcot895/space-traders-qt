@@ -6,7 +6,15 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Space Traders")
+
+    Image {
+        id: image1
+        z: -1
+        anchors.fill: parent
+        source: "qrc:///2015-Star-Citizen.jpg"
+        fillMode: Image.PreserveAspectCrop
+    }
 
     Button {
         id: button1
@@ -22,6 +30,15 @@ ApplicationWindow {
         text: qsTr("Settings")
         anchors.top: button1.bottom
         anchors.topMargin: 8
+        anchors.right: parent.right
+        anchors.rightMargin: 8
+    }
+
+    Label {
+        id: label1
+        text: qsTr("Space Traders")
+        font.pointSize: 24
+        color: "gray"
         anchors.right: parent.right
         anchors.rightMargin: 8
     }

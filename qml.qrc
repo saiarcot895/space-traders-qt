@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>2015-Star-Citizen.jpg</file>
     </qresource>
 </RCC>
