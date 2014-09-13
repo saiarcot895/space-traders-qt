@@ -24,7 +24,7 @@ Image {
         anchors.topMargin: 8
         anchors.right: parent.right
         anchors.rightMargin: 8
-        onClicked: mainWindow.startNewGame()
+        onClicked: mainWindow.showSettings()
     }
 
     Label {
