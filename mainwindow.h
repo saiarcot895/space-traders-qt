@@ -11,6 +11,9 @@ public:
     explicit MainWindow(QObject *parent = 0);
     ~MainWindow();
 
+    Q_INVOKABLE void startNewGame();
+    Q_INVOKABLE void showSettings();
+
 private:
     QQmlApplicationEngine* engine;
     QObject* rootObject;

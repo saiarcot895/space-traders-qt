@@ -13,6 +13,14 @@ MainWindow::MainWindow(QObject *parent) :
     engine->rootContext()->setContextProperty("mainWindow", this);
 }
 
+void MainWindow::startNewGame() {
+
+}
+
+void MainWindow::showSettings() {
+
+}
+
 MainWindow::~MainWindow() {
     delete rootObject;
     delete engine;
