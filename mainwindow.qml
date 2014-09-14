@@ -14,7 +14,7 @@ Image {
         anchors.bottomMargin: 40
         anchors.right: parent.right
         anchors.rightMargin: 8
-        onClicked: mainWindow.startNewGame()
+        onClicked: mainController.startNewGame()
     }
 
     Button {
@@ -24,7 +24,7 @@ Image {
         anchors.topMargin: 8
         anchors.right: parent.right
         anchors.rightMargin: 8
-        onClicked: mainWindow.showSettings()
+        onClicked: mainController.showSettings()
     }
 
     Label {

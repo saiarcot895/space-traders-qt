@@ -11,7 +11,6 @@ ApplicationWindow {
     Loader {
         id: pageLoader
         objectName: "pageLoader"
-        source: "qrc:///mainwindow.qml"
         anchors.fill: parent
     }
 }

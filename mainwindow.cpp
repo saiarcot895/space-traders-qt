@@ -1,32 +1,18 @@
 #include "mainwindow.h"
 
-#include <QQmlComponent>
-#include <QQmlContext>
+#include <QVariant>
 
-MainWindow::MainWindow(QObject *parent) :
+MainWindow::MainWindow(QObject *rootObject, QObject *parent) :
     QObject(parent),
-    newGame(new NewGame(NULL, this))
+    rootObject(rootObject)
 {
-    engine = new QQmlApplicationEngine(this);
-    QQmlComponent component(engine, QUrl(QStringLiteral("qrc:///main.qml")));
-    rootObject = component.create();
-
-    newGame->setRootObject(rootObject);
-
-    engine->rootContext()->setContextProperty("mainWindow", this);
-    engine->rootContext()->setContextProperty("newGame", newGame);
 }
 
-void MainWindow::startNewGame() {
-    newGame->showNewGamePage();
+void MainWindow::setRootObject(QObject *rootObject) {
+    this->rootObject = rootObject;
 }
 
-void MainWindow::showSettings() {
-
-}
-
-MainWindow::~MainWindow() {
-    delete rootObject;
-    delete engine;
-    delete newGame;
+void MainWindow::showHomeScreen() {
+    Q_ASSERT(rootObject);
+    rootObject->findChild<QObject*>("pageLoader")->setProperty("source", QStringLiteral("qrc:///mainwindow.qml"));
 }

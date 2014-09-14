@@ -3,8 +3,9 @@ TEMPLATE = app
 QT += qml quick widgets
 
 SOURCES += main.cpp \
-    mainwindow.cpp \
-    newgame.cpp
+    newgame.cpp \
+    maincontroller.cpp \
+    mainwindow.cpp
 
 RESOURCES += qml.qrc
 
@@ -15,5 +16,6 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    mainwindow.h \
-    newgame.h
+    newgame.h \
+    maincontroller.h \
+    mainwindow.h

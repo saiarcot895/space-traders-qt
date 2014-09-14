@@ -2,23 +2,18 @@
 #define MAINWINDOW_H
 
 #include <QObject>
-#include <QQmlApplicationEngine>
-#include "newgame.h"
 
 class MainWindow : public QObject
 {
     Q_OBJECT
 public:
-    explicit MainWindow(QObject *parent = 0);
-    ~MainWindow();
+    explicit MainWindow(QObject *rootObject = 0, QObject *parent = 0);
 
-    Q_INVOKABLE void startNewGame();
-    Q_INVOKABLE void showSettings();
+    void setRootObject(QObject *rootObject);
+    void showHomeScreen();
 
 private:
-    QQmlApplicationEngine* engine;
-    QObject* rootObject;
-    NewGame* newGame;
+    QObject *rootObject;
 
 };
 
