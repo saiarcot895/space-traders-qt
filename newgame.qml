@@ -8,6 +8,7 @@ Image {
     source: "qrc:///2015-Star-Citizen.jpg"
     fillMode: Image.PreserveAspectCrop
     anchors.fill: parent
+    z: -1
 
     Label {
         id: label1
@@ -27,123 +28,78 @@ Image {
         placeholderText: qsTr("Name")
     }
 
+    Label {
+        id: label3
+        text: qsTr("Skill Points Remaining: ")
+        color: "orange"
+        anchors.bottom: rectangle1.top
+        anchors.bottomMargin: 6
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+    }
+
+    Label {
+        id: label4
+        color: "orange"
+        anchors.left: label3.right
+        anchors.leftMargin: 6
+        anchors.verticalCenter: label3.verticalCenter
+        text: "0"
+    }
+
     Rectangle {
         id: rectangle1
-        height: 200
-        color: "#00000000"
+        color: "#7f000000"
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: 8
         anchors.left: parent.left
         anchors.leftMargin: 8
+        height: pilotSkill.height + fighterSkill.height + engineerSkill.height + traderSkill.height + investorSkill.height + 48
 
-        Loader {
+        Skill {
             id: pilotSkill
-            property string skillName: "Pilot"
-            sourceComponent: skill
+            skillName: "Pilot"
             anchors.top: parent.top
             anchors.topMargin: 8
             anchors.left: parent.left
             anchors.leftMargin: 8
         }
 
-        Loader {
+        Skill {
             id: fighterSkill
-            property string skillName: "Fighter"
-            sourceComponent: skill
+            skillName: "Fighter"
             anchors.top: pilotSkill.bottom
             anchors.topMargin: 8
             anchors.left: parent.left
             anchors.leftMargin: 8
         }
 
-        Loader {
+        Skill {
             id: engineerSkill
-            property string skillName: "Engineer"
-            sourceComponent: skill
+            skillName: "Engineer"
             anchors.top: fighterSkill.bottom
             anchors.topMargin: 8
             anchors.left: parent.left
             anchors.leftMargin: 8
         }
 
-        Loader {
+        Skill {
             id: traderSkill
-            property string skillName: "Trader"
-            sourceComponent: skill
+            skillName: "Trader"
             anchors.top: engineerSkill.bottom
             anchors.topMargin: 8
             anchors.left: parent.left
             anchors.leftMargin: 8
         }
 
-        Loader {
+        Skill {
             id: investorSkill
-            property string skillName: "Investor"
-            sourceComponent: skill
+            skillName: "Investor"
             anchors.top: traderSkill.bottom
             anchors.topMargin: 8
             anchors.left: parent.left
             anchors.leftMargin: 8
-        }
-    }
-
-    Component {
-        id: skill
-
-        Rectangle {
-            id: skillRectangle
-            property bool isIncrementable: true
-            property bool isDecrementable: false
-            property string skillLevel: "1"
-            anchors.right: parent.right
-            anchors.rightMargin: 8
-            anchors.left: parent.left
-            anchors.leftMargin: 8
-            height: 25
-            color: "#00000000"
-
-            Label {
-                id: label2
-                text: skillName
-                color: "orange"
-                anchors.verticalCenter: textField2.verticalCenter
-                anchors.left: parent.left
-                anchors.leftMargin: 8
-            }
-
-            Button {
-                id: button1
-                width: 48
-                text: "-"
-                enabled: isDecrementable
-                anchors.verticalCenter: textField2.verticalCenter
-                anchors.left: label2.right
-                anchors.leftMargin: 6
-                onClicked: newGame.decrementSkill(skillRectangle)
-            }
-
-            TextField {
-                id: textField2
-                width: 45
-                readOnly: true
-                anchors.top: parent.top
-                anchors.topMargin: 4
-                anchors.left: button1.right
-                anchors.leftMargin: 6
-                text: skillLevel
-            }
-
-            Button {
-                id: button2
-                width: 48
-                text: "+"
-                enabled: isIncrementable
-                anchors.verticalCenter: textField2.verticalCenter
-                anchors.left: textField2.right
-                anchors.leftMargin: 6
-                onClicked: newGame.incrementSkill(skillRectangle)
-            }
         }
     }
 
@@ -155,6 +111,7 @@ Image {
         anchors.bottomMargin: 8
         anchors.left: parent.left
         anchors.leftMargin: 8
+        onClicked: mainController.showHomeScreen()
     }
 
     Button {
@@ -167,4 +124,5 @@ Image {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8
     }
+
 }

@@ -10,8 +10,8 @@ Image {
     Button {
         id: button1
         text: qsTr("New Game")
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 40
+        anchors.bottom: button2.top
+        anchors.bottomMargin: 8
         anchors.right: parent.right
         anchors.rightMargin: 8
         onClicked: mainController.startNewGame()
@@ -20,8 +20,8 @@ Image {
     Button {
         id: button2
         text: qsTr("Settings")
-        anchors.top: button1.bottom
-        anchors.topMargin: 8
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 32
         anchors.right: parent.right
         anchors.rightMargin: 8
         onClicked: mainController.showSettings()

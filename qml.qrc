@@ -4,5 +4,6 @@
         <file>2015-Star-Citizen.jpg</file>
         <file>mainwindow.qml</file>
         <file>newgame.qml</file>
+        <file>Skill.qml</file>
     </qresource>
 </RCC>
