@@ -115,7 +115,7 @@ Image {
             Button {
                 id: button1
                 width: 48
-                text: qsTr("-")
+                text: "-"
                 enabled: isDecrementable
                 anchors.verticalCenter: textField2.verticalCenter
                 anchors.left: label2.right
@@ -137,7 +137,7 @@ Image {
             Button {
                 id: button2
                 width: 48
-                text: qsTr("+")
+                text: "+"
                 enabled: isIncrementable
                 anchors.verticalCenter: textField2.verticalCenter
                 anchors.left: textField2.right
@@ -145,5 +145,26 @@ Image {
                 onClicked: newGame.incrementSkill(skillRectangle)
             }
         }
+    }
+
+    Button {
+        id: button3
+        y: 609
+        text: qsTr("Cancel")
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 8
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+    }
+
+    Button {
+        id: button4
+        x: 512
+        y: 609
+        text: qsTr("Create")
+        anchors.right: parent.right
+        anchors.rightMargin: 8
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 8
     }
 }
