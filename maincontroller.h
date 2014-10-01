@@ -6,6 +6,7 @@
 
 #include "newgame.h"
 #include "mainwindow.h"
+#include "settings.h"
 
 class MainController : public QObject
 {
@@ -24,6 +25,7 @@ private:
 
     MainWindow* mainWindow;
     NewGame* newGame;
+    Settings* settings;
 
 };
 

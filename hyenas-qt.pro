@@ -2,10 +2,16 @@ TEMPLATE = app
 
 QT += qml quick widgets
 
+CONFIG += c++11
+
 SOURCES += main.cpp \
     newgame.cpp \
     maincontroller.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    settings.cpp \
+    galaxy.cpp \
+    planet.cpp \
+    solarsystem.cpp
 
 RESOURCES += qml.qrc
 
@@ -18,4 +24,8 @@ include(deployment.pri)
 HEADERS += \
     newgame.h \
     maincontroller.h \
-    mainwindow.h
+    mainwindow.h \
+    settings.h \
+    galaxy.h \
+    planet.h \
+    solarsystem.h

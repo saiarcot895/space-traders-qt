@@ -12,8 +12,8 @@ Image {
 
     Label {
         id: label1
-        y: 8
         text: qsTr("Name")
+        color: "orange"
         anchors.verticalCenter: textField1.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 8
@@ -40,6 +40,7 @@ Image {
 
     Label {
         id: label4
+        objectName: "availableSkillPoints"
         color: "orange"
         anchors.left: label3.right
         anchors.leftMargin: 6
