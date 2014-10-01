@@ -106,7 +106,6 @@ Image {
 
     Button {
         id: button3
-        y: 609
         text: qsTr("Cancel")
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8
@@ -117,13 +116,12 @@ Image {
 
     Button {
         id: button4
-        x: 512
-        y: 609
         text: qsTr("Create")
         anchors.right: parent.right
         anchors.rightMargin: 8
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8
+        onClicked: mainController.showNavigationPage()
     }
 
 }

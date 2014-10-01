@@ -9,6 +9,7 @@ public:
     double radius;
     Planet::TechLevel techLevel = Planet::UnknownLevel;
     Planet::ResourceTypes resourceTypes = Planet::UnknownResource;
+    //QMap<Item, int> items;
 };
 
 Planet::Planet(QString name, double x, double y) : data(new PlanetData)

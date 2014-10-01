@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     settings.cpp \
     galaxy.cpp \
     planet.cpp \
-    solarsystem.cpp
+    solarsystem.cpp \
+    navigation.cpp
 
 RESOURCES += qml.qrc
 
@@ -28,4 +29,5 @@ HEADERS += \
     settings.h \
     galaxy.h \
     planet.h \
-    solarsystem.h
+    solarsystem.h \
+    navigation.h

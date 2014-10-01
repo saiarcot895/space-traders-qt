@@ -6,5 +6,7 @@
         <file>newgame.qml</file>
         <file>Skill.qml</file>
         <file>settings.qml</file>
+        <file>navigation.qml</file>
+        <file>SolarSystem.qml</file>
     </qresource>
 </RCC>

@@ -7,6 +7,7 @@
 #include "newgame.h"
 #include "mainwindow.h"
 #include "settings.h"
+#include "navigation.h"
 
 class MainController : public QObject
 {
@@ -18,6 +19,7 @@ public:
     Q_INVOKABLE void showHomeScreen();
     Q_INVOKABLE void startNewGame();
     Q_INVOKABLE void showSettings();
+    Q_INVOKABLE void showNavigationPage();
 
 private:
     QQmlApplicationEngine* engine;
@@ -26,6 +28,7 @@ private:
     MainWindow* mainWindow;
     NewGame* newGame;
     Settings* settings;
+    Navigation* navigation;
 
 };
 

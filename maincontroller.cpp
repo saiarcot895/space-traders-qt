@@ -7,7 +7,8 @@ MainController::MainController(QObject *parent) :
     QObject(parent),
     mainWindow(new MainWindow(NULL, this)),
     newGame(new NewGame(NULL, this)),
-    settings(new Settings(NULL, this))
+    settings(new Settings(NULL, this)),
+    navigation(new Navigation(NULL, this))
 {
     engine = new QQmlApplicationEngine(this);
     QQmlComponent component(engine, QUrl(QStringLiteral("qrc:///main.qml")));
@@ -16,11 +17,13 @@ MainController::MainController(QObject *parent) :
     mainWindow->setRootObject(rootObject);
     newGame->setRootObject(rootObject);
     settings->setRootObject(rootObject);
+    navigation->setRootObject(rootObject);
 
     engine->rootContext()->setContextProperty("mainController", this);
     engine->rootContext()->setContextProperty("mainWindow", mainWindow);
     engine->rootContext()->setContextProperty("newGame", newGame);
     engine->rootContext()->setContextProperty("settings", settings);
+    engine->rootContext()->setContextProperty("navigation", navigation);
 
     showHomeScreen();
 }
@@ -35,6 +38,10 @@ void MainController::startNewGame() {
 
 void MainController::showSettings() {
     settings->showSettingsPage();
+}
+
+void MainController::showNavigationPage() {
+    navigation->showNavigationPage();
 }
 
 MainController::~MainController() {

@@ -5,7 +5,7 @@ Item {
     id: skillRectangle
     property bool isIncrementable: true
     property bool isDecrementable: false
-    property string skillLevel: "1"
+    property int skillLevel: 1
     property string skillName: ""
     anchors.right: parent.right
     anchors.rightMargin: 8
