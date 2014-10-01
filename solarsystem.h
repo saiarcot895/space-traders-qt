@@ -2,7 +2,7 @@
 #define SOLARSYSTEM_H
 
 #include <QObject>
-#include <QSharedDataPointer>
+#include <QExplicitlySharedDataPointer>
 #include "planet.h"
 
 class SolarSystemData;
@@ -21,7 +21,7 @@ public:
     double getY() const;
 
 private:
-    QSharedDataPointer<SolarSystemData> data;
+    QExplicitlySharedDataPointer<SolarSystemData> data;
 };
 
 #endif // SOLARSYSTEM_H
