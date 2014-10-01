@@ -3,6 +3,7 @@ import QtQuick.Controls 1.1
 
 Image {
     id: image1
+    objectName: "navigationScreen"
     width: 600
     height: 640
     source: "qrc:///2015-Star-Citizen.jpg"
@@ -31,11 +32,11 @@ Image {
         anchors.rightMargin: 8
     }
 
-    function createSpriteObjects(name, x, y) {
-        component = Qt.createComponent("Planet.qml");
-        sprite = component.createObject(mapRegion, {"solarSystemName": name, "x": x, "y": y});
+    function createPlanetButtons(name, x, y) {
+        var component = Qt.createComponent("Planet.qml");
+        var sprite = component.createObject(mapRegion, {"solarSystemName": name, "x": x, "y": y});
 
-        if (sprite == null) {
+        if (sprite === null) {
             console.log("Error creating object");
         }
     }

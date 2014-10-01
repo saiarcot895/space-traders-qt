@@ -12,6 +12,11 @@ public:
     //QMap<Item, int> items;
 };
 
+Planet::Planet() :
+    Planet("", 0, 0)
+{
+}
+
 Planet::Planet(QString name, double x, double y) : data(new PlanetData)
 {
     data->name = name;

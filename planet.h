@@ -10,6 +10,7 @@ class PlanetData;
 class Planet : public QObject
 {
 public:
+    Planet();
     Planet(QString name, double x, double y);
     Planet(const Planet &);
     Planet &operator=(const Planet &);

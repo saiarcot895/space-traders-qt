@@ -10,6 +10,7 @@ class SolarSystemData;
 class SolarSystem : public QObject
 {
 public:
+    SolarSystem();
     SolarSystem(QString name);
     SolarSystem(const SolarSystem &);
     SolarSystem &operator=(const SolarSystem &);

@@ -14,4 +14,12 @@ void Navigation::setRootObject(QObject *rootObject) {
 void Navigation::showNavigationPage() {
     Q_ASSERT(rootObject);
     rootObject->findChild<QObject*>("pageLoader")->setProperty("source", QStringLiteral("qrc:///navigation.qml"));
+
+    for (int i = 0; i < galaxy.getSolarSystems().size(); i++) {
+        const SolarSystem system = galaxy.getSolarSystems().at(i);
+        QMetaObject::invokeMethod(rootObject->findChild<QObject*>("navigationScreen"), "createPlanetButtons",
+                                  Q_ARG(QVariant, system.getName()),
+                                  Q_ARG(QVariant, system.getX()),
+                                  Q_ARG(QVariant, system.getY()));
+    }
 }

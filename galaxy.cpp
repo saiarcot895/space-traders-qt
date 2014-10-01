@@ -1,6 +1,8 @@
 #include "galaxy.h"
 #include <QSharedData>
 
+Galaxy Galaxy::instance = Galaxy();
+
 class GalaxyData : public QSharedData {
 public:
     QList<SolarSystem> solarSystems;
@@ -24,6 +26,10 @@ Galaxy::Galaxy(const Galaxy &rhs) : data(rhs.data)
 
 const QList<SolarSystem> Galaxy::getSolarSystems() const {
     return data->solarSystems;
+}
+
+Galaxy Galaxy::getInstance() {
+    return instance;
 }
 
 Galaxy &Galaxy::operator=(const Galaxy &rhs)

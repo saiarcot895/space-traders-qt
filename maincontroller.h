@@ -8,6 +8,8 @@
 #include "mainwindow.h"
 #include "settings.h"
 #include "navigation.h"
+#include "galaxy.h"
+#include "player.h"
 
 class MainController : public QObject
 {
@@ -29,6 +31,9 @@ private:
     NewGame* newGame;
     Settings* settings;
     Navigation* navigation;
+
+    Galaxy galaxy = Galaxy::getInstance();
+    Player player = Player::getInstance();
 
 };
 

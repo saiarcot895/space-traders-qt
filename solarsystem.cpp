@@ -9,6 +9,11 @@ public:
     double y;
 };
 
+SolarSystem::SolarSystem() :
+    SolarSystem("")
+{
+}
+
 SolarSystem::SolarSystem(QString name) : data(new SolarSystemData)
 {
     data->name = name;

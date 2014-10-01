@@ -2,6 +2,8 @@
 #define NAVIGATION_H
 
 #include <QObject>
+#include "galaxy.h"
+#include "player.h"
 
 class Navigation : public QObject
 {
@@ -14,6 +16,9 @@ public:
 
 private:
     QObject *rootObject;
+
+    Galaxy galaxy = Galaxy::getInstance();
+    Player player = Player::getInstance();
 
 };
 
