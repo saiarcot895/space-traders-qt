@@ -1,5 +1,6 @@
 #include "galaxy.h"
 #include <QSharedData>
+#include <QTime>
 
 Galaxy Galaxy::instance = Galaxy();
 
@@ -10,6 +11,8 @@ public:
 
 Galaxy::Galaxy() : data(new GalaxyData)
 {
+    qsrand(QTime::currentTime().msec());
+
     data->solarSystems.append(SolarSystem("Earth616"));
     data->solarSystems.append(SolarSystem("Utopia"));
     data->solarSystems.append(SolarSystem("Omega"));

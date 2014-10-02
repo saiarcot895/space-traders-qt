@@ -22,7 +22,7 @@ Planet::Planet(QString name, double x, double y) : data(new PlanetData)
     data->name = name;
     data->x = x;
     data->y = y;
-    data->radius = qrand() % 500;
+    data->radius = qrand() % 250;
     data->techLevel = static_cast<Planet::TechLevel>(qrand() % Planet::SIZE_LEVEL);
     data->resourceTypes = static_cast<Planet::ResourceTypes>(qrand() % Planet::SIZE_RESOURCE);
 }

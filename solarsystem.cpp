@@ -17,8 +17,8 @@ SolarSystem::SolarSystem() :
 SolarSystem::SolarSystem(QString name) : data(new SolarSystemData)
 {
     data->name = name;
-    data->x = qrand() % 500;
-    data->y = qrand() % 500;
+    data->x = qrand() % 1000;
+    data->y = qrand() % 1000;
     for (int i = 0; i < 1; i++) {
         data->planets.append(Planet(data->name, data->x, data->y));
     }

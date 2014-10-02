@@ -33,7 +33,7 @@ Image {
     }
 
     function createPlanetButtons(name, x, y) {
-        var component = Qt.createComponent("Planet.qml");
+        var component = Qt.createComponent("SolarSystem.qml");
         var sprite = component.createObject(mapRegion, {"solarSystemName": name, "x": x, "y": y});
 
         if (sprite === null) {
