@@ -1,4 +1,5 @@
 #include "player.h"
+#include "galaxy.h"
 #include <QSharedData>
 
 Player Player::instance = Player();
@@ -20,6 +21,8 @@ public:
 
 Player::Player() : data(new PlayerData)
 {
+    data->currentSystem = Galaxy::getInstance().getSolarSystem("Earth616");
+    data->currentPlanet = data->currentSystem.getPlanets().at(0);
 }
 
 Player::Player(const Player &rhs) : data(rhs.data)

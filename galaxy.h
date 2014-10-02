@@ -16,6 +16,7 @@ public:
     ~Galaxy();
 
     const QList<SolarSystem> getSolarSystems() const;
+    const SolarSystem getSolarSystem(QString name) const;
 
     static Galaxy getInstance();
 

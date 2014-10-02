@@ -21,6 +21,7 @@ Image {
 
     TextField {
         id: textField1
+        objectName: "textField1"
         anchors.left: label1.right
         anchors.leftMargin: 6
         anchors.top: parent.top
@@ -60,6 +61,7 @@ Image {
 
         Skill {
             id: pilotSkill
+            objectName: "pilotSkill"
             skillName: "Pilot"
             anchors.top: parent.top
             anchors.topMargin: 8
@@ -69,6 +71,7 @@ Image {
 
         Skill {
             id: fighterSkill
+            objectName: "fighterSkill"
             skillName: "Fighter"
             anchors.top: pilotSkill.bottom
             anchors.topMargin: 8
@@ -78,6 +81,7 @@ Image {
 
         Skill {
             id: engineerSkill
+            objectName: "engineerSkill"
             skillName: "Engineer"
             anchors.top: fighterSkill.bottom
             anchors.topMargin: 8
@@ -87,6 +91,7 @@ Image {
 
         Skill {
             id: traderSkill
+            objectName: "traderSkill"
             skillName: "Trader"
             anchors.top: engineerSkill.bottom
             anchors.topMargin: 8
@@ -96,6 +101,7 @@ Image {
 
         Skill {
             id: investorSkill
+            objectName: "investorSkill"
             skillName: "Investor"
             anchors.top: traderSkill.bottom
             anchors.topMargin: 8
@@ -121,7 +127,10 @@ Image {
         anchors.rightMargin: 8
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8
-        onClicked: mainController.showNavigationPage()
+        onClicked: {
+            newGame.createPlayer();
+            mainController.showNavigationPage();
+        }
     }
 
 }

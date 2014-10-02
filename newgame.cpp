@@ -1,4 +1,5 @@
 #include "newgame.h"
+#include "player.h"
 
 #include <QVariant>
 
@@ -41,4 +42,14 @@ void NewGame::decrementSkill(QObject *skillRectangle) {
     }
     ++availableSkillPoints;
     rootObject->findChild<QObject*>("availableSkillPoints")->setProperty("text", availableSkillPoints);
+}
+
+void NewGame::createPlayer() {
+    Player player = Player::getInstance();
+    player.setName(rootObject->findChild<QObject*>("textField1")->property("text").toString());
+    player.setPilotSkill(rootObject->findChild<QObject*>("pilotSkill")->property("skillLevel").toInt());
+    player.setFighterSkill(rootObject->findChild<QObject*>("fighterSkill")->property("skillLevel").toInt());
+    player.setEngineerSkill(rootObject->findChild<QObject*>("engineerSkill")->property("skillLevel").toInt());
+    player.setTraderSkill(rootObject->findChild<QObject*>("traderSkill")->property("skillLevel").toInt());
+    player.setInvestorSkill(rootObject->findChild<QObject*>("investorSkill")->property("skillLevel").toInt());
 }
