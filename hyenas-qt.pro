@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     planet.cpp \
     solarsystem.cpp \
     navigation.cpp \
-    player.cpp
+    player.cpp \
+    marketplace.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +33,5 @@ HEADERS += \
     planet.h \
     solarsystem.h \
     navigation.h \
-    player.h
+    player.h \
+    marketplace.h

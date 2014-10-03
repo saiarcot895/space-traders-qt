@@ -3,8 +3,6 @@ import QtQuick.Controls 1.1
 
 Image {
     id: image1
-    width: 600
-    height: 640
     source: "qrc:///2015-Star-Citizen.jpg"
     fillMode: Image.PreserveAspectCrop
     anchors.fill: parent

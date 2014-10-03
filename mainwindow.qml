@@ -6,6 +6,7 @@ Image {
     source: "qrc:///2015-Star-Citizen.jpg"
     fillMode: Image.PreserveAspectCrop
     anchors.fill: parent
+    z: -1
 
     Button {
         id: button1

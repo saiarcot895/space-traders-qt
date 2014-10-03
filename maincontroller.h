@@ -10,6 +10,7 @@
 #include "navigation.h"
 #include "galaxy.h"
 #include "player.h"
+#include "marketplace.h"
 
 class MainController : public QObject
 {
@@ -22,6 +23,7 @@ public:
     Q_INVOKABLE void startNewGame();
     Q_INVOKABLE void showSettings();
     Q_INVOKABLE void showNavigationPage();
+    Q_INVOKABLE void showMarketplace();
 
 private:
     QQmlApplicationEngine* engine;
@@ -31,6 +33,7 @@ private:
     NewGame* newGame;
     Settings* settings;
     Navigation* navigation;
+    Marketplace* marketplace;
 
     Galaxy galaxy = Galaxy::getInstance();
     Player player = Player::getInstance();

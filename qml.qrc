@@ -8,5 +8,7 @@
         <file>settings.qml</file>
         <file>navigation.qml</file>
         <file>SolarSystem.qml</file>
+        <file>marketplace.qml</file>
+        <file>PlanetWare.qml</file>
     </qresource>
 </RCC>
