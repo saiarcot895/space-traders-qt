@@ -17,6 +17,7 @@ Image {
         anchors.topMargin: 8
         anchors.horizontalCenter: parent.horizontalCenter
         text: "Marketplace"
+        onClicked: mainController.showMarketplace()
     }
 
     Rectangle {

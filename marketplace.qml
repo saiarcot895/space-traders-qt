@@ -1,62 +1,85 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
+import QtQuick.Controls.Styles 1.1
 
 Image {
     id: image1
+    objectName: "marketplaceScreen"
     source: "qrc:///2015-Star-Citizen.jpg"
     fillMode: Image.PreserveAspectCrop
     anchors.fill: parent
     z: -1
 
     Label {
-        id: label1
+        id: wareLabel
         text: qsTr("Ware")
         anchors.left: parent.left
         anchors.leftMargin: 8
-        anchors.top: parent.top
-        anchors.topMargin: 8
+        anchors.verticalCenter: buyItemButton.verticalCenter
     }
 
     Label {
-        id: label2
+        id: priceLabel
         text: qsTr("Price")
-        anchors.left: label1.right
-        anchors.leftMargin: 16
-        anchors.top: parent.top
-        anchors.topMargin: 8
+        anchors.left: wareLabel.left
+        anchors.leftMargin: 70
+        anchors.verticalCenter: buyItemButton.verticalCenter
     }
 
     Label {
-        id: label3
-        text: qsTr("Quantity Available")
-        anchors.left: label2.right
-        anchors.leftMargin: 16
+        id: planetQuantityLabel
+        text: qsTr("Quantity")
+        anchors.left: priceLabel.right
+        anchors.leftMargin: 8
+        anchors.verticalCenter: buyItemButton.verticalCenter
+    }
+
+    Button {
+        id: buyItemButton
+        text: qsTr("Buy Item")
+        anchors.left: planetQuantityLabel.right
+        anchors.leftMargin: 8
         anchors.top: parent.top
         anchors.topMargin: 8
+        visible: false
     }
 
     Label {
-        id: label4
-        text: qsTr("Quantity Sellable")
+        id: shipQuantityLabel
+        text: qsTr("Quantity on Ship")
+        anchors.left: buyItemButton.right
+        anchors.leftMargin: 16
+        anchors.verticalCenter: buyItemButton.verticalCenter
+    }
+
+    Button {
+        id: sellItemButton
+        text: qsTr("Sell Item")
+        anchors.left: shipQuantityLabel.right
+        anchors.leftMargin: 8
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        visible: false
+    }
+
+    Column {
+        id: column1
+        height: 400
+        anchors.top: buyItemButton.bottom
+        anchors.topMargin: 8
+        anchors.left: parent.left
+        anchors.leftMargin: 8
         anchors.right: parent.right
         anchors.rightMargin: 8
-        anchors.left: label3.right
-        anchors.leftMargin: 48
-        anchors.top: parent.top
-        anchors.topMargin: 8
     }
 
-    ListModel {
-       id: libraryModel
-       ListElement{ title: "A Masterpiece" ; author: "Gabriel" }
-       ListElement{ title: "Brilliance"    ; author: "Jens" }
-       ListElement{ title: "Outstanding"   ; author: "Frederik" }
-    }
+    function createProduct(ware, price, planetQuantity, shipQuantity) {
+        var component = Qt.createComponent("PlanetWare.qml");
+        var sprite = component.createObject(column1, {"ware": ware, "price": price,
+                                                "planetQuantity": planetQuantity, "shipQuantity": shipQuantity});
 
-    TableView {
-       TableViewColumn{ role: "title"  ; title: "Title" ; width: 100 }
-       TableViewColumn{ role: "author" ; title: "Author" ; width: 200 }
-       model: libraryModel
-       backgroundVisible: false
+        if (sprite === null) {
+            console.log("Error creating object");
+        }
     }
 }
