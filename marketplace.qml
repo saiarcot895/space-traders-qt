@@ -1,6 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Layouts 1.1
 
 Image {
     id: image1
@@ -10,76 +10,92 @@ Image {
     anchors.fill: parent
     z: -1
 
-    Label {
-        id: wareLabel
-        text: qsTr("Ware")
+    Button {
+        id: button1
+        text: qsTr("Return to Map")
+        anchors.top: parent.top
+        anchors.topMargin: 8
         anchors.left: parent.left
         anchors.leftMargin: 8
-        anchors.verticalCenter: buyItemButton.verticalCenter
     }
 
-    Label {
-        id: priceLabel
-        text: qsTr("Price")
-        anchors.left: wareLabel.left
-        anchors.leftMargin: 70
-        anchors.verticalCenter: buyItemButton.verticalCenter
+    Component {
+        id: gridItem
+        Rectangle {
+            width: gridView1.cellWidth;
+            height: gridView1.cellHeight
+            border.width: 1
+            radius: 5
+            color: "transparent"
+            Text {
+                text: ware
+                font.pointSize: 12
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: gridView1.currentIndex = index
+                onEntered: parent.border.color = "blue"
+                onExited: parent.border.color = "black"
+                hoverEnabled: true
+            }
+        }
     }
 
-    Label {
-        id: planetQuantityLabel
-        text: qsTr("Quantity")
-        anchors.left: priceLabel.right
-        anchors.leftMargin: 8
-        anchors.verticalCenter: buyItemButton.verticalCenter
-    }
-
-    Button {
-        id: buyItemButton
-        text: qsTr("Buy Item")
-        anchors.left: planetQuantityLabel.right
-        anchors.leftMargin: 8
-        anchors.top: parent.top
-        anchors.topMargin: 8
-        visible: false
-    }
-
-    Label {
-        id: shipQuantityLabel
-        text: qsTr("Quantity on Ship")
-        anchors.left: buyItemButton.right
-        anchors.leftMargin: 16
-        anchors.verticalCenter: buyItemButton.verticalCenter
-    }
-
-    Button {
-        id: sellItemButton
-        text: qsTr("Sell Item")
-        anchors.left: shipQuantityLabel.right
-        anchors.leftMargin: 8
-        anchors.top: parent.top
-        anchors.topMargin: 8
-        visible: false
-    }
-
-    Column {
-        id: column1
-        height: 400
-        anchors.top: buyItemButton.bottom
-        anchors.topMargin: 8
+    SplitView {
+        orientation: Qt.Vertical
+        anchors.top: button1.bottom
+        anchors.topMargin: 6
         anchors.left: parent.left
         anchors.leftMargin: 8
         anchors.right: parent.right
         anchors.rightMargin: 8
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 8
+
+        GridView {
+            id: gridView1
+            height: 150
+            model: ListModel {}
+            cellHeight: 75
+            cellWidth: 75
+            delegate: gridItem
+            highlight: Rectangle {
+                color: "lightsteelblue";
+                radius: 5
+            }
+            focus: true
+            clip: true
+        }
+
+        Item {
+            Item {
+                id: itemPriceGroup
+                anchors.top: parent.top
+                anchors.topMargin: 8
+                anchors.horizontalCenter: parent.horizontalCenter
+                implicitHeight: priceDisplayLabel.height
+                implicitWidth: priceLabel.width + priceDisplayLabel.width + 6
+
+                Label {
+                    id: priceLabel
+                    text: qsTr("Price: ")
+                    color: "orange"
+                }
+                Label {
+                    id: priceDisplayLabel
+                    anchors.left: priceLabel.right
+                    anchors.leftMargin: 6
+                    text: qsTr("200")
+                    color: "orange"
+                }
+            }
+        }
     }
 
     function createProduct(ware, price, planetQuantity, shipQuantity) {
-        var component = Qt.createComponent("PlanetWare.qml");
-        var sprite = component.createObject(column1, {"ware": ware, "price": price,
-                                                "planetQuantity": planetQuantity, "shipQuantity": shipQuantity});
-
-        if (sprite === null) {
-            console.log("Error creating object");
-        }
+        gridView1.model.append({"ware": ware, "price": price,
+                                   "planetQuantity": planetQuantity, "shipQuantity": shipQuantity});
     }
 }

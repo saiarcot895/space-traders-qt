@@ -9,7 +9,7 @@ public:
     double radius;
     Planet::TechLevel techLevel = Planet::UnknownLevel;
     Planet::ResourceTypes resourceTypes = Planet::UnknownResource;
-    //QMap<Item, int> items;
+    QMap<Ware, int> items;
 };
 
 Planet::Planet() :
@@ -25,10 +25,22 @@ Planet::Planet(QString name, double x, double y) : data(new PlanetData)
     data->radius = qrand() % 250;
     data->techLevel = static_cast<Planet::TechLevel>(qrand() % Planet::SIZE_LEVEL);
     data->resourceTypes = static_cast<Planet::ResourceTypes>(qrand() % Planet::SIZE_RESOURCE);
+    produceWares();
 }
 
 Planet::Planet(const Planet &rhs) : data(rhs.data)
 {
+}
+
+void Planet::produceWares() {
+    for (int i = 0; i < Ware::SIZE_GOOD; i++) {
+        Ware ware(static_cast<Ware::Good>(i));
+        if (data->techLevel < ware.getMinimumTechLevelToProduce()) {
+            data->items.insert(ware, 0);
+        } else {
+            data->items.insert(ware, 1 + qAbs(ware.getTechLevelProduction() - data->techLevel));
+        }
+    }
 }
 
 QString Planet::getName() const {
@@ -53,6 +65,10 @@ Planet::TechLevel Planet::getTechLevel() const {
 
 Planet::ResourceTypes Planet::getResourceType() const {
     return data->resourceTypes;
+}
+
+int Planet::getItemQuantity(Ware ware) const {
+    return data->items.value(ware);
 }
 
 Planet &Planet::operator=(const Planet &rhs)

@@ -14,6 +14,7 @@ Item {
     Label {
         id: label1
         text: ware
+        color: "orange"
         anchors.left: parent.left
         anchors.leftMargin: 6
         anchors.verticalCenter: button1.verticalCenter
@@ -22,6 +23,7 @@ Item {
     Label {
         id: label2
         text: price
+        color: "orange"
         anchors.left: label1.left
         anchors.leftMargin: 70
         anchors.verticalCenter: button1.verticalCenter
@@ -30,6 +32,7 @@ Item {
     Label {
         id: label3
         text: planetQuantity
+        color: "orange"
         anchors.left: label2.left
         anchors.leftMargin: 50
         anchors.verticalCenter: button1.verticalCenter
@@ -48,6 +51,7 @@ Item {
     Label {
         id: label4
         text: shipQuantity
+        color: "orange"
         anchors.left: button1.right
         anchors.leftMargin: 56
         anchors.verticalCenter: button1.verticalCenter

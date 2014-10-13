@@ -2,8 +2,9 @@
 #define PLANET_H
 
 #include <QObject>
-
 #include <QExplicitlySharedDataPointer>
+#include <QMap>
+#include "ware.h"
 
 class PlanetData;
 
@@ -27,7 +28,7 @@ public:
         PostIndustrial,
         HiTech,
 
-        SIZE_LEVEL
+        SIZE_LEVEL // DO NOT MOVE OR REMOVE
     };
 
     enum ResourceTypes {
@@ -46,7 +47,7 @@ public:
         Artistic,
         Warlike,
 
-        SIZE_RESOURCE
+        SIZE_RESOURCE // DO NOT MOVE OR REMOVE
     };
 
     QString getName() const;
@@ -55,8 +56,11 @@ public:
     double getRadius() const;
     TechLevel getTechLevel() const;
     ResourceTypes getResourceType() const;
+    int getItemQuantity(Ware ware) const;
 
 private:
+    void produceWares();
+
     QExplicitlySharedDataPointer<PlanetData> data;
 };
 

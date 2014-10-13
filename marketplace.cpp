@@ -1,4 +1,5 @@
 #include "marketplace.h"
+#include "player.h"
 #include <QVariant>
 
 Marketplace::Marketplace(QObject *rootObject, QObject *parent) :
@@ -17,21 +18,16 @@ void Marketplace::showMarketplace() {
 
     QObject* marketplaceScreen = rootObject->findChild<QObject*>("marketplaceScreen");
 
-    QMetaObject::invokeMethod(marketplaceScreen, "createProduct",
-                              Q_ARG(QVariant, "Herbs"),
-                              Q_ARG(QVariant, 300),
-                              Q_ARG(QVariant, 15),
-                              Q_ARG(QVariant, 20));
+    Player player = Player::getInstance();
+    Planet planet = player.getCurrentPlanet();
 
-    QMetaObject::invokeMethod(marketplaceScreen, "createProduct",
-                              Q_ARG(QVariant, "Oil"),
-                              Q_ARG(QVariant, 60),
-                              Q_ARG(QVariant, 150),
-                              Q_ARG(QVariant, 110));
-
-    QMetaObject::invokeMethod(marketplaceScreen, "createProduct",
-                              Q_ARG(QVariant, "Tomato"),
-                              Q_ARG(QVariant, 60),
-                              Q_ARG(QVariant, 0),
-                              Q_ARG(QVariant, 110));
+    for (int i = 0; i < Ware::SIZE_GOOD; i++) {
+        Ware::Good good = static_cast<Ware::Good>(i);
+        Ware ware(good);
+        QMetaObject::invokeMethod(marketplaceScreen, "createProduct",
+                                  Q_ARG(QVariant, ware.getName()),
+                                  Q_ARG(QVariant, ware.getBasePrice()),
+                                  Q_ARG(QVariant, planet.getItemQuantity(ware)),
+                                  Q_ARG(QVariant, 0));
+    }
 }
