@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QExplicitlySharedDataPointer>
 #include "solarsystem.h"
+#include "ship.h"
 
 class PlayerData;
 
@@ -25,6 +26,7 @@ public:
     int getInvestorSkill() const;
     const SolarSystem getCurrentSystem() const;
     Planet getCurrentPlanet() const;
+    Ship getShip() const;
 
     void setName(QString name);
     void setX(double x);
@@ -37,6 +39,7 @@ public:
     void setInvestorSkill(int investorSkill);
     void setCurrentSystem(SolarSystem currentSystem);
     void setCurrentPlanet(Planet currentPlanet);
+    void setShip(Ship ship);
 
     static Player getInstance();
 

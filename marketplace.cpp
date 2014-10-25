@@ -29,8 +29,11 @@ void Marketplace::showMarketplace() {
                                   Q_ARG(QVariant, ware.getName()),
                                   Q_ARG(QVariant, ware.getBasePrice()),
                                   Q_ARG(QVariant, planet.getItemQuantity(ware)),
-                                  Q_ARG(QVariant, 0));
+                                  Q_ARG(QVariant, player.getShip().getItemQuantity(ware)));
     }
+
+    marketplaceScreen->setProperty("creditsAvailable", player.getCredits());
+    marketplaceScreen->setProperty("creditChanges", creditChanges);
 }
 
 void Marketplace::buyItem(int index) {
@@ -60,6 +63,8 @@ void Marketplace::buyItem(int index) {
                               Q_ARG(QVariant, index),
                               Q_ARG(QVariant, itemModelVariant),
                               Q_ARG(QVariant, true));
+
+    marketplaceScreen->setProperty("creditChanges", creditChanges);
 }
 
 void Marketplace::sellItem(int index) {
@@ -85,6 +90,8 @@ void Marketplace::sellItem(int index) {
                               Q_ARG(QVariant, index),
                               Q_ARG(QVariant, itemModelVariant),
                               Q_ARG(QVariant, true));
+
+    marketplaceScreen->setProperty("creditChanges", creditChanges);
 }
 
 void Marketplace::saveChanges() {
@@ -92,6 +99,7 @@ void Marketplace::saveChanges() {
     Planet planet = player.getCurrentPlanet();
     QObject* marketplaceScreen = rootObject->findChild<QObject*>("marketplaceScreen");
 
+    Ship ship = player.getShip();
     for (int i = 0; i < Ware::SIZE_GOOD; i++) {
         Ware::Good good = static_cast<Ware::Good>(i);
         Ware ware(good);
@@ -100,5 +108,14 @@ void Marketplace::saveChanges() {
         QMetaObject::invokeMethod(marketplaceScreen, "getProduct",
                                   Q_RETURN_ARG(QVariant, itemModelVariant),
                                   Q_ARG(QVariant, i));
+        QObject* itemModel = itemModelVariant.value<QObject*>();
+        ship.setItemQuantity(ware, itemModel->property("shipQuantity").toInt());
+        planet.setItemQuantity(ware, itemModel->property("planetQuantity").toInt());
     }
+
+    player.setCredits(player.getCredits() + creditChanges);
+    creditChanges = 0;
+
+    marketplaceScreen->setProperty("creditsAvailable", player.getCredits());
+    marketplaceScreen->setProperty("creditChanges", creditChanges);
 }

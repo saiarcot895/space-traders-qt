@@ -2,8 +2,8 @@
 #define SHIP_H
 
 #include <QObject>
-
-#include <QSharedDataPointer>
+#include <QExplicitlySharedDataPointer>
+#include "ware.h"
 
 class ShipData;
 
@@ -15,8 +15,14 @@ public:
     Ship &operator=(const Ship &);
     ~Ship();
 
+    int getItemQuantity(Ware item) const;
+    int getHealth() const;
+
+    void setItemQuantity(Ware item, int quantity);
+    void setHealth(int health);
+
 private:
-    QSharedDataPointer<ShipData> data;
+    QExplicitlySharedDataPointer<ShipData> data;
 };
 
 #endif // SHIP_H

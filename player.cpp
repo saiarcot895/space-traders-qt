@@ -17,6 +17,7 @@ public:
     int investorSkill;
     SolarSystem currentSystem;
     Planet currentPlanet;
+    Ship ship;
 };
 
 Player::Player() : data(new PlayerData)
@@ -74,6 +75,10 @@ Planet Player::getCurrentPlanet() const {
     return data->currentPlanet;
 }
 
+Ship Player::getShip() const {
+    return data->ship;
+}
+
 void Player::setName(QString name) {
     data->name = name;
 }
@@ -116,6 +121,10 @@ void Player::setCurrentSystem(SolarSystem currentSystem) {
 
 void Player::setCurrentPlanet(Planet currentPlanet) {
     data->currentPlanet = currentPlanet;
+}
+
+void Player::setShip(Ship ship) {
+    data->ship = ship;
 }
 
 Player Player::getInstance() {

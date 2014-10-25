@@ -9,6 +9,29 @@ Image {
     anchors.fill: parent
     z: -1
 
+    property int creditsAvailable
+    property int creditChanges
+
+    Label {
+        id: creditsAvailableLabel
+        text: qsTr("Credits Available: ")  + creditsAvailable
+        color: "orange"
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+    }
+
+    Label {
+        id: creditChangesLabel
+        text: qsTr("Credit Changes: ")  + creditChanges
+        color: "orange"
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.right: parent.right
+        anchors.rightMargin: 8
+    }
+
     Component {
         id: gridItem
         Rectangle {
@@ -43,8 +66,8 @@ Image {
 
     SplitView {
         orientation: Qt.Vertical
-        anchors.top: parent.top
-        anchors.topMargin: 8
+        anchors.top: creditsAvailableLabel.bottom
+        anchors.topMargin: 6
         anchors.left: parent.left
         anchors.leftMargin: 8
         anchors.right: parent.right
@@ -157,6 +180,10 @@ Image {
         anchors.rightMargin: 8
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8
+        onClicked: {
+            marketplace.saveChanges();
+            mainController.showNavigationPage();
+        }
     }
 
     function createProduct(ware, price, planetQuantity, shipQuantity) {
