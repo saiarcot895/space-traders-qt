@@ -1,6 +1,5 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
-import QtQuick.Layouts 1.1
 
 Image {
     id: image1
@@ -10,34 +9,33 @@ Image {
     anchors.fill: parent
     z: -1
 
-    Button {
-        id: button1
-        text: qsTr("Return to Map")
-        anchors.top: parent.top
-        anchors.topMargin: 8
-        anchors.left: parent.left
-        anchors.leftMargin: 8
-    }
-
     Component {
         id: gridItem
         Rectangle {
             width: gridView1.cellWidth;
             height: gridView1.cellHeight
+            border.color: "orange"
             border.width: 1
             radius: 5
             color: "transparent"
             Text {
                 text: ware
+                color: "orange"
                 font.pointSize: 12
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
             }
             MouseArea {
                 anchors.fill: parent
-                onClicked: gridView1.currentIndex = index
+                onClicked: {
+                    gridView1.currentIndex = index;
+                    displayItemInfo.ware = ware;
+                    displayItemInfo.price = price;
+                    displayItemInfo.planetQuantity = planetQuantity;
+                    displayItemInfo.shipQuantity = shipQuantity;
+                }
                 onEntered: parent.border.color = "blue"
-                onExited: parent.border.color = "black"
+                onExited: parent.border.color = "orange"
                 hoverEnabled: true
             }
         }
@@ -45,14 +43,14 @@ Image {
 
     SplitView {
         orientation: Qt.Vertical
-        anchors.top: button1.bottom
-        anchors.topMargin: 6
+        anchors.top: parent.top
+        anchors.topMargin: 8
         anchors.left: parent.left
         anchors.leftMargin: 8
         anchors.right: parent.right
         anchors.rightMargin: 8
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 8
+        anchors.bottom: button1.top
+        anchors.bottomMargin: 6
 
         GridView {
             id: gridView1
@@ -67,9 +65,17 @@ Image {
             }
             focus: true
             clip: true
+            currentIndex: -1
         }
 
         Item {
+            id: displayItemInfo
+
+            property string ware
+            property int price
+            property int planetQuantity
+            property int shipQuantity
+
             Item {
                 id: itemPriceGroup
                 anchors.top: parent.top
@@ -87,15 +93,88 @@ Image {
                     id: priceDisplayLabel
                     anchors.left: priceLabel.right
                     anchors.leftMargin: 6
-                    text: qsTr("200")
+                    text: displayItemInfo.price
                     color: "orange"
                 }
             }
+
+            Label {
+                id: quantityPlanetLabel
+                text: qsTr("Quantity on planet: ") + displayItemInfo.planetQuantity
+                color: "orange"
+                anchors.top: itemPriceGroup.bottom
+                anchors.topMargin: 6
+                anchors.left: parent.left
+                anchors.leftMargin: 8
+            }
+            Button {
+                id: buyItemButton
+                text: qsTr("Buy item")
+                enabled: displayItemInfo.planetQuantity > 0
+                anchors.top: quantityPlanetLabel.bottom
+                anchors.topMargin: 6
+                anchors.left: parent.left
+                anchors.leftMargin: 8
+                onClicked: marketplace.buyItem(gridView1.currentIndex)
+            }
+
+            Label {
+                id: quantityShipLabel
+                text: qsTr("Quantity on ship: ") + displayItemInfo.shipQuantity
+                color: "orange"
+                anchors.top: itemPriceGroup.bottom
+                anchors.topMargin: 6
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+            }
+            Button {
+                id: sellItemButton
+                text: qsTr("Sell item")
+                enabled: displayItemInfo.shipQuantity > 0
+                anchors.top: quantityPlanetLabel.bottom
+                anchors.topMargin: 6
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+                onClicked: marketplace.sellItem(gridView1.currentIndex)
+            }
         }
+    }
+
+    Button {
+        id: button1
+        text: qsTr("Cancel Changes")
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 8
+        onClicked: mainController.showNavigationPage()
+    }
+
+    Button {
+        id: button2
+        text: qsTr("Save Changes")
+        anchors.right: parent.right
+        anchors.rightMargin: 8
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 8
     }
 
     function createProduct(ware, price, planetQuantity, shipQuantity) {
         gridView1.model.append({"ware": ware, "price": price,
                                    "planetQuantity": planetQuantity, "shipQuantity": shipQuantity});
+    }
+
+    function getProduct(index) {
+        return (index < gridView1.model.count) ? gridView1.model.get(index) : 0;
+    }
+
+    function setProduct(index, product, updateInfoDisplay) {
+        gridView1.model.set(index, product);
+        if (updateInfoDisplay) {
+            displayItemInfo.ware = product.ware;
+            displayItemInfo.price = product.price;
+            displayItemInfo.planetQuantity = product.planetQuantity;
+            displayItemInfo.shipQuantity = product.shipQuantity;
+        }
     }
 }

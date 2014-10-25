@@ -23,6 +23,7 @@ Player::Player() : data(new PlayerData)
 {
     data->currentSystem = Galaxy::getInstance().getSolarSystem("Earth616");
     data->currentPlanet = data->currentSystem.getPlanets().at(0);
+    data->credits = 750;
 }
 
 Player::Player(const Player &rhs) : data(rhs.data)

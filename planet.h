@@ -58,6 +58,8 @@ public:
     ResourceTypes getResourceType() const;
     int getItemQuantity(Ware ware) const;
 
+    void setItemQuantity(Ware ware, int newQuantity);
+
 private:
     void produceWares();
 

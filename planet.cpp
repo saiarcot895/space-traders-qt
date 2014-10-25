@@ -71,6 +71,10 @@ int Planet::getItemQuantity(Ware ware) const {
     return data->items.value(ware);
 }
 
+void Planet::setItemQuantity(Ware ware, int newQuantity) {
+    data->items.insert(ware, newQuantity);
+}
+
 Planet &Planet::operator=(const Planet &rhs)
 {
     if (this != &rhs)
