@@ -10,6 +10,7 @@ public:
     double x;
     double y;
     int credits;
+    int remainingSkill;
     int pilotSkill;
     int fighterSkill;
     int traderSkill;
@@ -45,6 +46,10 @@ double Player::getY() const {
 
 int Player::getCredits() const {
     return data->credits;
+}
+
+int Player::getRemainingSkill() const {
+    return data->remainingSkill;
 }
 
 int Player::getPilotSkill() const {
@@ -95,6 +100,10 @@ void Player::setCredits(int credits) {
     data->credits = credits;
 }
 
+void Player::setRemainingSkill(int remainingSkill) {
+    data->remainingSkill = remainingSkill;
+}
+
 void Player::setPilotSkill(int pilotSkill) {
     data->pilotSkill = pilotSkill;
 }
@@ -140,4 +149,60 @@ Player &Player::operator=(const Player &rhs)
 
 Player::~Player()
 {
+}
+
+QDataStream& operator<<(QDataStream& stream, const Player player) {
+    stream << player.getName();
+    stream << player.getX();
+    stream << player.getY();
+    stream << player.getCredits();
+    stream << player.getRemainingSkill();
+    stream << player.getPilotSkill();
+    stream << player.getFighterSkill();
+    stream << player.getTraderSkill();
+    stream << player.getEngineerSkill();
+    stream << player.getInvestorSkill();
+    stream << player.getCurrentSystem().getName();
+
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Player player) {
+    QString name;
+    double x;
+    double y;
+    int credits;
+    int remainingSkill;
+    int pilotSkill;
+    int fighterSkill;
+    int traderSkill;
+    int engineerSkill;
+    int investorSkill;
+    QString systemName;
+
+    stream >> name;
+    stream >> x;
+    stream >> y;
+    stream >> credits;
+    stream >> remainingSkill;
+    stream >> pilotSkill;
+    stream >> fighterSkill;
+    stream >> traderSkill;
+    stream >> engineerSkill;
+    stream >> investorSkill;
+    stream >> system;
+
+    player.setName(name);
+    player.setX(x);
+    player.setY(y);
+    player.setCredits(credits);
+    player.setRemainingSkill(remainingSkill);
+    player.setPilotSkill(pilotSkill);
+    player.setFighterSkill(fighterSkill);
+    player.setTraderSkill(traderSkill);
+    player.setEngineerSkill(engineerSkill);
+    player.setInvestorSkill(investorSkill);
+    player.setCurrentSystem(Galaxy::getInstance().getSolarSystem(systemName));
+
+    return stream;
 }

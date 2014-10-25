@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <QObject>
+#include <QDataStream>
 #include <QExplicitlySharedDataPointer>
 #include "solarsystem.h"
 #include "ship.h"
@@ -19,6 +20,7 @@ public:
     double getX() const;
     double getY() const;
     int getCredits() const;
+    int getRemainingSkill() const;
     int getPilotSkill() const;
     int getFighterSkill() const;
     int getTraderSkill() const;
@@ -32,6 +34,7 @@ public:
     void setX(double x);
     void setY(double y);
     void setCredits(int credits);
+    void setRemainingSkill(int remainingSkill);
     void setPilotSkill(int pilotSkill);
     void setFighterSkill(int fighterSkill);
     void setTraderSkill(int traderSkill);
@@ -49,5 +52,8 @@ private:
     QExplicitlySharedDataPointer<PlayerData> data;
     static Player instance;
 };
+
+QDataStream& operator<<(QDataStream& stream, const Player player);
+QDataStream& operator>>(QDataStream& stream, Player player);
 
 #endif // PLAYER_H

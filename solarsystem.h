@@ -2,6 +2,7 @@
 #define SOLARSYSTEM_H
 
 #include <QObject>
+#include <QDataStream>
 #include <QExplicitlySharedDataPointer>
 #include "planet.h"
 
@@ -10,8 +11,8 @@ class SolarSystemData;
 class SolarSystem : public QObject
 {
 public:
-    SolarSystem();
-    SolarSystem(QString name);
+    SolarSystem(QString name = QStringLiteral(""));
+    SolarSystem(QString name, double x, double y, QList<Planet> planets);
     SolarSystem(const SolarSystem &);
     SolarSystem &operator=(const SolarSystem &);
     ~SolarSystem();
@@ -21,8 +22,17 @@ public:
     double getX() const;
     double getY() const;
 
+protected:
+    void setName(QString name);
+    void setPlanets(QList<Planet> planets);
+    void setX(double x);
+    void setY(double y);
+
 private:
     QExplicitlySharedDataPointer<SolarSystemData> data;
 };
+
+QDataStream& operator<<(QDataStream& stream, const SolarSystem solarSystem);
+QDataStream& operator>>(QDataStream& stream, SolarSystem& solarSystem);
 
 #endif // SOLARSYSTEM_H
