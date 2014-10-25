@@ -9,5 +9,6 @@
         <file>navigation.qml</file>
         <file>SolarSystem.qml</file>
         <file>marketplace.qml</file>
+        <file>Planet.png</file>
     </qresource>
 </RCC>
