@@ -20,13 +20,19 @@ Image {
         onClicked: mainController.showMarketplace()
     }
 
-    Flickable {
-        id: mapRegion
-        objectName: "mapRegion"
-        contentWidth: 1500
-        contentHeight: 1500
+    Rectangle {
+        border.color: "blue"
+        color: "transparent"
         clip: true
-        boundsBehavior: Flickable.DragOverBounds
+
+        Flickable {
+            id: mapRegion
+            objectName: "mapRegion"
+            contentWidth: 2000
+            contentHeight: 2000
+            boundsBehavior: Flickable.DragOverBounds
+            anchors.fill: parent
+        }
 
         anchors.top: marketplaceButton.bottom
         anchors.topMargin: 6
@@ -36,6 +42,24 @@ Image {
         anchors.leftMargin: 8
         anchors.right: parent.right
         anchors.rightMargin: 8
+
+        Rectangle {
+            id: verticalScrollbar
+            anchors.right: mapRegion.right
+            y: mapRegion.visibleArea.yPosition * mapRegion.height
+            width: 10
+            height: mapRegion.visibleArea.heightRatio * mapRegion.height
+            color: "gray"
+        }
+
+        Rectangle {
+            id: horizontalScrollbar
+            anchors.bottom: mapRegion.bottom
+            x: mapRegion.visibleArea.xPosition * mapRegion.width
+            height: 10
+            width: mapRegion.visibleArea.widthRatio * mapRegion.width
+            color: "gray"
+        }
     }
 
     function createPlanetButtons(name, x, y) {
