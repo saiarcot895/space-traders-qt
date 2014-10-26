@@ -85,3 +85,32 @@ Planet &Planet::operator=(const Planet &rhs)
 Planet::~Planet()
 {
 }
+
+QDataStream& operator<<(QDataStream& stream, const Planet planet) {
+    stream << planet.getName();
+    stream << planet.getX();
+    stream << planet.getY();
+    stream << planet.getRadius();
+    stream << planet.getTechLevel();
+    stream << planet.getResourceType();
+
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Planet& planet) {
+    QString name;
+    double x;
+    double y;
+    double radius;
+    int techLevelInt;
+    int resourceTypeInt;
+
+    stream >> name;
+    stream >> x;
+    stream >> y;
+    stream >> radius;
+    stream >> techLevelInt;
+    stream >> resourceTypeInt;
+
+    planet = Planet(name, x, y);
+}

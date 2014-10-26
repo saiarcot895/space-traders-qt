@@ -45,6 +45,8 @@ private:
     QExplicitlySharedDataPointer<WareData> data;
 };
 
+Q_DECLARE_TYPEINFO(Ware, Q_MOVABLE_TYPE);
+
 bool operator <(Ware a, Ware b);
 
 #endif // WARE_H

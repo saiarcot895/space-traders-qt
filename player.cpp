@@ -190,7 +190,7 @@ QDataStream& operator>>(QDataStream& stream, Player player) {
     stream >> traderSkill;
     stream >> engineerSkill;
     stream >> investorSkill;
-    stream >> system;
+    stream >> systemName;
 
     player.setName(name);
     player.setX(x);

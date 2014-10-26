@@ -25,4 +25,6 @@ private:
     QExplicitlySharedDataPointer<ShipData> data;
 };
 
+Q_DECLARE_TYPEINFO(Ship, Q_MOVABLE_TYPE);
+
 #endif // SHIP_H

@@ -22,15 +22,11 @@ public:
     double getX() const;
     double getY() const;
 
-protected:
-    void setName(QString name);
-    void setPlanets(QList<Planet> planets);
-    void setX(double x);
-    void setY(double y);
-
 private:
     QExplicitlySharedDataPointer<SolarSystemData> data;
 };
+
+Q_DECLARE_TYPEINFO(SolarSystem, Q_MOVABLE_TYPE);
 
 QDataStream& operator<<(QDataStream& stream, const SolarSystem solarSystem);
 QDataStream& operator>>(QDataStream& stream, SolarSystem& solarSystem);

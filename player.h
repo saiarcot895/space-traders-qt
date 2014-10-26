@@ -53,6 +53,8 @@ private:
     static Player instance;
 };
 
+Q_DECLARE_TYPEINFO(Player, Q_MOVABLE_TYPE);
+
 QDataStream& operator<<(QDataStream& stream, const Player player);
 QDataStream& operator>>(QDataStream& stream, Player player);
 

@@ -48,22 +48,6 @@ double SolarSystem::getY() const {
     return data->y;
 }
 
-void SolarSystem::setName(QString name) {
-    data->name = name;
-}
-
-void SolarSystem::setPlanets(QList<Planet> planets) {
-    data->planets = planets;
-}
-
-void SolarSystem::setX(double x) {
-    data->x = x;
-}
-
-void SolarSystem::setY(double y) {
-    data->y = y;
-}
-
 SolarSystem &SolarSystem::operator=(const SolarSystem &rhs)
 {
     if (this != &rhs)

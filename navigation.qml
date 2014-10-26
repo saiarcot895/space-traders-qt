@@ -20,9 +20,14 @@ Image {
         onClicked: mainController.showMarketplace()
     }
 
-    Rectangle {
+    Flickable {
         id: mapRegion
-        color: "#00000000"
+        objectName: "mapRegion"
+        contentWidth: 1500
+        contentHeight: 1500
+        clip: true
+        boundsBehavior: Flickable.DragOverBounds
+
         anchors.top: marketplaceButton.bottom
         anchors.topMargin: 6
         anchors.bottom: parent.bottom
@@ -35,7 +40,7 @@ Image {
 
     function createPlanetButtons(name, x, y) {
         var component = Qt.createComponent("SolarSystem.qml");
-        var sprite = component.createObject(mapRegion, {"solarSystemName": name, "x": x, "y": y});
+        var sprite = component.createObject(mapRegion.contentItem, {"solarSystemName": name, "x": x, "y": y});
 
         if (sprite === null) {
             console.log("Error creating object");

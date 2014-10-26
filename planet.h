@@ -2,6 +2,7 @@
 #define PLANET_H
 
 #include <QObject>
+#include <QDataStream>
 #include <QExplicitlySharedDataPointer>
 #include <QMap>
 #include "ware.h"
@@ -65,5 +66,10 @@ private:
 
     QExplicitlySharedDataPointer<PlanetData> data;
 };
+
+Q_DECLARE_TYPEINFO(Planet, Q_MOVABLE_TYPE);
+
+QDataStream& operator<<(QDataStream& stream, const Planet planet);
+QDataStream& operator>>(QDataStream& stream, Planet& planet);
 
 #endif // PLANET_H

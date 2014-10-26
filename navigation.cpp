@@ -16,12 +16,13 @@ void Navigation::showNavigationPage() {
     rootObject->findChild<QObject*>("pageLoader")->setProperty("source", QStringLiteral("qrc:///navigation.qml"));
 
     QObject* navigationRectangle = rootObject->findChild<QObject*>("navigationScreen");
+    QObject* mapRegion = rootObject->findChild<QObject*>("mapRegion");
 
     for (int i = 0; i < galaxy.getSolarSystems().size(); i++) {
         const SolarSystem system = galaxy.getSolarSystems().at(i);
         QMetaObject::invokeMethod(navigationRectangle, "createPlanetButtons",
                                   Q_ARG(QVariant, system.getName()),
-                                  Q_ARG(QVariant, (double) system.getX() / 1000 * navigationRectangle->property("width").toInt()),
-                                  Q_ARG(QVariant, (double) system.getY() / 1000 * navigationRectangle->property("height").toInt()));
+                                  Q_ARG(QVariant, (double) system.getX() / 1000 * (mapRegion->property("contentWidth").toInt() - 32)),
+                                  Q_ARG(QVariant, (double) system.getY() / 1000 * (mapRegion->property("contentHeight").toInt() - 32)));
     }
 }
