@@ -4,7 +4,9 @@
 
 Navigation::Navigation(QObject *rootObject, QObject *parent) :
     QObject(parent),
-    rootObject(rootObject)
+    rootObject(rootObject),
+    galaxy(Galaxy::getInstance()),
+    player(Player::getInstance())
 {
 }
 
@@ -30,18 +32,18 @@ void Navigation::showNavigationPage() {
 }
 
 bool Navigation::isTravelableToSolarSystem(QString solarSystem) {
-    SolarSystem origin = Player::getInstance().getCurrentSystem();
-    SolarSystem destination = Galaxy::getInstance().getSolarSystem(solarSystem);
-    Ship ship = Player::getInstance().getShip();
+    SolarSystem origin = player.getCurrentSystem();
+    SolarSystem destination = galaxy.getSolarSystem(solarSystem);
+    Ship ship = player.getShip();
 
-    return Galaxy::getInstance().getDistanceBetweenSolarSystems(origin, destination) < ship.getFuel();
+    return galaxy.getDistanceBetweenSolarSystems(origin, destination) < ship.getFuel();
 }
 
 void Navigation::travelToSolarSystem(QString solarSystem) {
-    SolarSystem origin = Player::getInstance().getCurrentSystem();
-    SolarSystem destination = Galaxy::getInstance().getSolarSystem(solarSystem);
-    Ship ship = Player::getInstance().getShip();
+    SolarSystem origin = player.getCurrentSystem();
+    SolarSystem destination = galaxy.getSolarSystem(solarSystem);
+    Ship ship = player.getShip();
 
-    player.setCurrentSystem(Galaxy::getInstance().getSolarSystem(solarSystem));
-    ship.setFuel(ship.getFuel() - Galaxy::getInstance().getDistanceBetweenSolarSystems(origin, destination));
+    player.setCurrentSystem(galaxy.getSolarSystem(solarSystem));
+    ship.setFuel(ship.getFuel() - galaxy.getDistanceBetweenSolarSystems(origin, destination));
 }

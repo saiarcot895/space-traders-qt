@@ -22,8 +22,8 @@ public:
 private:
     QObject *rootObject;
 
-    Galaxy galaxy = Galaxy::getInstance();
-    Player player = Player::getInstance();
+    Galaxy galaxy;
+    Player player;
 
 };
 
