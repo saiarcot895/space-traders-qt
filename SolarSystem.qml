@@ -12,7 +12,7 @@ Item {
     Image {
         id: image1
         source: "qrc:///Planet.png"
-        sourceSize: Qt.size(24, 24)
+        sourceSize: Qt.size(32, 32)
 
         MouseArea {
             anchors.fill: parent

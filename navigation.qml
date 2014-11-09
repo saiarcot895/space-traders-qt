@@ -75,7 +75,7 @@ Image {
         color: "#7F0000BF"
         border.color: "#7F00004F"
         border.width: 5
-        radius: 5
+        radius: 10
         visible: false
 
         Label {
