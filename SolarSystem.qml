@@ -7,46 +7,60 @@ Item {
     implicitWidth: image1.width + 1
 
     property string solarSystemName
-    property var solarSystemColor
+    property color solarSystemColor
+    property bool isCurrentSystem
 
-    Image {
-        id: image1
-        source: "qrc:///Planet.png"
-        sourceSize: Qt.size(32, 32)
 
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onEntered: {
-                mouseEffect.brightness = 0.4;
-                systemLabelRectangle.visible = true;
+    Rectangle {
+        id: currentSystemRectangle
+        color: "#00000000"
+        border.color: "#FF00FF00"
+        border.width: isCurrentSystem ? 3 : 0
+        radius: 5
+        width: image1.width + 8
+        height: image1.height + 8
+
+        Image {
+            id: image1
+            source: "qrc:///Planet.png"
+            sourceSize: Qt.size(32, 32)
+            anchors.horizontalCenter: currentSystemRectangle.horizontalCenter
+            anchors.verticalCenter: currentSystemRectangle.verticalCenter
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: {
+                    mouseEffect.brightness = 0.4;
+                    systemLabelRectangle.visible = true;
+                }
+                onExited: {
+                    mouseEffect.brightness = 0
+                    systemLabelRectangle.visible = false;
+                }
+                onClicked: setSolarSystem(solarSystemName)
             }
-            onExited: {
-                mouseEffect.brightness = 0
-                systemLabelRectangle.visible = false;
-            }
-            onClicked: setSolarSystem(solarSystemName, 3)
         }
-    }
 
-    ColorOverlay {
-        id: colorEffect
-        anchors.fill: image1
-        source: image1
-        color: solarSystemColor
-    }
+        ColorOverlay {
+            id: colorEffect
+            anchors.fill: image1
+            source: image1
+            color: solarSystemColor
+        }
 
-    BrightnessContrast {
-        id: mouseEffect
-        anchors.fill: image1
-        source: colorEffect
-        brightness: 0
+        BrightnessContrast {
+            id: mouseEffect
+            anchors.fill: image1
+            source: colorEffect
+            brightness: 0
+        }
     }
 
     Rectangle {
         id: systemLabelRectangle
-        anchors.horizontalCenter: image1.horizontalCenter
-        anchors.top: image1.bottom
+        anchors.horizontalCenter: currentSystemRectangle.horizontalCenter
+        anchors.top: currentSystemRectangle.bottom
         anchors.topMargin: 4
         color: "black"
         visible: false

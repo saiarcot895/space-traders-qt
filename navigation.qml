@@ -11,9 +11,9 @@ Image {
     anchors.fill: parent
     z: -1
 
-    property string solarSystemName: ""
-    property int solarSystemPlanets: 0
-    property bool travelEnabled: true
+    property string solarSystemName
+    property int solarSystemPlanets
+    property bool travelEnabled
 
     Button {
         id: marketplaceButton
@@ -143,20 +143,27 @@ Image {
         }
     }
 
-    function createPlanetButtons(name, color, x, y) {
+    function createPlanetButtons(name, color, isCurrentSystem, x, y) {
         var component = Qt.createComponent("SolarSystem.qml");
         var sprite = component.createObject(mapRegion.contentItem, {"solarSystemName": name, "solarSystemColor": color,
-                                                "x": x, "y": y});
+                                                "isCurrentSystem": isCurrentSystem, "x": x, "y": y});
 
         if (sprite === null) {
             console.log("Error creating object");
         }
     }
 
-    function setSolarSystem(name, planets) {
+    function setSolarSystem(name) {
         solarSystemName = name;
-        solarSystemPlanets = planets;
+        solarSystemPlanets = navigation.getNumPlanets(name);
         travelEnabled = navigation.isTravelableToSolarSystem(name);
         solarSystemInfoPane.visible = true;
+    }
+
+    function setNewCurrentPlanet(name) {
+        for (var i in mapRegion.contentItem.children) {
+            var item = mapRegion.contentItem.children[i];
+            item.isCurrentSystem = item.solarSystemName === name;
+        }
     }
 }

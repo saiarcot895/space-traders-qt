@@ -30,6 +30,8 @@ private:
 
 Q_DECLARE_TYPEINFO(SolarSystem, Q_MOVABLE_TYPE);
 
+bool operator==(const SolarSystem solarSystem1, const SolarSystem solarSystem2);
+
 QDataStream& operator<<(QDataStream& stream, const SolarSystem solarSystem);
 QDataStream& operator>>(QDataStream& stream, SolarSystem& solarSystem);
 

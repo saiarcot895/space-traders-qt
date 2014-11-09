@@ -16,7 +16,8 @@ public:
     void setRootObject(QObject* rootObject);
     void showNavigationPage();
 
-    Q_INVOKABLE bool isTravelableToSolarSystem(QString solarSystem);
+    Q_INVOKABLE int getNumPlanets(QString solarSystem) const;
+    Q_INVOKABLE bool isTravelableToSolarSystem(QString solarSystem) const;
     Q_INVOKABLE void travelToSolarSystem(QString solarSystem);
 
 private:

@@ -26,12 +26,17 @@ void Navigation::showNavigationPage() {
         QMetaObject::invokeMethod(navigationRectangle, "createPlanetButtons",
                                   Q_ARG(QVariant, system.getName()),
                                   Q_ARG(QVariant, system.getColor()),
-                                  Q_ARG(QVariant, (double) system.getX() / 1000 * (mapRegion->property("contentWidth").toInt() - 48)),
-                                  Q_ARG(QVariant, (double) system.getY() / 1000 * (mapRegion->property("contentHeight").toInt() - 48)));
+                                  Q_ARG(QVariant, player.getCurrentSystem() == system),
+                                  Q_ARG(QVariant, (double) system.getX() / 1000 * (mapRegion->property("contentWidth").toInt() - 32 * 1.5)),
+                                  Q_ARG(QVariant, (double) system.getY() / 1000 * (mapRegion->property("contentHeight").toInt() - 32 * 1.5)));
     }
 }
 
-bool Navigation::isTravelableToSolarSystem(QString solarSystem) {
+int Navigation::getNumPlanets(QString solarSystem) const {
+    return galaxy.getSolarSystem(solarSystem).getPlanets().size();
+}
+
+bool Navigation::isTravelableToSolarSystem(QString solarSystem) const {
     SolarSystem origin = player.getCurrentSystem();
     SolarSystem destination = galaxy.getSolarSystem(solarSystem);
     Ship ship = player.getShip();
@@ -46,4 +51,9 @@ void Navigation::travelToSolarSystem(QString solarSystem) {
 
     player.setCurrentSystem(galaxy.getSolarSystem(solarSystem));
     ship.setFuel(ship.getFuel() - galaxy.getDistanceBetweenSolarSystems(origin, destination));
+
+    QObject* navigationRectangle = rootObject->findChild<QObject*>("navigationScreen");
+
+    QMetaObject::invokeMethod(navigationRectangle, "setNewCurrentPlanet",
+                              Q_ARG(QVariant, destination.getName()));
 }

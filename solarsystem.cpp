@@ -65,6 +65,12 @@ SolarSystem::~SolarSystem()
 {
 }
 
+bool operator==(const SolarSystem solarSystem1, const SolarSystem solarSystem2) {
+    return solarSystem1.getName() == solarSystem2.getName()
+            && solarSystem1.getX() == solarSystem2.getX()
+            && solarSystem1.getY() == solarSystem2.getY();
+}
+
 QDataStream& operator<<(QDataStream& stream, const SolarSystem solarSystem) {
     stream << solarSystem.getName();
     stream << solarSystem.getX();
