@@ -5,6 +5,8 @@
 #include "galaxy.h"
 #include "player.h"
 
+#include <QVariant>
+
 class Navigation : public QObject
 {
     Q_OBJECT
@@ -13,6 +15,9 @@ public:
 
     void setRootObject(QObject* rootObject);
     void showNavigationPage();
+
+    Q_INVOKABLE bool isTravelableToSolarSystem(QString solarSystem);
+    Q_INVOKABLE void travelToSolarSystem(QString solarSystem);
 
 private:
     QObject *rootObject;

@@ -5,7 +5,8 @@
 Marketplace::Marketplace(QObject *rootObject, QObject *parent) :
     QObject(parent),
     rootObject(rootObject),
-    creditChanges(0)
+    creditChanges(0),
+    quantityChanges(0)
 {
 }
 
@@ -47,11 +48,15 @@ void Marketplace::buyItem(int index) {
     QObject* itemModel = itemModelVariant.value<QObject*>();
     int price = itemModel->property("price").toInt();
 
-    if (Player::getInstance().getCredits() + creditChanges < price) {
+    Player player = Player::getInstance();
+
+    if (player.getCredits() + creditChanges < price
+            || player.getShip().getNumItemsInCargo() + quantityChanges >= player.getShip().getCargoCapacity()) {
         return;
     }
 
     creditChanges -= price;
+    ++quantityChanges;
 
     int planetQuantity = itemModel->property("planetQuantity").toInt();
     itemModel->setProperty("planetQuantity", planetQuantity - 1);
@@ -79,6 +84,7 @@ void Marketplace::sellItem(int index) {
     int price = itemModel->property("price").toInt();
 
     creditChanges += price;
+    --quantityChanges;
 
     int planetQuantity = itemModel->property("planetQuantity").toInt();
     itemModel->setProperty("planetQuantity", planetQuantity + 1);
@@ -115,6 +121,7 @@ void Marketplace::saveChanges() {
 
     player.setCredits(player.getCredits() + creditChanges);
     creditChanges = 0;
+    quantityChanges = 0;
 
     marketplaceScreen->setProperty("creditsAvailable", player.getCredits());
     marketplaceScreen->setProperty("creditChanges", creditChanges);

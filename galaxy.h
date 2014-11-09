@@ -11,13 +11,14 @@ class GalaxyData;
 class Galaxy : public QObject
 {
 public:
-    Galaxy(QList<SolarSystem> solarSystems);
+    Galaxy(const QList<SolarSystem> solarSystems);
     Galaxy(const Galaxy &);
     Galaxy &operator=(const Galaxy &);
     ~Galaxy();
 
     const QList<SolarSystem> getSolarSystems() const;
     const SolarSystem getSolarSystem(QString name) const;
+    double getDistanceBetweenSolarSystems(const SolarSystem origin, const SolarSystem destination) const;
 
     static Galaxy getInstance();
 

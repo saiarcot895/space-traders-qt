@@ -3,9 +3,11 @@ import QtQuick.Controls 1.1
 import QtGraphicalEffects 1.0
 
 Item {
-    property string solarSystemName
     implicitHeight: image1.height + 1
     implicitWidth: image1.width + 1
+
+    property string solarSystemName
+    property var solarSystemColor
 
     Image {
         id: image1
@@ -23,6 +25,7 @@ Item {
                 mouseEffect.brightness = 0
                 systemLabelRectangle.visible = false;
             }
+            onClicked: setSolarSystem(solarSystemName, 3)
         }
     }
 
@@ -30,7 +33,7 @@ Item {
         id: colorEffect
         anchors.fill: image1
         source: image1
-        color: "#80800000"
+        color: solarSystemColor
     }
 
     BrightnessContrast {

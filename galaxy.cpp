@@ -3,6 +3,7 @@
 #include <QSharedData>
 #include <QStringList>
 #include <QTime>
+#include <QtMath>
 
 Galaxy Galaxy::instance = Galaxy();
 
@@ -151,7 +152,7 @@ Galaxy::Galaxy() : data(new GalaxyData)
     }
 }
 
-Galaxy::Galaxy(QList<SolarSystem> solarSystems)
+Galaxy::Galaxy(const QList<SolarSystem> solarSystems)
     : data(new GalaxyData)
 {
     for (int i = 0; i < solarSystems.size(); i++) {
@@ -169,6 +170,10 @@ const QList<SolarSystem> Galaxy::getSolarSystems() const {
 
 const SolarSystem Galaxy::getSolarSystem(QString name) const {
     return data->solarSystems.value(name);
+}
+
+double Galaxy::getDistanceBetweenSolarSystems(const SolarSystem origin, const SolarSystem destination) const {
+    return qSqrt(qPow(destination.getX() - origin.getX(), 2) + qPow(destination.getY() - origin.getY(), 2));
 }
 
 Galaxy Galaxy::getInstance() {

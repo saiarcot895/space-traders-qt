@@ -11,6 +11,10 @@ Image {
     anchors.fill: parent
     z: -1
 
+    property string solarSystemName: ""
+    property int solarSystemPlanets: 0
+    property bool travelEnabled: true
+
     Button {
         id: marketplaceButton
         anchors.top: parent.top
@@ -62,12 +66,97 @@ Image {
         }
     }
 
-    function createPlanetButtons(name, x, y) {
+    Rectangle {
+        id: solarSystemInfoPane
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        width: parent.width * 0.6
+        height: parent.height * 0.6
+        color: "#7F0000BF"
+        border.color: "#7F00004F"
+        border.width: 5
+        radius: 5
+        visible: false
+
+        Label {
+            id: solarSystemNameLabel
+            anchors.top: parent.top
+            anchors.topMargin: 8
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            color: "white"
+            text: "Solar System: "
+        }
+
+        Label {
+            id: solarSystemNameDisplay
+            anchors.top: parent.top
+            anchors.topMargin: 8
+            anchors.left: solarSystemNameLabel.right
+            anchors.leftMargin: 6
+            color: "white"
+            text: solarSystemName
+        }
+
+        Label {
+            id: solarSystemPlanetsLabel
+            anchors.top: solarSystemNameLabel.bottom
+            anchors.topMargin: 6
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            color: "white"
+            text: "Planets: "
+        }
+
+        Label {
+            id: solarSystemPlanetsDisplay
+            anchors.top: solarSystemNameDisplay.bottom
+            anchors.topMargin: 6
+            anchors.left: solarSystemPlanetsLabel.right
+            anchors.leftMargin: 6
+            color: "white"
+            text: solarSystemPlanets
+        }
+
+        Button {
+            id: cancelButton
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 8
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            text: "Cancel"
+            onClicked: solarSystemInfoPane.visible = false
+        }
+
+        Button {
+            id: travelToSolarSystemButton
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 8
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+            enabled: travelEnabled
+            text: "Travel to " + solarSystemName
+            onClicked: {
+                navigation.travelToSolarSystem(solarSystemName);
+                solarSystemInfoPane.visible = false;
+            }
+        }
+    }
+
+    function createPlanetButtons(name, color, x, y) {
         var component = Qt.createComponent("SolarSystem.qml");
-        var sprite = component.createObject(mapRegion.contentItem, {"solarSystemName": name, "x": x, "y": y});
+        var sprite = component.createObject(mapRegion.contentItem, {"solarSystemName": name, "solarSystemColor": color,
+                                                "x": x, "y": y});
 
         if (sprite === null) {
             console.log("Error creating object");
         }
+    }
+
+    function setSolarSystem(name, planets) {
+        solarSystemName = name;
+        solarSystemPlanets = planets;
+        travelEnabled = navigation.isTravelableToSolarSystem(name);
+        solarSystemInfoPane.visible = true;
     }
 }

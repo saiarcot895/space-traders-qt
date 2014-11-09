@@ -2,6 +2,7 @@
 #define SOLARSYSTEM_H
 
 #include <QObject>
+#include <QColor>
 #include <QDataStream>
 #include <QExplicitlySharedDataPointer>
 #include "planet.h"
@@ -21,6 +22,7 @@ public:
     QList<Planet> getPlanets() const;
     double getX() const;
     double getY() const;
+    QColor getColor() const;
 
 private:
     QExplicitlySharedDataPointer<SolarSystemData> data;

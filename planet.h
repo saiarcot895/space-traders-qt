@@ -2,6 +2,7 @@
 #define PLANET_H
 
 #include <QObject>
+#include <QColor>
 #include <QDataStream>
 #include <QExplicitlySharedDataPointer>
 #include <QMap>
@@ -55,6 +56,7 @@ public:
     double getX() const;
     double getY() const;
     double getRadius() const;
+    QColor getColor() const;
     TechLevel getTechLevel() const;
     ResourceTypes getResourceType() const;
     int getItemQuantity(Ware ware) const;

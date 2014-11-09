@@ -21,6 +21,7 @@ private:
     QObject* rootObject;
 
     int creditChanges;
+    int quantityChanges;
 
 };
 

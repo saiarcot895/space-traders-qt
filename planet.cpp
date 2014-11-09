@@ -7,6 +7,7 @@ public:
     double x;
     double y;
     double radius;
+    QColor color;
     Planet::TechLevel techLevel = Planet::UnknownLevel;
     Planet::ResourceTypes resourceTypes = Planet::UnknownResource;
     QMap<Ware, int> items;
@@ -23,6 +24,7 @@ Planet::Planet(QString name, double x, double y) : data(new PlanetData)
     data->x = x;
     data->y = y;
     data->radius = qrand() % 250;
+    data->color = QColor(qrand() % 256, qrand() % 256, qrand() % 256);
     data->techLevel = static_cast<Planet::TechLevel>(qrand() % Planet::SIZE_LEVEL);
     data->resourceTypes = static_cast<Planet::ResourceTypes>(qrand() % Planet::SIZE_RESOURCE);
     produceWares();
@@ -57,6 +59,10 @@ double Planet::getY() const {
 
 double Planet::getRadius() const {
     return data->radius;
+}
+
+QColor Planet::getColor() const {
+    return data->color;
 }
 
 Planet::TechLevel Planet::getTechLevel() const {
@@ -113,4 +119,6 @@ QDataStream& operator>>(QDataStream& stream, Planet& planet) {
     stream >> resourceTypeInt;
 
     planet = Planet(name, x, y);
+
+    return stream;
 }

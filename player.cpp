@@ -1,5 +1,6 @@
 #include "player.h"
 #include "galaxy.h"
+#include "ship.h"
 #include <QSharedData>
 
 Player Player::instance = Player();
@@ -25,6 +26,7 @@ Player::Player() : data(new PlayerData)
 {
     data->currentSystem = Galaxy::getInstance().getSolarSystem("Earth616");
     data->currentPlanet = data->currentSystem.getPlanets().at(0);
+    data->ship = Ship(Ship::Flea);
     data->credits = 750;
 }
 

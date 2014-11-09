@@ -5,6 +5,7 @@ class SolarSystemData : public QSharedData {
 public:
     QString name;
     QList<Planet> planets;
+    QColor color;
     double x;
     double y;
 };
@@ -14,6 +15,7 @@ SolarSystem::SolarSystem(QString name) : data(new SolarSystemData)
     data->name = name;
     data->x = qrand() % 1000;
     data->y = qrand() % 1000;
+    data->color = QColor(qrand() % 256, qrand() % 256, qrand() % 256);
     for (int i = 0; i < 1; i++) {
         data->planets.append(Planet(data->name, data->x, data->y));
     }
@@ -46,6 +48,10 @@ double SolarSystem::getX() const {
 
 double SolarSystem::getY() const {
     return data->y;
+}
+
+QColor SolarSystem::getColor() const {
+    return data->color;
 }
 
 SolarSystem &SolarSystem::operator=(const SolarSystem &rhs)
