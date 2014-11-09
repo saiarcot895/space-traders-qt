@@ -186,6 +186,11 @@ Image {
         }
     }
 
+    DialogBox {
+        id: dialogBox
+        z: 1
+    }
+
     function createProduct(ware, price, planetQuantity, shipQuantity) {
         gridView1.model.append({"ware": ware, "price": price,
                                    "planetQuantity": planetQuantity, "shipQuantity": shipQuantity});
@@ -203,5 +208,10 @@ Image {
             displayItemInfo.planetQuantity = product.planetQuantity;
             displayItemInfo.shipQuantity = product.shipQuantity;
         }
+    }
+
+    function showMessage(message) {
+        dialogBox.message = message;
+        dialogBox.showMessage();
     }
 }

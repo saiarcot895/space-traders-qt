@@ -10,5 +10,6 @@
         <file>SolarSystem.qml</file>
         <file>marketplace.qml</file>
         <file>Planet.png</file>
+        <file>DialogBox.qml</file>
     </qresource>
 </RCC>

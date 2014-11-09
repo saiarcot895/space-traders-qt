@@ -50,8 +50,15 @@ void Marketplace::buyItem(int index) {
 
     Player player = Player::getInstance();
 
-    if (player.getCredits() + creditChanges < price
-            || player.getShip().getNumItemsInCargo() + quantityChanges >= player.getShip().getCargoCapacity()) {
+    if (player.getCredits() + creditChanges < price) {
+        QMetaObject::invokeMethod(marketplaceScreen, "showMessage",
+                                  Q_ARG(QVariant, "Not enough credits!"));
+        return;
+    }
+
+    if (player.getShip().getNumItemsInCargo() + quantityChanges >= player.getShip().getCargoCapacity()) {
+        QMetaObject::invokeMethod(marketplaceScreen, "showMessage",
+                                  Q_ARG(QVariant, "No cargo space available."));
         return;
     }
 
