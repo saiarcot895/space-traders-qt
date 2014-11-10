@@ -16,12 +16,12 @@ Image {
     property bool travelEnabled
 
     Button {
-        id: marketplaceButton
+        id: planetButton
         anchors.top: parent.top
         anchors.topMargin: 8
         anchors.horizontalCenter: parent.horizontalCenter
-        text: "Marketplace"
-        onClicked: mainController.showMarketplace()
+        text: "Planet"
+        onClicked: mainController.showPlanetNavigationPage()
     }
 
     Rectangle {
@@ -38,7 +38,7 @@ Image {
             anchors.fill: parent
         }
 
-        anchors.top: marketplaceButton.bottom
+        anchors.top: planetButton.bottom
         anchors.topMargin: 6
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8

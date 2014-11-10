@@ -9,6 +9,7 @@ MainController::MainController(QObject *parent) :
     newGame(new NewGame(NULL, this)),
     settings(new Settings(NULL, this)),
     navigation(new Navigation(NULL, this)),
+    planetNavigation(new PlanetNavigation(NULL, this)),
     marketplace(new Marketplace(NULL, this))
 {
     engine = new QQmlApplicationEngine(this);
@@ -19,6 +20,7 @@ MainController::MainController(QObject *parent) :
     newGame->setRootObject(rootObject);
     settings->setRootObject(rootObject);
     navigation->setRootObject(rootObject);
+    planetNavigation->setRootObject(rootObject);
     marketplace->setRootObject(rootObject);
 
     engine->rootContext()->setContextProperty("mainController", this);
@@ -26,6 +28,7 @@ MainController::MainController(QObject *parent) :
     engine->rootContext()->setContextProperty("newGame", newGame);
     engine->rootContext()->setContextProperty("settings", settings);
     engine->rootContext()->setContextProperty("navigation", navigation);
+    engine->rootContext()->setContextProperty("planetNavigation", planetNavigation);
     engine->rootContext()->setContextProperty("marketplace", marketplace);
 
     showHomeScreen();
@@ -45,6 +48,10 @@ void MainController::showSettings() {
 
 void MainController::showNavigationPage() {
     navigation->showNavigationPage();
+}
+
+void MainController::showPlanetNavigationPage() {
+    planetNavigation->showPlanetNavigationPage();
 }
 
 void MainController::showMarketplace() {

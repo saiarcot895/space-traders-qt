@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     player.cpp \
     marketplace.cpp \
     ware.cpp \
-    ship.cpp
+    ship.cpp \
+    planetnavigation.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,4 +39,5 @@ HEADERS += \
     player.h \
     marketplace.h \
     ware.h \
-    ship.h
+    ship.h \
+    planetnavigation.h

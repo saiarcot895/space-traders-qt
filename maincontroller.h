@@ -8,6 +8,8 @@
 #include "mainwindow.h"
 #include "settings.h"
 #include "navigation.h"
+#include "planetnavigation.h"
+
 #include "galaxy.h"
 #include "player.h"
 #include "marketplace.h"
@@ -23,6 +25,7 @@ public:
     Q_INVOKABLE void startNewGame();
     Q_INVOKABLE void showSettings();
     Q_INVOKABLE void showNavigationPage();
+    Q_INVOKABLE void showPlanetNavigationPage();
     Q_INVOKABLE void showMarketplace();
 
 private:
@@ -33,6 +36,7 @@ private:
     NewGame* newGame;
     Settings* settings;
     Navigation* navigation;
+    PlanetNavigation* planetNavigation;
     Marketplace* marketplace;
 
     Galaxy galaxy = Galaxy::getInstance();

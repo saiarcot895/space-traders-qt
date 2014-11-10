@@ -11,5 +11,7 @@
         <file>marketplace.qml</file>
         <file>Planet.png</file>
         <file>DialogBox.qml</file>
+        <file>Planet.qml</file>
+        <file>planetNavigation.qml</file>
     </qresource>
 </RCC>
