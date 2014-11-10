@@ -148,7 +148,11 @@ Galaxy::Galaxy() : data(new GalaxyData)
 
     for (int i = 0; i < systemNames.size(); i++) {
         QString name = systemNames.at(i);
-        data->solarSystems.insert(name, SolarSystem(name));
+        SolarSystem solarSystem(name);
+        while (collidesWithAnotherSystem(solarSystem)) {
+            solarSystem = SolarSystem(name);
+        }
+        data->solarSystems.insert(name, solarSystem);
     }
 }
 
@@ -185,6 +189,17 @@ Galaxy &Galaxy::operator=(const Galaxy &rhs)
     if (this != &rhs)
         data.operator=(rhs.data);
     return *this;
+}
+
+bool Galaxy::collidesWithAnotherSystem(SolarSystem system) const {
+    for (int i = 0; i < data->solarSystems.values().length(); i++) {
+        const SolarSystem existingSystem = data->solarSystems.values().at(i);
+        if (!(existingSystem.getX() + 32 < system.getX() || existingSystem.getX() > system.getX() + 32
+              || existingSystem.getY() + 32 < system.getY() || existingSystem.getY() > system.getY() + 32)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 Galaxy::~Galaxy()

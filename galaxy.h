@@ -25,6 +25,8 @@ public:
 private:
     Galaxy();
 
+    bool collidesWithAnotherSystem(SolarSystem system) const;
+
     QExplicitlySharedDataPointer<GalaxyData> data;
 
     static Galaxy instance;

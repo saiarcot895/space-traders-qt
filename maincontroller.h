@@ -9,10 +9,11 @@
 #include "settings.h"
 #include "navigation.h"
 #include "planetnavigation.h"
+#include "marketplace.h"
+#include "shipyard.h"
 
 #include "galaxy.h"
 #include "player.h"
-#include "marketplace.h"
 
 class MainController : public QObject
 {
@@ -27,6 +28,7 @@ public:
     Q_INVOKABLE void showNavigationPage();
     Q_INVOKABLE void showPlanetNavigationPage();
     Q_INVOKABLE void showMarketplace();
+    Q_INVOKABLE void showShipyard();
 
 private:
     QQmlApplicationEngine* engine;
@@ -38,6 +40,7 @@ private:
     Navigation* navigation;
     PlanetNavigation* planetNavigation;
     Marketplace* marketplace;
+    Shipyard* shipyard;
 
     Galaxy galaxy = Galaxy::getInstance();
     Player player = Player::getInstance();

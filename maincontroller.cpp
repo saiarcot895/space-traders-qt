@@ -10,7 +10,8 @@ MainController::MainController(QObject *parent) :
     settings(new Settings(NULL, this)),
     navigation(new Navigation(NULL, this)),
     planetNavigation(new PlanetNavigation(NULL, this)),
-    marketplace(new Marketplace(NULL, this))
+    marketplace(new Marketplace(NULL, this)),
+    shipyard(new Shipyard(NULL, this))
 {
     engine = new QQmlApplicationEngine(this);
     QQmlComponent component(engine, QUrl(QStringLiteral("qrc:///main.qml")));
@@ -22,6 +23,7 @@ MainController::MainController(QObject *parent) :
     navigation->setRootObject(rootObject);
     planetNavigation->setRootObject(rootObject);
     marketplace->setRootObject(rootObject);
+    shipyard->setRootObject(rootObject);
 
     engine->rootContext()->setContextProperty("mainController", this);
     engine->rootContext()->setContextProperty("mainWindow", mainWindow);
@@ -30,6 +32,7 @@ MainController::MainController(QObject *parent) :
     engine->rootContext()->setContextProperty("navigation", navigation);
     engine->rootContext()->setContextProperty("planetNavigation", planetNavigation);
     engine->rootContext()->setContextProperty("marketplace", marketplace);
+    engine->rootContext()->setContextProperty("shipyard", shipyard);
 
     showHomeScreen();
 }
@@ -56,6 +59,10 @@ void MainController::showPlanetNavigationPage() {
 
 void MainController::showMarketplace() {
     marketplace->showMarketplace();
+}
+
+void MainController::showShipyard() {
+    shipyard->showShipyard();
 }
 
 MainController::~MainController() {

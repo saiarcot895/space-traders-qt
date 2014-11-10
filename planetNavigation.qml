@@ -40,6 +40,7 @@ Image {
         anchors.right: marketplaceButton.left
         anchors.rightMargin: 6
         text: "Shipyard"
+        onClicked: mainController.showShipyard()
     }
 
     Rectangle {

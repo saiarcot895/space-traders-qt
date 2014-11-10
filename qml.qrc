@@ -13,5 +13,6 @@
         <file>DialogBox.qml</file>
         <file>Planet.qml</file>
         <file>planetNavigation.qml</file>
+        <file>shipyard.qml</file>
     </qresource>
 </RCC>
