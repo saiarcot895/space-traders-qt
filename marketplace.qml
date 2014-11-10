@@ -170,7 +170,7 @@ Image {
         anchors.leftMargin: 8
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8
-        onClicked: mainController.showNavigationPage()
+        onClicked: mainController.showPlanetNavigationPage()
     }
 
     Button {
@@ -182,7 +182,7 @@ Image {
         anchors.bottomMargin: 8
         onClicked: {
             marketplace.saveChanges();
-            mainController.showNavigationPage();
+            mainController.showPlanetNavigationPage();
         }
     }
 

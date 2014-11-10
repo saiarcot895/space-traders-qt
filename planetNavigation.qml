@@ -14,12 +14,32 @@ Image {
     property string planetName
 
     Button {
+        id: navigationPageButton
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        text: "Back to Navigation Page"
+        onClicked: mainController.showNavigationPage()
+    }
+
+    Button {
         id: marketplaceButton
         anchors.top: parent.top
         anchors.topMargin: 8
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.right: parent.right
+        anchors.rightMargin: 8
         text: "Marketplace"
         onClicked: mainController.showMarketplace()
+    }
+
+    Button {
+        id: shipyardButton
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.right: marketplaceButton.left
+        anchors.rightMargin: 6
+        text: "Shipyard"
     }
 
     Rectangle {

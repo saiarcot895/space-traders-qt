@@ -84,93 +84,103 @@ Item {
         }
     }
 
-    PropertyAnimation {
-        id: xMovement1
-        target: currentSystemRectangle
+    ParallelAnimation {
+        id: neQuadMovement
         running: true
-        easing.type: Easing.InSine
-        duration: rotationDuration
-        property: "x"
-        from: planetRadius
-        to: 0
-        onStopped: xMovement2.start()
+        onStopped: nwQuadMovement.start()
+
+        PropertyAnimation {
+            id: xMovement1
+            target: currentSystemRectangle
+            easing.type: Easing.InSine
+            duration: rotationDuration
+            property: "x"
+            from: planetRadius
+            to: 0
+        }
+
+        PropertyAnimation {
+            id: yMovement1
+            target: currentSystemRectangle
+            easing.type: Easing.OutSine
+            duration: rotationDuration
+            property: "y"
+            from: 0
+            to: planetRadius
+        }
     }
 
-    PropertyAnimation {
-        id: xMovement2
-        target: currentSystemRectangle
-        easing.type: Easing.OutSine
-        duration: rotationDuration
-        property: "x"
-        from: 0
-        to: -planetRadius
-        onStopped: xMovement3.start()
+    ParallelAnimation {
+        id: nwQuadMovement
+        onStopped: swQuadMovement.start()
+
+        PropertyAnimation {
+            id: xMovement2
+            target: currentSystemRectangle
+            easing.type: Easing.OutSine
+            duration: rotationDuration
+            property: "x"
+            from: 0
+            to: -planetRadius
+        }
+        PropertyAnimation {
+            id: yMovement2
+            target: currentSystemRectangle
+            easing.type: Easing.InSine
+            duration: rotationDuration
+            property: "y"
+            from: planetRadius
+            to: 0
+        }
     }
 
-    PropertyAnimation {
-        id: xMovement3
-        target: currentSystemRectangle
-        easing.type: Easing.InSine
-        duration: rotationDuration
-        property: "x"
-        from: -planetRadius
-        to: 0
-        onStopped: xMovement4.start()
+    ParallelAnimation {
+        id: swQuadMovement
+        onStopped: seQuadMovement.start()
+
+        PropertyAnimation {
+            id: xMovement3
+            target: currentSystemRectangle
+            easing.type: Easing.InSine
+            duration: rotationDuration
+            property: "x"
+            from: -planetRadius
+            to: 0
+        }
+
+        PropertyAnimation {
+            id: yMovement3
+            target: currentSystemRectangle
+            easing.type: Easing.OutSine
+            duration: rotationDuration
+            property: "y"
+            from: 0
+            to: -planetRadius
+        }
     }
 
-    PropertyAnimation {
-        id: xMovement4
-        target: currentSystemRectangle
-        easing.type: Easing.OutSine
-        duration: rotationDuration
-        property: "x"
-        from: 0
-        to: planetRadius
-        onStopped: xMovement1.start()
-    }
+    ParallelAnimation {
+        id: seQuadMovement
+        onStopped: neQuadMovement.start()
 
-    PropertyAnimation {
-        id: yMovement1
-        target: currentSystemRectangle
-        running: true
-        easing.type: Easing.OutSine
-        duration: rotationDuration
-        property: "y"
-        from: 0
-        to: planetRadius
-        onStopped: yMovement2.start()
-    }
+        PropertyAnimation {
+            id: xMovement4
+            target: currentSystemRectangle
+            easing.type: Easing.OutSine
+            duration: rotationDuration
+            property: "x"
+            from: 0
+            to: planetRadius
+        }
 
-    PropertyAnimation {
-        id: yMovement2
-        target: currentSystemRectangle
-        easing.type: Easing.InSine
-        duration: rotationDuration
-        property: "y"
-        from: planetRadius
-        to: 0
-        onStopped: yMovement3.start()
-    }
-
-    PropertyAnimation {
-        id: yMovement3
-        target: currentSystemRectangle
-        easing.type: Easing.OutSine
-        duration: rotationDuration
-        property: "y"
-        from: 0
-        to: -planetRadius
-        onStopped: yMovement4.start()
-    }
-
-    PropertyAnimation {
-        id: yMovement4
-        target: currentSystemRectangle
-        easing.type: Easing.InSine
-        duration: rotationDuration
-        property: "y"
-        from: -planetRadius
-        to: 0
-        onStopped: yMovement1.start()
+        PropertyAnimation {
+            id: yMovement4
+            target: currentSystemRectangle
+            easing.type: Easing.InSine
+            duration: rotationDuration
+            property: "y"
+            from: -planetRadius
+            to: 0
+        }
     }
 }
