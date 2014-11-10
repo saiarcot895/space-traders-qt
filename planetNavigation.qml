@@ -76,7 +76,7 @@ Image {
             anchors.left: parent.left
             anchors.leftMargin: 8
             color: "white"
-            text: "Solar System: "
+            text: "Planet: "
         }
 
         Label {
@@ -113,26 +113,25 @@ Image {
         }
     }
 
-    function createPlanetButtons(name, color, radius) {
+    function createPlanetButtons(name, color, radius, isCurrentPlanet) {
         var component = Qt.createComponent("Planet.qml");
         var sprite = component.createObject(solarSystemView, {"planetName": name, "planetColor": color,
-                                                "planetRadius": radius});
+                                                "planetRadius": radius, "isCurrentPlanet": isCurrentPlanet});
 
         if (sprite === null) {
             console.log("Error creating object");
         }
     }
 
-    function setSolarSystem(name) {
+    function setPlanet(name) {
         planetName = name;
-        travelEnabled = navigation.isTravelableToSolarSystem(name);
         planetInfoPane.visible = true;
     }
 
     function setNewCurrentPlanet(name) {
         for (var i in mapRegion.contentItem.children) {
             var item = mapRegion.contentItem.children[i];
-            item.isCurrentSystem = item.solarSystemName === name;
+            item.isCurrentPlanet = item.planetName === name;
         }
     }
 }

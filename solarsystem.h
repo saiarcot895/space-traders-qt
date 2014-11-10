@@ -5,6 +5,8 @@
 #include <QColor>
 #include <QDataStream>
 #include <QExplicitlySharedDataPointer>
+#include <QStringList>
+
 #include "planet.h"
 
 class SolarSystemData;

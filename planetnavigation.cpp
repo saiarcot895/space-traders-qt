@@ -20,12 +20,14 @@ void PlanetNavigation::showPlanetNavigationPage() {
     QObject* navigationRectangle = rootObject->findChild<QObject*>("planetNavigationScreen");
 
     QList<Planet> planets = player.getCurrentSystem().getPlanets();
+    Planet currentPlanet = player.getCurrentPlanet();
 
     for (int i = 0; i < planets.size(); i++) {
         const Planet planet = planets.at(i);
         QMetaObject::invokeMethod(navigationRectangle, "createPlanetButtons",
                                   Q_ARG(QVariant, planet.getName()),
                                   Q_ARG(QVariant, planet.getColor()),
-                                  Q_ARG(QVariant, 50));
+                                  Q_ARG(QVariant, planet.getRadius()),
+                                  Q_ARG(QVariant, planet == currentPlanet));
     }
 }

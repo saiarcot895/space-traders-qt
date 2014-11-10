@@ -4,8 +4,6 @@
 class PlanetData : public QSharedData {
 public:
     QString name;
-    double x;
-    double y;
     double radius;
     QColor color;
     Planet::TechLevel techLevel = Planet::UnknownLevel;
@@ -14,17 +12,15 @@ public:
 };
 
 Planet::Planet() :
-    Planet("", 0, 0)
+    Planet("")
 {
 }
 
-Planet::Planet(QString name, double x, double y) : data(new PlanetData)
+Planet::Planet(QString name) : data(new PlanetData)
 {
     data->name = name;
-    data->x = x;
-    data->y = y;
-    data->radius = qrand() % 250;
-    data->color = QColor(qrand() % 256, qrand() % 256, qrand() % 256);
+    data->radius = qrand() % 200 + 50;
+    data->color = QColor(qrand() % 256, qrand() % 256, qrand() % 256, 127);
     data->techLevel = static_cast<Planet::TechLevel>(qrand() % Planet::SIZE_LEVEL);
     data->resourceTypes = static_cast<Planet::ResourceTypes>(qrand() % Planet::SIZE_RESOURCE);
     produceWares();
@@ -48,15 +44,6 @@ void Planet::produceWares() {
 QString Planet::getName() const {
     return data->name;
 }
-
-double Planet::getX() const {
-    return data->x;
-}
-
-double Planet::getY() const {
-    return data->y;
-}
-
 double Planet::getRadius() const {
     return data->radius;
 }
@@ -92,10 +79,14 @@ Planet::~Planet()
 {
 }
 
+bool operator==(const Planet planet1, const Planet planet2) {
+    return planet1.getName() == planet2.getName()
+            && planet1.getColor() == planet2.getColor()
+            && planet1.getRadius() == planet2.getRadius();
+}
+
 QDataStream& operator<<(QDataStream& stream, const Planet planet) {
     stream << planet.getName();
-    stream << planet.getX();
-    stream << planet.getY();
     stream << planet.getRadius();
     stream << planet.getTechLevel();
     stream << planet.getResourceType();
@@ -105,20 +96,16 @@ QDataStream& operator<<(QDataStream& stream, const Planet planet) {
 
 QDataStream& operator>>(QDataStream& stream, Planet& planet) {
     QString name;
-    double x;
-    double y;
     double radius;
     int techLevelInt;
     int resourceTypeInt;
 
     stream >> name;
-    stream >> x;
-    stream >> y;
     stream >> radius;
     stream >> techLevelInt;
     stream >> resourceTypeInt;
 
-    planet = Planet(name, x, y);
+    planet = Planet(name);
 
     return stream;
 }

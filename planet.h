@@ -14,7 +14,7 @@ class Planet : public QObject
 {
 public:
     Planet();
-    Planet(QString name, double x, double y);
+    Planet(QString name);
     Planet(const Planet &);
     Planet &operator=(const Planet &);
     ~Planet();
@@ -53,8 +53,6 @@ public:
     };
 
     QString getName() const;
-    double getX() const;
-    double getY() const;
     double getRadius() const;
     QColor getColor() const;
     TechLevel getTechLevel() const;
@@ -70,6 +68,8 @@ private:
 };
 
 Q_DECLARE_TYPEINFO(Planet, Q_MOVABLE_TYPE);
+
+bool operator==(const Planet planet1, const Planet planet2);
 
 QDataStream& operator<<(QDataStream& stream, const Planet planet);
 QDataStream& operator>>(QDataStream& stream, Planet& planet);

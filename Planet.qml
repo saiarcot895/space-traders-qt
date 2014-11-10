@@ -12,7 +12,7 @@ Item {
 
     property string planetName
     property color planetColor
-    property int planetRadius
+    property double planetRadius
     property bool isCurrentPlanet
 
     property int rotationDuration: planetRadius * 20
@@ -42,9 +42,10 @@ Item {
                     systemLabelRectangle.visible = true;
                 }
                 onExited: {
-                    mouseEffect.brightness = 0
+                    mouseEffect.brightness = 0;
                     systemLabelRectangle.visible = false;
                 }
+                onClicked: setPlanet(planetName)
             }
         }
 

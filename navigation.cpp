@@ -50,6 +50,7 @@ void Navigation::travelToSolarSystem(QString solarSystem) {
     Ship ship = player.getShip();
 
     player.setCurrentSystem(galaxy.getSolarSystem(solarSystem));
+    player.setCurrentPlanet(player.getCurrentSystem().getPlanets().at(0));
     ship.setFuel(ship.getFuel() - galaxy.getDistanceBetweenSolarSystems(origin, destination));
 
     QObject* navigationRectangle = rootObject->findChild<QObject*>("navigationScreen");
