@@ -15,13 +15,13 @@ class SolarSystem : public QObject
 {
 public:
     SolarSystem(QString name = QStringLiteral(""));
-    SolarSystem(QString name, double x, double y, QList<Planet> planets);
+    SolarSystem(QString name, double x, double y, QMap<QString, Planet> planets);
     SolarSystem(const SolarSystem &);
     SolarSystem &operator=(const SolarSystem &);
     ~SolarSystem();
 
     QString getName() const;
-    QList<Planet> getPlanets() const;
+    QMap<QString, Planet> getPlanets() const;
     double getX() const;
     double getY() const;
     QColor getColor() const;

@@ -44,8 +44,12 @@ Image {
             Label {
                 text: ware
                 color: "orange"
-                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 2
+                anchors.right: parent.right
+                anchors.rightMargin: 2
+                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
             }
             MouseArea {

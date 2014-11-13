@@ -25,7 +25,8 @@ public:
 Player::Player() : data(new PlayerData)
 {
     data->currentSystem = Galaxy::getInstance().getSolarSystem("Earth616");
-    data->currentPlanet = data->currentSystem.getPlanets().at(0);
+    int planetIndex = qrand() % data->currentSystem.getPlanets().size();
+    data->currentPlanet = data->currentSystem.getPlanets().values().at(planetIndex);
     data->ship = Ship(Ship::Flea);
     data->credits = 750;
 }
@@ -165,6 +166,7 @@ QDataStream& operator<<(QDataStream& stream, const Player player) {
     stream << player.getEngineerSkill();
     stream << player.getInvestorSkill();
     stream << player.getCurrentSystem().getName();
+    stream << player.getCurrentPlanet().getName();
 
     return stream;
 }
@@ -181,6 +183,7 @@ QDataStream& operator>>(QDataStream& stream, Player player) {
     int engineerSkill;
     int investorSkill;
     QString systemName;
+    QString planetName;
 
     stream >> name;
     stream >> x;
@@ -193,6 +196,7 @@ QDataStream& operator>>(QDataStream& stream, Player player) {
     stream >> engineerSkill;
     stream >> investorSkill;
     stream >> systemName;
+    stream >> planetName;
 
     player.setName(name);
     player.setX(x);
@@ -205,6 +209,7 @@ QDataStream& operator>>(QDataStream& stream, Player player) {
     player.setEngineerSkill(engineerSkill);
     player.setInvestorSkill(investorSkill);
     player.setCurrentSystem(Galaxy::getInstance().getSolarSystem(systemName));
+    player.setCurrentPlanet(player.getCurrentSystem().getPlanets().value(planetName));
 
     return stream;
 }

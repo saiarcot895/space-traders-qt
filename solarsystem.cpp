@@ -4,7 +4,7 @@
 class SolarSystemData : public QSharedData {
 public:
     QString name;
-    QList<Planet> planets;
+    QMap<QString, Planet> planets;
     QColor color;
     double x;
     double y;
@@ -159,17 +159,17 @@ SolarSystem::SolarSystem(QString name) : data(new SolarSystemData)
     }
 
     for (int i = 0; i < numPlanets; i++) {
-        data->planets.append(Planet(chosenPlanetNames.at(i)));
+        data->planets.insert(chosenPlanetNames.at(i), Planet(chosenPlanetNames.at(i)));
     }
 }
 
-SolarSystem::SolarSystem(QString name, double x, double y, QList<Planet> planets)
+SolarSystem::SolarSystem(QString name, double x, double y, QMap<QString, Planet> planets)
     : data(new SolarSystemData)
 {
     data->name = name;
     data->x = x;
     data->y = y;
-    data->planets.append(planets);
+    data->planets = planets;
 }
 
 SolarSystem::SolarSystem(const SolarSystem &rhs) : data(rhs.data)
@@ -180,7 +180,7 @@ QString SolarSystem::getName() const {
     return data->name;
 }
 
-QList<Planet> SolarSystem::getPlanets() const {
+QMap<QString, Planet> SolarSystem::getPlanets() const {
     return data->planets;
 }
 
@@ -226,7 +226,7 @@ QDataStream& operator>>(QDataStream& stream, SolarSystem& solarSystem) {
     QString name;
     double x;
     double y;
-    QList<Planet> planets;
+    QMap<QString, Planet> planets;
 
     stream >> name;
     stream >> x;

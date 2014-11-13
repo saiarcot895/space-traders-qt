@@ -28,7 +28,7 @@ void Shipyard::showShipyard() {
                               Q_ARG(QVariant, currentShip.getMaxHealth()),
                               Q_ARG(QVariant, currentShip.getMaxFuel()));
 
-    for (int i = 0; i < Ship::SHIP_TYPE_SIZE; i++) {
+    for (int i = 0; i < Ship::SIZE_SHIP_TYPE; i++) {
         Ship ship(static_cast<Ship::ShipType>(i));
         QMetaObject::invokeMethod(shipyardShips, "createShip",
                                   Q_ARG(QVariant, ship.getName()),

@@ -21,11 +21,11 @@ public:
         Bumblebee,
         Beetle,
         Hornet,
-        Grasshopper,
-        Termite,
-        Wasp,
+        //Grasshopper,
+        //Termite,
+        //Wasp,
 
-        SHIP_TYPE_SIZE
+        SIZE_SHIP_TYPE
     };
 
     Ship(ShipType type = UnknownShip);

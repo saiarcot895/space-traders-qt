@@ -41,8 +41,12 @@ Item {
             Label {
                 text: shipName
                 color: "blue"
-                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 2
+                anchors.right: parent.right
+                anchors.rightMargin: 2
+                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
             }
             MouseArea {
@@ -80,7 +84,7 @@ Item {
             cellWidth: 75
             delegate: gridItem
             highlight: Rectangle {
-                color: "lightsteelblue";
+                color: "lightsalmon";
                 radius: 5
             }
             focus: true
@@ -227,6 +231,16 @@ Item {
                     text: displayItemInfo.maxFuel
                     color: "blue"
                 }
+            }
+
+            Button {
+                id: buyShipButton
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 8
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+                enabled: displayItemInfo.shipName !== "" && displayItemInfo.currentShipName !== displayItemInfo.shipName
+                text: "Buy Ship"
             }
         }
     }

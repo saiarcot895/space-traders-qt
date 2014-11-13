@@ -47,6 +47,18 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxHealth = 5000;
         data->maxFuel = 8000;
         data->cargoCapacity = 25;
+    } else if (type == Ship::Beetle) {
+        data->shipType = Ship::Beetle;
+        data->name = QStringLiteral("Beetle");
+        data->maxHealth = 3000;
+        data->maxFuel = 6000;
+        data->cargoCapacity = 40;
+    } else if (type == Ship::Hornet) {
+        data->shipType = Ship::Hornet;
+        data->name = QStringLiteral("Hornet");
+        data->maxHealth = 5000;
+        data->maxFuel = 8000;
+        data->cargoCapacity = 20;
     }
 
     data->health = data->maxHealth;

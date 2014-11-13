@@ -19,7 +19,7 @@ void PlanetNavigation::showPlanetNavigationPage() {
 
     QObject* navigationRectangle = rootObject->findChild<QObject*>("planetNavigationScreen");
 
-    QList<Planet> planets = player.getCurrentSystem().getPlanets();
+    QList<Planet> planets = player.getCurrentSystem().getPlanets().values();
     Planet currentPlanet = player.getCurrentPlanet();
 
     for (int i = 0; i < planets.size(); i++) {
