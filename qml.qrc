@@ -14,5 +14,6 @@
         <file>Planet.qml</file>
         <file>planetNavigation.qml</file>
         <file>shipyard.qml</file>
+        <file>ShipyardShips.qml</file>
     </qresource>
 </RCC>

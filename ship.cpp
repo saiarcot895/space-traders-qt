@@ -5,6 +5,7 @@
 class ShipData : public QSharedData {
 public:
     Ship::ShipType shipType;
+    QString name;
     int health;
     int maxHealth;
     int fuel;
@@ -18,26 +19,31 @@ Ship::Ship(ShipType type) : data(new ShipData)
 {
     if (type == Ship::Flea) {
         data->shipType = Ship::Flea;
+        data->name = QStringLiteral("Flea");
         data->maxHealth = 5000;
         data->maxFuel = 700;
         data->cargoCapacity = 5;
     } else if (type == Ship::Gnat) {
         data->shipType = Ship::Gnat;
+        data->name = QStringLiteral("Gnat");
         data->maxHealth = 2000;
         data->maxFuel = 2500;
         data->cargoCapacity = 15;
     } else if (type == Ship::Firefly) {
         data->shipType = Ship::Firefly;
+        data->name = QStringLiteral("Firefly");
         data->maxHealth = 5000;
         data->maxFuel = 4000;
         data->cargoCapacity = 20;
     } else if (type == Ship::Mosquito) {
         data->shipType = Ship::Mosquito;
+        data->name = QStringLiteral("Mosquito");
         data->maxHealth = 5000;
         data->maxFuel = 5000;
         data->cargoCapacity = 15;
     } else if (type == Ship::Bumblebee) {
         data->shipType = Ship::Bumblebee;
+        data->name = QStringLiteral("Bumblebee");
         data->maxHealth = 5000;
         data->maxFuel = 8000;
         data->cargoCapacity = 25;
@@ -50,6 +56,10 @@ Ship::Ship(ShipType type) : data(new ShipData)
 
 Ship::Ship(const Ship &rhs) : data(rhs.data)
 {
+}
+
+QString Ship::getName() const {
+    return data->name;
 }
 
 int Ship::getItemQuantity(Ware item) const {

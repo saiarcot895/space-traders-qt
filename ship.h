@@ -23,7 +23,9 @@ public:
         Hornet,
         Grasshopper,
         Termite,
-        Wasp
+        Wasp,
+
+        SHIP_TYPE_SIZE
     };
 
     Ship(ShipType type = UnknownShip);
@@ -31,6 +33,7 @@ public:
     Ship &operator=(const Ship &);
     ~Ship();
 
+    QString getName() const;
     int getItemQuantity(Ware item) const;
     int getNumItemsInCargo() const;
     int getCargoCapacity() const;

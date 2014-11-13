@@ -32,6 +32,9 @@ Image {
 
         Tab {
             title: "Ships"
+            sourceComponent: ShipyardShips {
+
+            }
         }
         Tab {
             title: "Gadgets"

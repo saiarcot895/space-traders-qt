@@ -41,12 +41,12 @@ Image {
             border.width: 1
             radius: 5
             color: "transparent"
-            Text {
+            Label {
                 text: ware
                 color: "orange"
-                font.pointSize: 12
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
+                wrapMode: Text.Wrap
             }
             MouseArea {
                 anchors.fill: parent
