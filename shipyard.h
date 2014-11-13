@@ -12,6 +12,8 @@ public:
     void setRootObject(QObject *rootObject);
     void showShipyard();
 
+    Q_INVOKABLE void buyShip(int index);
+
 private:
     QObject* rootObject;
 

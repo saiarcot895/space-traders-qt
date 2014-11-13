@@ -34,6 +34,7 @@ public:
     ~Ship();
 
     QString getName() const;
+    int getCost() const;
     int getItemQuantity(Ware item) const;
     int getNumItemsInCargo() const;
     int getCargoCapacity() const;

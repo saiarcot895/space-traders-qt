@@ -7,7 +7,6 @@ Item {
     anchors.fill: parent
 
     property int creditsAvailable
-    property int creditChanges
 
     Label {
         id: creditsAvailableLabel
@@ -17,16 +16,6 @@ Item {
         anchors.topMargin: 8
         anchors.left: parent.left
         anchors.leftMargin: 8
-    }
-
-    Label {
-        id: creditChangesLabel
-        text: qsTr("Credit Changes: ")  + creditChanges
-        color: "blue"
-        anchors.top: parent.top
-        anchors.topMargin: 8
-        anchors.right: parent.right
-        anchors.rightMargin: 8
     }
 
     Component {
@@ -57,6 +46,7 @@ Item {
                     displayItemInfo.cargoCapacity = cargoCapacity;
                     displayItemInfo.maxHealth = maxHealth;
                     displayItemInfo.maxFuel = maxFuel;
+                    displayItemInfo.cost = cost;
                 }
                 onEntered: parent.border.color = "orange"
                 onExited: parent.border.color = "blue"
@@ -99,11 +89,13 @@ Item {
             property int currentCargoCapacity
             property int currentMaxHealth
             property int currentMaxFuel
+            property int currentCost
 
             property string shipName
             property int cargoCapacity
             property int maxHealth
             property int maxFuel
+            property int cost
 
             Item {
                 id: shipNameGroup
@@ -233,6 +225,38 @@ Item {
                 }
             }
 
+            Item {
+                id: costGroup
+                anchors.top: maxFuelGroup.bottom
+                anchors.topMargin: 6
+                anchors.left: parent.left
+                anchors.leftMargin: 8
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+                implicitHeight: Math.max(currentCost.height, costLabel.height, newCost.height)
+
+                Label {
+                    id: currentCost
+                    anchors.left: parent.left
+                    anchors.leftMargin: 6
+                    text: displayItemInfo.currentCost
+                    color: "blue"
+                }
+                Label {
+                    id: costLabel
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Cost")
+                    color: "blue"
+                }
+                Label {
+                    id: newCost
+                    anchors.right: parent.right
+                    anchors.rightMargin: 6
+                    text: displayItemInfo.cost
+                    color: "blue"
+                }
+            }
+
             Button {
                 id: buyShipButton
                 anchors.bottom: parent.bottom
@@ -241,6 +265,7 @@ Item {
                 anchors.rightMargin: 8
                 enabled: displayItemInfo.shipName !== "" && displayItemInfo.currentShipName !== displayItemInfo.shipName
                 text: "Buy Ship"
+                onClicked: shipyard.buyShip(gridView1.currentIndex)
             }
         }
     }
@@ -250,9 +275,9 @@ Item {
         z: 1
     }
 
-    function createShip(shipName, cargoCapacity, maxHealth, maxFuel) {
+    function createShip(shipName, cargoCapacity, maxHealth, maxFuel, cost) {
         gridView1.model.append({"shipName": shipName, "cargoCapacity": cargoCapacity,
-                                   "maxHealth": maxHealth, "maxFuel": maxFuel});
+                                   "maxHealth": maxHealth, "maxFuel": maxFuel, "cost": cost});
     }
 
     function getShip(index) {
@@ -266,14 +291,16 @@ Item {
             displayItemInfo.cargoCapacity = product.cargoCapacity;
             displayItemInfo.maxHealth = product.maxHealth;
             displayItemInfo.maxFuel = product.maxFuel;
+            displayItemInfo.cost = product.cost;
         }
     }
 
-    function setCurrentShip(shipName, cargoCapacity, maxHealth, maxFuel) {
+    function setCurrentShip(shipName, cargoCapacity, maxHealth, maxFuel, cost) {
         displayItemInfo.currentShipName = shipName;
         displayItemInfo.currentCargoCapacity = cargoCapacity;
         displayItemInfo.currentMaxHealth = maxHealth;
         displayItemInfo.currentMaxFuel = maxFuel;
+        displayItemInfo.currentCost = cost;
     }
 
     function showMessage(message) {

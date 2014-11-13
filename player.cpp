@@ -28,7 +28,7 @@ Player::Player() : data(new PlayerData)
     int planetIndex = qrand() % data->currentSystem.getPlanets().size();
     data->currentPlanet = data->currentSystem.getPlanets().values().at(planetIndex);
     data->ship = Ship(Ship::Flea);
-    data->credits = 750;
+    data->credits = 2000;
 }
 
 Player::Player(const Player &rhs) : data(rhs.data)
