@@ -2,6 +2,7 @@
 
 #include <QQmlComponent>
 #include <QQmlContext>
+#include <QFile>
 
 MainController::MainController(QObject *parent) :
     QObject(parent),
@@ -63,6 +64,27 @@ void MainController::showMarketplace() {
 
 void MainController::showShipyard() {
     shipyard->showShipyard();
+}
+
+void MainController::saveData() {
+    QFile file("file.dat");
+    file.open(QIODevice::WriteOnly);
+    QDataStream out(&file);
+    out << Galaxy::getInstance();
+    out << Player::getInstance();
+    file.close();
+}
+
+void MainController::loadData() {
+    QFile file("file.dat");
+    file.open(QIODevice::ReadOnly);
+
+    QDataStream in(&file);
+    Galaxy galaxy = Galaxy::getInstance();
+    Player player = Player::getInstance();
+    in >> galaxy;
+    in >> player;
+    file.close();
 }
 
 MainController::~MainController() {

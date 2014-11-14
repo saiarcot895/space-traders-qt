@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include <QExplicitlySharedDataPointer>
+#include <QDataStream>
 
 class WareData;
 
@@ -48,5 +49,8 @@ private:
 Q_DECLARE_TYPEINFO(Ware, Q_MOVABLE_TYPE);
 
 bool operator <(Ware a, Ware b);
+
+QDataStream& operator<<(QDataStream& stream, const Ware ware);
+QDataStream& operator>>(QDataStream& stream, Ware& ware);
 
 #endif // WARE_H

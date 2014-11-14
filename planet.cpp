@@ -26,6 +26,15 @@ Planet::Planet(QString name) : data(new PlanetData)
     produceWares();
 }
 
+Planet::Planet(QString name, double radius, TechLevel techLevel, ResourceTypes resourceTypes) :
+    data(new PlanetData) {
+    data->name = name;
+    data->radius = radius;
+    data->color = QColor(qrand() % 256, qrand() % 256, qrand() % 256, 127);
+    data->techLevel = techLevel;
+    data->resourceTypes = resourceTypes;
+}
+
 Planet::Planet(const Planet &rhs) : data(rhs.data)
 {
 }
@@ -105,7 +114,7 @@ QDataStream& operator>>(QDataStream& stream, Planet& planet) {
     stream >> techLevelInt;
     stream >> resourceTypeInt;
 
-    planet = Planet(name);
+    planet = Planet(name, radius, static_cast<Planet::TechLevel>(techLevelInt), static_cast<Planet::ResourceTypes>(resourceTypeInt));
 
     return stream;
 }

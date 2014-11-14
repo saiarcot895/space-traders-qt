@@ -17,8 +17,6 @@ public:
     ~Player();
 
     QString getName() const;
-    double getX() const;
-    double getY() const;
     int getCredits() const;
     int getRemainingSkill() const;
     int getPilotSkill() const;
@@ -31,8 +29,6 @@ public:
     Ship getShip() const;
 
     void setName(QString name);
-    void setX(double x);
-    void setY(double y);
     void setCredits(int credits);
     void setRemainingSkill(int remainingSkill);
     void setPilotSkill(int pilotSkill);

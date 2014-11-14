@@ -8,8 +8,6 @@ Player Player::instance = Player();
 class PlayerData : public QSharedData {
 public:
     QString name;
-    double x;
-    double y;
     int credits;
     int remainingSkill;
     int pilotSkill;
@@ -37,14 +35,6 @@ Player::Player(const Player &rhs) : data(rhs.data)
 
 QString Player::getName() const {
     return data->name;
-}
-
-double Player::getX() const {
-    return data->x;
-}
-
-double Player::getY() const {
-    return data->y;
 }
 
 int Player::getCredits() const {
@@ -89,14 +79,6 @@ Ship Player::getShip() const {
 
 void Player::setName(QString name) {
     data->name = name;
-}
-
-void Player::setX(double x) {
-    data->x = x;
-}
-
-void Player::setY(double y) {
-    data->y = y;
 }
 
 void Player::setCredits(int credits) {
@@ -156,8 +138,6 @@ Player::~Player()
 
 QDataStream& operator<<(QDataStream& stream, const Player player) {
     stream << player.getName();
-    stream << player.getX();
-    stream << player.getY();
     stream << player.getCredits();
     stream << player.getRemainingSkill();
     stream << player.getPilotSkill();
@@ -167,14 +147,13 @@ QDataStream& operator<<(QDataStream& stream, const Player player) {
     stream << player.getInvestorSkill();
     stream << player.getCurrentSystem().getName();
     stream << player.getCurrentPlanet().getName();
+    stream << player.getShip();
 
     return stream;
 }
 
 QDataStream& operator>>(QDataStream& stream, Player player) {
     QString name;
-    double x;
-    double y;
     int credits;
     int remainingSkill;
     int pilotSkill;
@@ -184,10 +163,9 @@ QDataStream& operator>>(QDataStream& stream, Player player) {
     int investorSkill;
     QString systemName;
     QString planetName;
+    Ship ship;
 
     stream >> name;
-    stream >> x;
-    stream >> y;
     stream >> credits;
     stream >> remainingSkill;
     stream >> pilotSkill;
@@ -197,10 +175,9 @@ QDataStream& operator>>(QDataStream& stream, Player player) {
     stream >> investorSkill;
     stream >> systemName;
     stream >> planetName;
+    stream >> ship;
 
     player.setName(name);
-    player.setX(x);
-    player.setY(y);
     player.setCredits(credits);
     player.setRemainingSkill(remainingSkill);
     player.setPilotSkill(pilotSkill);
@@ -210,6 +187,7 @@ QDataStream& operator>>(QDataStream& stream, Player player) {
     player.setInvestorSkill(investorSkill);
     player.setCurrentSystem(Galaxy::getInstance().getSolarSystem(systemName));
     player.setCurrentPlanet(player.getCurrentSystem().getPlanets().value(planetName));
+    player.setShip(ship);
 
     return stream;
 }

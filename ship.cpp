@@ -78,6 +78,10 @@ Ship::Ship(const Ship &rhs) : data(rhs.data)
 {
 }
 
+Ship::ShipType Ship::getType() const {
+    return data->shipType;
+}
+
 QString Ship::getName() const {
     return data->name;
 }
@@ -88,6 +92,10 @@ int Ship::getCost() const {
 
 int Ship::getItemQuantity(Ware item) const {
     return data->cargo.value(item);
+}
+
+QMap<Ware, int> Ship::getItems() const {
+    return data->cargo;
 }
 
 int Ship::getNumItemsInCargo() const {
@@ -137,4 +145,35 @@ Ship &Ship::operator=(const Ship &rhs)
 
 Ship::~Ship()
 {
+}
+
+QDataStream& operator<<(QDataStream& stream, const Ship ship) {
+    stream << ship.getType();
+    stream << ship.getItems();
+    stream << ship.getHealth();
+    stream << ship.getFuel();
+
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Ship& ship) {
+    int shipType;
+    QMap<Ware, int> items;
+    int health;
+    int fuel;
+
+    stream >> shipType;
+    stream >> items;
+    stream >> health;
+    stream >> fuel;
+
+    ship = Ship(static_cast<Ship::ShipType>(shipType));
+    for (int i = 0; i < Ware::SIZE_GOOD; i++) {
+        Ware ware(static_cast<Ware::Good>(i));
+        ship.setItemQuantity(ware, items.value(ware));
+    }
+    ship.setHealth(health);
+    ship.setFuel(fuel);
+
+    return stream;
 }

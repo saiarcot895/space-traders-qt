@@ -30,6 +30,9 @@ public:
     Q_INVOKABLE void showMarketplace();
     Q_INVOKABLE void showShipyard();
 
+    Q_INVOKABLE void saveData();
+    Q_INVOKABLE void loadData();
+
 private:
     QQmlApplicationEngine* engine;
     QObject* rootObject;

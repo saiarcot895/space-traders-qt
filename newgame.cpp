@@ -1,5 +1,6 @@
 #include "newgame.h"
 #include "player.h"
+#include "maincontroller.h"
 
 #include <QVariant>
 
@@ -52,4 +53,6 @@ void NewGame::createPlayer() {
     player.setEngineerSkill(rootObject->findChild<QObject*>("engineerSkill")->property("skillLevel").toInt());
     player.setTraderSkill(rootObject->findChild<QObject*>("traderSkill")->property("skillLevel").toInt());
     player.setInvestorSkill(rootObject->findChild<QObject*>("investorSkill")->property("skillLevel").toInt());
+
+    static_cast<MainController>(parent()).saveData();
 }

@@ -156,14 +156,6 @@ Galaxy::Galaxy() : data(new GalaxyData)
     }
 }
 
-Galaxy::Galaxy(const QList<SolarSystem> solarSystems)
-    : data(new GalaxyData)
-{
-    for (int i = 0; i < solarSystems.size(); i++) {
-        data->solarSystems.insert(solarSystems.at(i).getName(), solarSystems.at(i));
-    }
-}
-
 Galaxy::Galaxy(const Galaxy &rhs) : data(rhs.data)
 {
 }
@@ -182,6 +174,14 @@ double Galaxy::getDistanceBetweenSolarSystems(const SolarSystem origin, const So
 
 Galaxy Galaxy::getInstance() {
     return instance;
+}
+
+void Galaxy::setSolarSystems(QList<SolarSystem> solarSystems) {
+    data->solarSystems.clear();
+    for (int i = 0; i < solarSystems.size(); i++) {
+        SolarSystem solarSystem = solarSystems.at(i);
+        data->solarSystems.insert(solarSystem.getName(), solarSystem);
+    }
 }
 
 Galaxy &Galaxy::operator=(const Galaxy &rhs)
@@ -212,12 +212,12 @@ QDataStream& operator<<(QDataStream& stream, const Galaxy galaxy) {
     return stream;
 }
 
-QDataStream& operator>>(QDataStream& stream, Galaxy& galaxy) {
+QDataStream& operator>>(QDataStream& stream, Galaxy galaxy) {
     QList<SolarSystem> solarSystems;
 
     stream >> solarSystems;
 
-    galaxy = Galaxy(solarSystems);
+    galaxy.setSolarSystems(solarSystems);
 
     return stream;
 }

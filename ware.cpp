@@ -181,3 +181,16 @@ Ware::~Ware()
 bool operator <(Ware a, Ware b) {
     return a.getGood() < b.getGood();
 }
+
+QDataStream& operator<<(QDataStream& stream, const Ware ware) {
+    stream << ware.getGood();
+
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Ware& ware) {
+    int good;
+    stream >> good;
+    ware = Ware(static_cast<Ware::Good>(good));
+    return stream;
+}

@@ -11,7 +11,6 @@ class GalaxyData;
 class Galaxy : public QObject
 {
 public:
-    Galaxy(const QList<SolarSystem> solarSystems);
     Galaxy(const Galaxy &);
     Galaxy &operator=(const Galaxy &);
     ~Galaxy();
@@ -21,6 +20,8 @@ public:
     double getDistanceBetweenSolarSystems(const SolarSystem origin, const SolarSystem destination) const;
 
     static Galaxy getInstance();
+
+    void setSolarSystems(QList<SolarSystem> solarSystems);
 
 private:
     Galaxy();
@@ -35,6 +36,6 @@ private:
 Q_DECLARE_TYPEINFO(Galaxy, Q_MOVABLE_TYPE);
 
 QDataStream& operator<<(QDataStream& stream, const Galaxy galaxy);
-QDataStream& operator>>(QDataStream& stream, Galaxy& galaxy);
+QDataStream& operator>>(QDataStream& stream, Galaxy galaxy);
 
 #endif // GALAXY_H

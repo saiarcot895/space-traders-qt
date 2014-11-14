@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QExplicitlySharedDataPointer>
 #include <QList>
+#include <QMap>
+#include <QDataStream>
 #include "ware.h"
 
 class ShipData;
@@ -33,9 +35,11 @@ public:
     Ship &operator=(const Ship &);
     ~Ship();
 
+    ShipType getType() const;
     QString getName() const;
     int getCost() const;
     int getItemQuantity(Ware item) const;
+    QMap<Ware, int> getItems() const;
     int getNumItemsInCargo() const;
     int getCargoCapacity() const;
     int getHealth() const;
@@ -52,5 +56,8 @@ private:
 };
 
 Q_DECLARE_TYPEINFO(Ship, Q_MOVABLE_TYPE);
+
+QDataStream& operator<<(QDataStream& stream, const Ship ship);
+QDataStream& operator>>(QDataStream& stream, Ship& ship);
 
 #endif // SHIP_H

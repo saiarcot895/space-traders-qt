@@ -170,6 +170,7 @@ SolarSystem::SolarSystem(QString name, double x, double y, QMap<QString, Planet>
     data->x = x;
     data->y = y;
     data->planets = planets;
+    data->color = QColor(qrand() % 256, qrand() % 256, qrand() % 256, 48);
 }
 
 SolarSystem::SolarSystem(const SolarSystem &rhs) : data(rhs.data)

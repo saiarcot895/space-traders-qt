@@ -20,6 +20,19 @@ Image {
 
     Button {
         id: button2
+        text: qsTr("Continue")
+        anchors.bottom: button3.top
+        anchors.bottomMargin: 8
+        anchors.right: parent.right
+        anchors.rightMargin: 8
+        onClicked: {
+            mainController.loadData();
+            mainController.showNavigationPage();
+        }
+    }
+
+    Button {
+        id: button3
         text: qsTr("Settings")
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 32
