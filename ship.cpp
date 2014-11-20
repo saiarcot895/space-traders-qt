@@ -74,7 +74,9 @@ Ship::Ship(ShipType type) : data(new ShipData)
     data->numItemsInCargo = 0;
 }
 
-Ship::Ship(const Ship &rhs) : data(rhs.data)
+Ship::Ship(const Ship &rhs) :
+    QObject(),
+    data(rhs.data)
 {
 }
 

@@ -123,7 +123,9 @@ Ware::Ware(Good good) : data(new WareData)
     }
 }
 
-Ware::Ware(const Ware &rhs) : data(rhs.data)
+Ware::Ware(const Ware &rhs) :
+    QObject(),
+    data(rhs.data)
 {
 }
 

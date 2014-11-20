@@ -35,7 +35,9 @@ Planet::Planet(QString name, double radius, TechLevel techLevel, ResourceTypes r
     data->resourceTypes = resourceTypes;
 }
 
-Planet::Planet(const Planet &rhs) : data(rhs.data)
+Planet::Planet(const Planet &rhs) :
+    QObject(),
+    data(rhs.data)
 {
 }
 

@@ -29,7 +29,9 @@ Player::Player() : data(new PlayerData)
     data->credits = 2000;
 }
 
-Player::Player(const Player &rhs) : data(rhs.data)
+Player::Player(const Player &rhs) :
+    QObject(),
+    data(rhs.data)
 {
 }
 

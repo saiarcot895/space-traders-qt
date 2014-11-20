@@ -156,7 +156,9 @@ Galaxy::Galaxy() : data(new GalaxyData)
     }
 }
 
-Galaxy::Galaxy(const Galaxy &rhs) : data(rhs.data)
+Galaxy::Galaxy(const Galaxy &rhs) :
+    QObject(),
+    data(rhs.data)
 {
 }
 

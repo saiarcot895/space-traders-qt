@@ -15,7 +15,7 @@ SolarSystem::SolarSystem(QString name) : data(new SolarSystemData)
     data->name = name;
     data->x = qrand() % 1000;
     data->y = qrand() % 1000;
-    data->color = QColor(qrand() % 256, qrand() % 256, qrand() % 256, 48);
+    data->color = QColor(qrand() % 256, qrand() % 256, qrand() % 256, 96);
 
     QStringList planetNames;
     planetNames.append(QStringLiteral("6 Echo"));
@@ -173,7 +173,9 @@ SolarSystem::SolarSystem(QString name, double x, double y, QMap<QString, Planet>
     data->color = QColor(qrand() % 256, qrand() % 256, qrand() % 256, 48);
 }
 
-SolarSystem::SolarSystem(const SolarSystem &rhs) : data(rhs.data)
+SolarSystem::SolarSystem(const SolarSystem &rhs) :
+    QObject(),
+    data(rhs.data)
 {
 }
 
