@@ -3,6 +3,7 @@
 #include <QQmlComponent>
 #include <QQmlContext>
 #include <QFile>
+#include <QDir>
 
 MainController::MainController(QObject *parent) :
     QObject(parent),
@@ -67,8 +68,9 @@ void MainController::showShipyard() {
 }
 
 void MainController::saveData() {
-    QFile file("file.dat");
+    QFile file(QDir::homePath() + QStringLiteral("/file.dat"));
     file.open(QIODevice::WriteOnly);
+
     QDataStream out(&file);
     out << Galaxy::getInstance();
     out << Player::getInstance();
@@ -76,7 +78,7 @@ void MainController::saveData() {
 }
 
 void MainController::loadData() {
-    QFile file("file.dat");
+    QFile file(QDir::homePath() + QStringLiteral("/file.dat"));
     file.open(QIODevice::ReadOnly);
 
     QDataStream in(&file);
