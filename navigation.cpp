@@ -21,6 +21,9 @@ void Navigation::showNavigationPage() {
     QObject* navigationRectangle = rootObject->findChild<QObject*>("navigationScreen");
     QObject* mapRegion = rootObject->findChild<QObject*>("mapRegion");
 
+    navigationRectangle->setProperty("fuelCapacity", player.getShip().getMaxFuel());
+    navigationRectangle->setProperty("currentFuel", player.getShip().getFuel());
+
     for (int i = 0; i < galaxy.getSolarSystems().size(); i++) {
         const SolarSystem system = galaxy.getSolarSystems().at(i);
 #ifndef Q_OS_ANDROID
@@ -62,4 +65,5 @@ void Navigation::travelToSolarSystem(QString solarSystem) {
 
     QMetaObject::invokeMethod(navigationRectangle, "setNewCurrentPlanet",
                               Q_ARG(QVariant, destination.getName()));
+    navigationRectangle->setProperty("currentFuel", player.getShip().getFuel());
 }

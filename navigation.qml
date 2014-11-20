@@ -15,6 +15,9 @@ Image {
     property int solarSystemPlanets
     property bool travelEnabled
 
+    property int fuelCapacity
+    property int currentFuel
+
     Button {
         id: planetButton
         anchors.top: parent.top
@@ -22,6 +25,26 @@ Image {
         anchors.horizontalCenter: parent.horizontalCenter
         text: "Planet"
         onClicked: mainController.showPlanetNavigationPage()
+    }
+
+    ProgressBar {
+        id: fuelBar
+        anchors.right: parent.right
+        anchors.rightMargin: 8
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        minimumValue: 0
+        maximumValue: fuelCapacity
+        value: currentFuel
+    }
+
+    Label {
+        id: fuelLabel
+        anchors.right: fuelBar.left
+        anchors.rightMargin: 6
+        anchors.verticalCenter: fuelBar.verticalCenter
+        text: "⛽"
+        color: "white"
     }
 
     Rectangle {
