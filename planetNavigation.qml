@@ -12,6 +12,7 @@ Image {
     z: -1
 
     property string planetName
+    property bool smallIcon: parent.width <= navigationPageButton.width + marketplaceButton.width + shipyardButton.width + 24
 
     Button {
         id: navigationPageButton
@@ -20,6 +21,18 @@ Image {
         anchors.left: parent.left
         anchors.leftMargin: 8
         text: "Back to Navigation Page"
+        visible: !smallIcon
+        onClicked: mainController.showNavigationPage()
+    }
+
+    Button {
+        id: smallNavigationPageButton
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        text: "←"
+        visible: smallIcon
         onClicked: mainController.showNavigationPage()
     }
 
@@ -40,6 +53,18 @@ Image {
         anchors.right: marketplaceButton.left
         anchors.rightMargin: 6
         text: "Shipyard"
+        visible: !smallIcon
+        onClicked: mainController.showShipyard()
+    }
+
+    Button {
+        id: smallShipyardButton
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.right: marketplaceButton.left
+        anchors.rightMargin: 6
+        text: "🚀"
+        visible: smallIcon
         onClicked: mainController.showShipyard()
     }
 
