@@ -15,5 +15,6 @@
         <file>planetNavigation.qml</file>
         <file>shipyard.qml</file>
         <file>ShipyardShips.qml</file>
+        <file>SolarSystemAndroid.qml</file>
     </qresource>
 </RCC>

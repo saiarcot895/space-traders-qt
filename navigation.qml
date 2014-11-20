@@ -153,6 +153,16 @@ Image {
         }
     }
 
+    function createPlanetButtonsAndroid(name, color, isCurrentSystem, x, y) {
+        var component = Qt.createComponent("SolarSystemAndroid.qml");
+        var sprite = component.createObject(mapRegion.contentItem, {"solarSystemName": name, "solarSystemColor": color,
+                                                "isCurrentSystem": isCurrentSystem, "x": x, "y": y});
+
+        if (sprite === null) {
+            console.log("Error creating object");
+        }
+    }
+
     function setSolarSystem(name) {
         solarSystemName = name;
         solarSystemPlanets = navigation.getNumPlanets(name);
