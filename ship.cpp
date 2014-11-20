@@ -14,6 +14,8 @@ public:
     QMap<Ware, int> cargo;
     int numItemsInCargo;
     int cargoCapacity;
+    QSet<Gadget> gadgets;
+    int gadgetCapacity;
 };
 
 Ship::Ship(ShipType type) : data(new ShipData)
@@ -25,6 +27,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxHealth = 5000;
         data->maxFuel = 700;
         data->cargoCapacity = 5;
+        data->gadgetCapacity = 0;
     } else if (type == Ship::Gnat) {
         data->shipType = Ship::Gnat;
         data->name = QStringLiteral("Gnat");
@@ -32,6 +35,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxHealth = 2000;
         data->maxFuel = 2500;
         data->cargoCapacity = 15;
+        data->gadgetCapacity = 1;
     } else if (type == Ship::Firefly) {
         data->shipType = Ship::Firefly;
         data->name = QStringLiteral("Firefly");
@@ -39,6 +43,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxHealth = 5000;
         data->maxFuel = 4000;
         data->cargoCapacity = 20;
+        data->gadgetCapacity = 1;
     } else if (type == Ship::Mosquito) {
         data->shipType = Ship::Mosquito;
         data->name = QStringLiteral("Mosquito");
@@ -46,6 +51,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxHealth = 5000;
         data->maxFuel = 5000;
         data->cargoCapacity = 15;
+        data->gadgetCapacity = 1;
     } else if (type == Ship::Bumblebee) {
         data->shipType = Ship::Bumblebee;
         data->name = QStringLiteral("Bumblebee");
@@ -53,6 +59,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxHealth = 5000;
         data->maxFuel = 8000;
         data->cargoCapacity = 25;
+        data->gadgetCapacity = 2;
     } else if (type == Ship::Beetle) {
         data->shipType = Ship::Beetle;
         data->name = QStringLiteral("Beetle");
@@ -60,6 +67,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxHealth = 3000;
         data->maxFuel = 6000;
         data->cargoCapacity = 40;
+        data->gadgetCapacity = 2;
     } else if (type == Ship::Hornet) {
         data->shipType = Ship::Hornet;
         data->name = QStringLiteral("Hornet");
@@ -67,6 +75,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxHealth = 5000;
         data->maxFuel = 8000;
         data->cargoCapacity = 20;
+        data->gadgetCapacity = 3;
     }
 
     data->health = data->maxHealth;
@@ -136,6 +145,26 @@ void Ship::setHealth(int health) {
 
 void Ship::setFuel(int fuel) {
     data->fuel = fuel;
+}
+
+QSet<Gadget> Ship::getGadgets() const {
+    return data->gadgets;
+}
+
+int Ship::getGadgetCapacity() const {
+    return data->gadgetCapacity;
+}
+
+bool Ship::addGadget(Gadget gadget) {
+    if (data->gadgets.size() < data->gadgetCapacity && data->gadgets.contains(gadget)) {
+        data->gadgets.insert(gadget);
+        return true;
+    }
+    return false;
+}
+
+bool Ship::removeGadget(Gadget gadget) {
+    return data->gadgets.remove(gadget);
 }
 
 Ship &Ship::operator=(const Ship &rhs)

@@ -6,7 +6,9 @@
 #include <QList>
 #include <QMap>
 #include <QDataStream>
+#include <QSet>
 #include "ware.h"
+#include "gadget.h"
 
 class ShipData;
 
@@ -46,10 +48,14 @@ public:
     int getMaxHealth() const;
     int getFuel() const;
     int getMaxFuel() const;
+    QSet<Gadget> getGadgets() const;
+    int getGadgetCapacity() const;
 
     void setItemQuantity(Ware item, int quantity);
     void setHealth(int health);
     void setFuel(int fuel);
+    bool addGadget(Gadget gadget);
+    bool removeGadget(Gadget gadget);
 
 private:
     QExplicitlySharedDataPointer<ShipData> data;
