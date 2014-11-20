@@ -26,9 +26,12 @@ void Marketplace::showMarketplace() {
     for (int i = 0; i < Ware::SIZE_GOOD; i++) {
         Ware::Good good = static_cast<Ware::Good>(i);
         Ware ware(good);
+        int price = ware.getBasePrice() + ware.getPriceIncreasePerTechLevel()
+                * (planet.getTechLevel() - ware.getMinimumTechLevelToProduce());
+        price += ((qrand() % 250) / 250.0) * ware.getVariance();
         QMetaObject::invokeMethod(marketplaceScreen, "createProduct",
                                   Q_ARG(QVariant, ware.getName()),
-                                  Q_ARG(QVariant, ware.getBasePrice()),
+                                  Q_ARG(QVariant, price),
                                   Q_ARG(QVariant, planet.getItemQuantity(ware)),
                                   Q_ARG(QVariant, player.getShip().getItemQuantity(ware)));
     }
