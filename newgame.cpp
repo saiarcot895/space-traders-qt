@@ -54,7 +54,5 @@ void NewGame::createPlayer() {
     player.setTraderSkill(rootObject->findChild<QObject*>("traderSkill")->property("skillLevel").toInt());
     player.setInvestorSkill(rootObject->findChild<QObject*>("investorSkill")->property("skillLevel").toInt());
 
-#if !defined(Q_OS_ANDROID)
-    static_cast<MainController>(parent()).saveData();
-#endif
+    static_cast<MainController*>(parent())->saveData();
 }
