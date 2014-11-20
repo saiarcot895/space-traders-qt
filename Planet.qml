@@ -18,6 +18,18 @@ Item {
     property int rotationDuration: planetRadius * 20
 
     Rectangle {
+        id: orbit
+        x: -planetRadius
+        y: -planetRadius
+        width: planetRadius * 2
+        height: planetRadius * 2
+        color: "transparent"
+        border.color: "orange"
+        border.width: 1
+        radius: width * 0.5
+    }
+
+    Rectangle {
         id: currentSystemRectangle
         color: "#00000000"
         border.color: "#FF00FF00"
@@ -25,7 +37,8 @@ Item {
         radius: 5
         width: image1.width + 8
         height: image1.height + 8
-        x: planetRadius
+        x: planetRadius - currentSystemRectangle.width / 2
+        y: -currentSystemRectangle.height / 2
 
         Image {
             id: image1
@@ -96,8 +109,8 @@ Item {
             easing.type: Easing.InSine
             duration: rotationDuration
             property: "x"
-            from: planetRadius
-            to: 0
+            from: planetRadius - currentSystemRectangle.width / 2
+            to: -currentSystemRectangle.width / 2
         }
 
         PropertyAnimation {
@@ -106,8 +119,8 @@ Item {
             easing.type: Easing.OutSine
             duration: rotationDuration
             property: "y"
-            from: 0
-            to: planetRadius
+            from: -currentSystemRectangle.height / 2
+            to: planetRadius - currentSystemRectangle.height / 2
         }
     }
 
@@ -121,8 +134,8 @@ Item {
             easing.type: Easing.OutSine
             duration: rotationDuration
             property: "x"
-            from: 0
-            to: -planetRadius
+            from: -currentSystemRectangle.width / 2
+            to: -planetRadius - currentSystemRectangle.width / 2
         }
         PropertyAnimation {
             id: yMovement2
@@ -130,8 +143,8 @@ Item {
             easing.type: Easing.InSine
             duration: rotationDuration
             property: "y"
-            from: planetRadius
-            to: 0
+            from: planetRadius - currentSystemRectangle.height / 2
+            to: -currentSystemRectangle.height / 2
         }
     }
 
@@ -145,8 +158,8 @@ Item {
             easing.type: Easing.InSine
             duration: rotationDuration
             property: "x"
-            from: -planetRadius
-            to: 0
+            from: -planetRadius - currentSystemRectangle.width / 2
+            to: -currentSystemRectangle.width / 2
         }
 
         PropertyAnimation {
@@ -155,8 +168,8 @@ Item {
             easing.type: Easing.OutSine
             duration: rotationDuration
             property: "y"
-            from: 0
-            to: -planetRadius
+            from: -currentSystemRectangle.height / 2
+            to: -planetRadius - currentSystemRectangle.height / 2
         }
     }
 
@@ -170,8 +183,8 @@ Item {
             easing.type: Easing.OutSine
             duration: rotationDuration
             property: "x"
-            from: 0
-            to: planetRadius
+            from: -currentSystemRectangle.width / 2
+            to: planetRadius - currentSystemRectangle.width / 2
         }
 
         PropertyAnimation {
@@ -180,8 +193,8 @@ Item {
             easing.type: Easing.InSine
             duration: rotationDuration
             property: "y"
-            from: -planetRadius
-            to: 0
+            from: -planetRadius - currentSystemRectangle.height / 2
+            to: -currentSystemRectangle.height / 2
         }
     }
 }
