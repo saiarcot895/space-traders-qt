@@ -24,6 +24,8 @@ Image {
         anchors.leftMargin: 6
         anchors.top: parent.top
         anchors.topMargin: 8
+        anchors.right: parent.right
+        anchors.rightMargin: 8
         placeholderText: qsTr("Name")
     }
 
