@@ -33,11 +33,14 @@ Image {
         Tab {
             title: "Ships"
             sourceComponent: ShipyardShips {
-
             }
+            onLoaded: shipyard.instantiateShipTab()
         }
         Tab {
             title: "Gadgets"
+            sourceComponent: ShipyardGadgets {
+            }
+            onLoaded: shipyard.instantiateGadgetsTab()
         }
         Tab {
             title: "Weapons"

@@ -1,6 +1,7 @@
 #include "shipyard.h"
 #include "player.h"
 #include "ship.h"
+#include "gadget.h"
 
 #include <QVariant>
 
@@ -17,8 +18,11 @@ void Shipyard::setRootObject(QObject *rootObject) {
 void Shipyard::showShipyard() {
     Q_ASSERT(rootObject);
     rootObject->findChild<QObject*>("pageLoader")->setProperty("source", QStringLiteral("qrc:///shipyard.qml"));
+}
 
+void Shipyard::instantiateShipTab() {
     Player player = Player::getInstance();
+
     QObject* shipyardShips = rootObject->findChild<QObject*>("shipyardShips");
     shipyardShips->setProperty("creditsAvailable", player.getCredits());
 
@@ -27,6 +31,7 @@ void Shipyard::showShipyard() {
     QMetaObject::invokeMethod(shipyardShips, "setCurrentShip",
                               Q_ARG(QVariant, currentShip.getName()),
                               Q_ARG(QVariant, currentShip.getCargoCapacity()),
+                              Q_ARG(QVariant, currentShip.getGadgetCapacity()),
                               Q_ARG(QVariant, currentShip.getMaxHealth()),
                               Q_ARG(QVariant, currentShip.getMaxFuel()),
                               Q_ARG(QVariant, currentShip.getCost()));
@@ -36,9 +41,25 @@ void Shipyard::showShipyard() {
         QMetaObject::invokeMethod(shipyardShips, "createShip",
                                   Q_ARG(QVariant, ship.getName()),
                                   Q_ARG(QVariant, ship.getCargoCapacity()),
+                                  Q_ARG(QVariant, ship.getGadgetCapacity()),
                                   Q_ARG(QVariant, ship.getMaxHealth()),
                                   Q_ARG(QVariant, ship.getMaxFuel()),
                                   Q_ARG(QVariant, ship.getCost()));
+    }
+}
+
+void Shipyard::instantiateGadgetsTab() {
+    Player player = Player::getInstance();
+    QObject* shipyardGadgets = rootObject->findChild<QObject*>("shipyardGadgets");
+    shipyardGadgets->setProperty("creditsAvailable", player.getCredits());
+
+    for (int i = 0; i < Gadget::SIZE_GADGET_TYPE; i++) {
+        Gadget gadget(static_cast<Gadget::GadgetType>(i));
+        QMetaObject::invokeMethod(shipyardGadgets, "createGadget",
+                                  Q_ARG(QVariant, gadget.getName()),
+                                  Q_ARG(QVariant, gadget.getPrice()),
+                                  Q_ARG(QVariant, gadget.getMinimumTechLevel()),
+                                  Q_ARG(QVariant, player.getShip().getGadgets().contains(gadget)));
     }
 }
 
@@ -62,7 +83,70 @@ void Shipyard::buyShip(int index) {
     QMetaObject::invokeMethod(shipyardShips, "setCurrentShip",
                               Q_ARG(QVariant, newShip.getName()),
                               Q_ARG(QVariant, newShip.getCargoCapacity()),
+                              Q_ARG(QVariant, newShip.getGadgetCapacity()),
                               Q_ARG(QVariant, newShip.getMaxHealth()),
                               Q_ARG(QVariant, newShip.getMaxFuel()),
                               Q_ARG(QVariant, newShip.getCost()));
+}
+
+void Shipyard::buyGadget(int index) {
+    Gadget::GadgetType gadgetType = static_cast<Gadget::GadgetType>(index);
+    Gadget gadget(gadgetType);
+
+    Player player = Player::getInstance();
+    QObject* shipyardGadgets = rootObject->findChild<QObject*>("shipyardGadgets");
+
+    QVariant itemModelVariant;
+    QMetaObject::invokeMethod(shipyardGadgets, "getGadget",
+                              Q_RETURN_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, index));
+    QObject* itemModel = itemModelVariant.value<QObject*>();
+
+    if (player.getCredits() < gadget.getPrice()) {
+        QMetaObject::invokeMethod(shipyardGadgets, "showMessage",
+                                  Q_ARG(QVariant, QStringLiteral("Not enough credits!")));
+        return;
+    }
+
+    if (player.getShip().getGadgets().size() >= player.getShip().getGadgetCapacity()) {
+        QMetaObject::invokeMethod(shipyardGadgets, "showMessage",
+                                  Q_ARG(QVariant, QStringLiteral("No room for a gadget!")));
+        return;
+    }
+
+    player.getShip().addGadget(gadget);
+
+    itemModel->setProperty("bought", true);
+    QMetaObject::invokeMethod(shipyardGadgets, "setGadget",
+                              Q_ARG(QVariant, index),
+                              Q_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, true));
+
+    player.setCredits(player.getCredits() - gadget.getPrice());
+    shipyardGadgets->setProperty("creditsAvailable", player.getCredits());
+}
+
+void Shipyard::sellGadget(int index) {
+    Gadget::GadgetType gadgetType = static_cast<Gadget::GadgetType>(index);
+    Gadget gadget(gadgetType);
+
+    Player player = Player::getInstance();
+    QObject* shipyardGadgets = rootObject->findChild<QObject*>("shipyardGadgets");
+
+    QVariant itemModelVariant;
+    QMetaObject::invokeMethod(shipyardGadgets, "getGadget",
+                              Q_RETURN_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, index));
+    QObject* itemModel = itemModelVariant.value<QObject*>();
+
+    player.getShip().removeGadget(gadget);
+
+    itemModel->setProperty("bought", false);
+    QMetaObject::invokeMethod(shipyardGadgets, "setGadget",
+                              Q_ARG(QVariant, index),
+                              Q_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, true));
+
+    player.setCredits(player.getCredits() + gadget.getPrice());
+    shipyardGadgets->setProperty("creditsAvailable", player.getCredits());
 }

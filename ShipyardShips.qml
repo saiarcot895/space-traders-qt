@@ -44,6 +44,7 @@ Item {
                     gridView1.currentIndex = index;
                     displayItemInfo.shipName = shipName;
                     displayItemInfo.cargoCapacity = cargoCapacity;
+                    displayItemInfo.gadgetCapacity = gadgetCapacity;
                     displayItemInfo.maxHealth = maxHealth;
                     displayItemInfo.maxFuel = maxFuel;
                     displayItemInfo.cost = cost;
@@ -87,12 +88,14 @@ Item {
 
             property string currentShipName
             property int currentCargoCapacity
+            property int currentGadgetCapacity
             property int currentMaxHealth
             property int currentMaxFuel
             property int currentCost
 
             property string shipName
             property int cargoCapacity
+            property int gadgetCapacity
             property int maxHealth
             property int maxFuel
             property int cost
@@ -162,8 +165,40 @@ Item {
             }
 
             Item {
-                id: maxHealthGroup
+                id: gadgetCapacityGroup
                 anchors.top: cargoCapacityGroup.bottom
+                anchors.topMargin: 6
+                anchors.left: parent.left
+                anchors.leftMargin: 8
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+                implicitHeight: Math.max(currentGadgetCapacity.height, gadgetCapacityLabel.height, newGadgetCapacity.height)
+
+                Label {
+                    id: currentGadgetCapacity
+                    anchors.left: parent.left
+                    anchors.leftMargin: 6
+                    text: displayItemInfo.currentGadgetCapacity
+                    color: "blue"
+                }
+                Label {
+                    id: gadgetCapacityLabel
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Gadget Capacity")
+                    color: "blue"
+                }
+                Label {
+                    id: newGadgetCapacity
+                    anchors.right: parent.right
+                    anchors.rightMargin: 6
+                    text: displayItemInfo.gadgetCapacity
+                    color: "blue"
+                }
+            }
+
+            Item {
+                id: maxHealthGroup
+                anchors.top: gadgetCapacityGroup.bottom
                 anchors.topMargin: 6
                 anchors.left: parent.left
                 anchors.leftMargin: 8
@@ -275,8 +310,8 @@ Item {
         z: 1
     }
 
-    function createShip(shipName, cargoCapacity, maxHealth, maxFuel, cost) {
-        gridView1.model.append({"shipName": shipName, "cargoCapacity": cargoCapacity,
+    function createShip(shipName, cargoCapacity, gadgetCapacity, maxHealth, maxFuel, cost) {
+        gridView1.model.append({"shipName": shipName, "cargoCapacity": cargoCapacity, "gadgetCapacity": gadgetCapacity,
                                    "maxHealth": maxHealth, "maxFuel": maxFuel, "cost": cost});
     }
 
@@ -289,15 +324,17 @@ Item {
         if (updateInfoDisplay) {
             displayItemInfo.shipName = product.shipName;
             displayItemInfo.cargoCapacity = product.cargoCapacity;
+            displayItemInfo.gadgetCapacity = product.gadgetCapacity;
             displayItemInfo.maxHealth = product.maxHealth;
             displayItemInfo.maxFuel = product.maxFuel;
             displayItemInfo.cost = product.cost;
         }
     }
 
-    function setCurrentShip(shipName, cargoCapacity, maxHealth, maxFuel, cost) {
+    function setCurrentShip(shipName, cargoCapacity, gadgetCapacity, maxHealth, maxFuel, cost) {
         displayItemInfo.currentShipName = shipName;
         displayItemInfo.currentCargoCapacity = cargoCapacity;
+        displayItemInfo.currentGadgetCapacity = gadgetCapacity;
         displayItemInfo.currentMaxHealth = maxHealth;
         displayItemInfo.currentMaxFuel = maxFuel;
         displayItemInfo.currentCost = cost;

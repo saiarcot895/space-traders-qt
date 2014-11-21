@@ -16,6 +16,14 @@ class Ship : public QObject
 {
 public:
 
+    Q_PROPERTY(ShipType type READ getType)
+    Q_PROPERTY(QString name READ getName)
+    Q_PROPERTY(int cost READ getCost)
+    Q_PROPERTY(int cargoCapacity READ getCargoCapacity)
+    Q_PROPERTY(int maxHealth READ getMaxHealth)
+    Q_PROPERTY(int maxFuel READ getMaxFuel)
+    Q_PROPERTY(int gadgetCapacity READ getGadgetCapacity)
+
     enum ShipType {
         UnknownShip = -1,
         Flea,
