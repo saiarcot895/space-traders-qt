@@ -133,7 +133,7 @@ Image {
             anchors.rightMargin: 8
             text: "Travel to " + planetName
             onClicked: {
-                navigation.travelToSolarSystem(planetName);
+                //navigation.travelToSolarSystem(planetName);
                 planetInfoPane.visible = false;
             }
         }
