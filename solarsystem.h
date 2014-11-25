@@ -21,6 +21,7 @@ public:
     ~SolarSystem();
 
     QString getName() const;
+    Planet getPlanet(QString planetName) const;
     QMap<QString, Planet> getPlanets() const;
     double getX() const;
     double getY() const;

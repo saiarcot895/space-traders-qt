@@ -31,3 +31,14 @@ void PlanetNavigation::showPlanetNavigationPage() {
                                   Q_ARG(QVariant, planet == currentPlanet));
     }
 }
+
+void PlanetNavigation::travelToPlanet(QString planet) {
+    Player player = Player::getInstance();
+    Planet destination = player.getCurrentSystem().getPlanet(planet);
+    player.setCurrentPlanet(destination);
+
+    QObject* navigationRectangle = rootObject->findChild<QObject*>("planetNavigationScreen");
+
+    QMetaObject::invokeMethod(navigationRectangle, "setNewCurrentPlanet",
+                              Q_ARG(QVariant, planet));
+}

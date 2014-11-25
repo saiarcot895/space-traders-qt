@@ -14,6 +14,8 @@ public:
     void setRootObject(QObject* rootObject);
     void showPlanetNavigationPage();
 
+    Q_INVOKABLE void travelToPlanet(QString planet);
+
 private:
     QObject *rootObject;
 

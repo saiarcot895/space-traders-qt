@@ -183,6 +183,10 @@ QString SolarSystem::getName() const {
     return data->name;
 }
 
+Planet SolarSystem::getPlanet(QString planetName) const {
+    return data->planets.value(planetName);
+}
+
 QMap<QString, Planet> SolarSystem::getPlanets() const {
     return data->planets;
 }

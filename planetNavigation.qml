@@ -133,7 +133,7 @@ Image {
             anchors.rightMargin: 8
             text: "Travel to " + planetName
             onClicked: {
-                //navigation.travelToSolarSystem(planetName);
+                planetNavigation.travelToPlanet(planetName);
                 planetInfoPane.visible = false;
             }
         }
@@ -155,8 +155,8 @@ Image {
     }
 
     function setNewCurrentPlanet(name) {
-        for (var i in mapRegion.contentItem.children) {
-            var item = mapRegion.contentItem.children[i];
+        for (var i in solarSystemView.children) {
+            var item = solarSystemView.children[i];
             item.isCurrentPlanet = item.planetName === name;
         }
     }
