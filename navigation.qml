@@ -27,6 +27,26 @@ Image {
         onClicked: mainController.showPlanetNavigationPage()
     }
 
+    Button {
+        id: zoomInButton
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        text: "Zoom In"
+        onClicked: zoomMap(4 / 3)
+    }
+
+    Button {
+        id: zoomOutButton
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.left: zoomInButton.right
+        anchors.leftMargin: 6
+        text: "Zoom Out"
+        onClicked: zoomMap(3 / 4)
+    }
+
     ProgressBar {
         id: fuelBar
         anchors.right: parent.right
@@ -197,6 +217,17 @@ Image {
         for (var i in mapRegion.contentItem.children) {
             var item = mapRegion.contentItem.children[i];
             item.isCurrentSystem = item.solarSystemName === name;
+        }
+    }
+
+    function zoomMap(scaling) {
+        mapRegion.contentWidth *= scaling;
+        mapRegion.contentHeight *= scaling;
+        for (var i in mapRegion.contentItem.children) {
+            var item = mapRegion.contentItem.children[i];
+            item.x *= scaling;
+            item.y *= scaling;
+            item.size *= scaling;
         }
     }
 }

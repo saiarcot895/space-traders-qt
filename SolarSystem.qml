@@ -9,7 +9,7 @@ Item {
     property string solarSystemName
     property color solarSystemColor
     property bool isCurrentSystem
-
+    property double size: 32
 
     Rectangle {
         id: currentSystemRectangle
@@ -23,7 +23,7 @@ Item {
         Image {
             id: image1
             source: "qrc:///Planet.png"
-            sourceSize: Qt.size(32, 32)
+            sourceSize: Qt.size(size, size)
             anchors.horizontalCenter: currentSystemRectangle.horizontalCenter
             anchors.verticalCenter: currentSystemRectangle.verticalCenter
 
