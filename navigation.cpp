@@ -26,10 +26,10 @@ void Navigation::showNavigationPage() {
 
     for (int i = 0; i < galaxy.getSolarSystems().size(); i++) {
         const SolarSystem system = galaxy.getSolarSystems().at(i);
-#ifndef Q_OS_ANDROID
-        QMetaObject::invokeMethod(navigationRectangle, "createPlanetButtons",
-#else
+#if defined(Q_OS_ANDROID) && defined(Q_PROCESSOR_ARM)
         QMetaObject::invokeMethod(navigationRectangle, "createPlanetButtonsAndroid",
+#else
+        QMetaObject::invokeMethod(navigationRectangle, "createPlanetButtons",
 #endif
                                   Q_ARG(QVariant, system.getName()),
                                   Q_ARG(QVariant, system.getColor()),
