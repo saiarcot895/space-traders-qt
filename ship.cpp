@@ -16,6 +16,8 @@ public:
     int cargoCapacity;
     QSet<Gadget> gadgets;
     int gadgetCapacity;
+    QSet<Shield> shields;
+    int shieldCapacity;
 };
 
 Ship::Ship(ShipType type) : data(new ShipData)
@@ -28,6 +30,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxFuel = 700;
         data->cargoCapacity = 5;
         data->gadgetCapacity = 0;
+        data->shieldCapacity = 0;
     } else if (type == Ship::Gnat) {
         data->shipType = Ship::Gnat;
         data->name = QStringLiteral("Gnat");
@@ -36,6 +39,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxFuel = 2500;
         data->cargoCapacity = 15;
         data->gadgetCapacity = 1;
+        data->shieldCapacity = 0;
     } else if (type == Ship::Firefly) {
         data->shipType = Ship::Firefly;
         data->name = QStringLiteral("Firefly");
@@ -44,6 +48,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxFuel = 4000;
         data->cargoCapacity = 20;
         data->gadgetCapacity = 1;
+        data->shieldCapacity = 1;
     } else if (type == Ship::Mosquito) {
         data->shipType = Ship::Mosquito;
         data->name = QStringLiteral("Mosquito");
@@ -52,6 +57,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxFuel = 5000;
         data->cargoCapacity = 15;
         data->gadgetCapacity = 1;
+        data->shieldCapacity = 2;
     } else if (type == Ship::Bumblebee) {
         data->shipType = Ship::Bumblebee;
         data->name = QStringLiteral("Bumblebee");
@@ -68,6 +74,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxFuel = 6000;
         data->cargoCapacity = 40;
         data->gadgetCapacity = 2;
+        data->shieldCapacity = 3;
     } else if (type == Ship::Hornet) {
         data->shipType = Ship::Hornet;
         data->name = QStringLiteral("Hornet");
@@ -76,6 +83,7 @@ Ship::Ship(ShipType type) : data(new ShipData)
         data->maxFuel = 8000;
         data->cargoCapacity = 20;
         data->gadgetCapacity = 3;
+        data->shieldCapacity = 3;
     }
 
     data->health = data->maxHealth;
@@ -156,7 +164,7 @@ int Ship::getGadgetCapacity() const {
 }
 
 bool Ship::addGadget(Gadget gadget) {
-    if (data->gadgets.size() < data->gadgetCapacity && data->gadgets.contains(gadget)) {
+    if (data->gadgets.size() < data->gadgetCapacity && !data->gadgets.contains(gadget)) {
         data->gadgets.insert(gadget);
         return true;
     }
@@ -165,6 +173,26 @@ bool Ship::addGadget(Gadget gadget) {
 
 bool Ship::removeGadget(Gadget gadget) {
     return data->gadgets.remove(gadget);
+}
+
+QSet<Shield> Ship::getShields() const {
+    return data->shields;
+}
+
+int Ship::getShieldCapacity() const {
+    return data->shieldCapacity;
+}
+
+bool Ship::addShield(Shield shield) {
+    if (data->shields.size() < data->shieldCapacity && !data->shields.contains(shield)) {
+        data->shields.insert(shield);
+        return true;
+    }
+    return false;
+}
+
+bool Ship::removeShield(Shield shield) {
+    return data->shields.remove(shield);
 }
 
 Ship &Ship::operator=(const Ship &rhs)

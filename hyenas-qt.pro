@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     ship.cpp \
     planetnavigation.cpp \
     shipyard.cpp \
-    gadget.cpp
+    gadget.cpp \
+    shield.cpp
 
 RESOURCES += qml.qrc
 
@@ -44,4 +45,5 @@ HEADERS += \
     ship.h \
     planetnavigation.h \
     shipyard.h \
-    gadget.h
+    gadget.h \
+    shield.h

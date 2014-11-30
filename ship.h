@@ -9,6 +9,7 @@
 #include <QSet>
 #include "ware.h"
 #include "gadget.h"
+#include "shield.h"
 
 class ShipData;
 
@@ -58,12 +59,16 @@ public:
     int getMaxFuel() const;
     QSet<Gadget> getGadgets() const;
     int getGadgetCapacity() const;
+    QSet<Shield> getShields() const;
+    int getShieldCapacity() const;
 
     void setItemQuantity(Ware item, int quantity);
     void setHealth(int health);
     void setFuel(int fuel);
     bool addGadget(Gadget gadget);
     bool removeGadget(Gadget gadget);
+    bool addShield(Shield shield);
+    bool removeShield(Shield shield);
 
 private:
     QExplicitlySharedDataPointer<ShipData> data;

@@ -47,6 +47,9 @@ Image {
         }
         Tab {
             title: "Shields"
+            sourceComponent: ShipyardShields {
+            }
+            onLoaded: shipyard.instantiateShieldsTab()
         }
     }
 }

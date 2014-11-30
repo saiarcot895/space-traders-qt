@@ -63,6 +63,21 @@ void Shipyard::instantiateGadgetsTab() {
     }
 }
 
+void Shipyard::instantiateShieldsTab() {
+    Player player = Player::getInstance();
+    QObject* shipyardShields = rootObject->findChild<QObject*>("shipyardShields");
+    shipyardShields->setProperty("creditsAvailable", player.getCredits());
+
+    for (int i = 0; i < Shield::SIZE_SHIELD_TYPE; i++) {
+        Shield shield(static_cast<Shield::ShieldType>(i));
+        QMetaObject::invokeMethod(shipyardShields, "createShield",
+                                  Q_ARG(QVariant, shield.getName()),
+                                  Q_ARG(QVariant, shield.getPrice()),
+                                  Q_ARG(QVariant, shield.getStrength()),
+                                  Q_ARG(QVariant, player.getShip().getShields().contains(shield)));
+    }
+}
+
 void Shipyard::buyShip(int index) {
     Ship::ShipType shipType = static_cast<Ship::ShipType>(index);
     Ship newShip(shipType);
@@ -149,4 +164,66 @@ void Shipyard::sellGadget(int index) {
 
     player.setCredits(player.getCredits() + gadget.getPrice());
     shipyardGadgets->setProperty("creditsAvailable", player.getCredits());
+}
+
+void Shipyard::buyShield(int index) {
+    Shield::ShieldType shieldType = static_cast<Shield::ShieldType>(index);
+    Shield shield(shieldType);
+
+    Player player = Player::getInstance();
+    QObject* shipyardShields = rootObject->findChild<QObject*>("shipyardShields");
+
+    QVariant itemModelVariant;
+    QMetaObject::invokeMethod(shipyardShields, "getShield",
+                              Q_RETURN_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, index));
+    QObject* itemModel = itemModelVariant.value<QObject*>();
+
+    if (player.getCredits() < shield.getPrice()) {
+        QMetaObject::invokeMethod(shipyardShields, "showMessage",
+                                  Q_ARG(QVariant, QStringLiteral("Not enough credits!")));
+        return;
+    }
+
+    if (player.getShip().getShields().size() >= player.getShip().getShieldCapacity()) {
+        QMetaObject::invokeMethod(shipyardShields, "showMessage",
+                                  Q_ARG(QVariant, QStringLiteral("No room for a shield!")));
+        return;
+    }
+
+    player.getShip().addShield(shield);
+
+    itemModel->setProperty("bought", true);
+    QMetaObject::invokeMethod(shipyardShields, "setShield",
+                              Q_ARG(QVariant, index),
+                              Q_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, true));
+
+    player.setCredits(player.getCredits() - shield.getPrice());
+    shipyardShields->setProperty("creditsAvailable", player.getCredits());
+}
+
+void Shipyard::sellShield(int index) {
+    Shield::ShieldType shieldType = static_cast<Shield::ShieldType>(index);
+    Shield shield(shieldType);
+
+    Player player = Player::getInstance();
+    QObject* shipyardShields = rootObject->findChild<QObject*>("shipyardShields");
+
+    QVariant itemModelVariant;
+    QMetaObject::invokeMethod(shipyardShields, "getShield",
+                              Q_RETURN_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, index));
+    QObject* itemModel = itemModelVariant.value<QObject*>();
+
+    player.getShip().removeShield(shield);
+
+    itemModel->setProperty("bought", false);
+    QMetaObject::invokeMethod(shipyardShields, "setShield",
+                              Q_ARG(QVariant, index),
+                              Q_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, true));
+
+    player.setCredits(player.getCredits() + shield.getPrice());
+    shipyardShields->setProperty("creditsAvailable", player.getCredits());
 }

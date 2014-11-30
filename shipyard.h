@@ -14,10 +14,13 @@ public:
 
     Q_INVOKABLE void instantiateShipTab();
     Q_INVOKABLE void instantiateGadgetsTab();
+    Q_INVOKABLE void instantiateShieldsTab();
 
     Q_INVOKABLE void buyShip(int index);
     Q_INVOKABLE void buyGadget(int index);
     Q_INVOKABLE void sellGadget(int index);
+    Q_INVOKABLE void buyShield(int index);
+    Q_INVOKABLE void sellShield(int index);
 
 private:
     QObject* rootObject;
