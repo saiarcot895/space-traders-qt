@@ -58,7 +58,9 @@ public:
     int getRadius() const;
     QColor getColor() const;
     TechLevel getTechLevel() const;
+    QString getTechLevelString() const;
     ResourceTypes getResourceType() const;
+    QString getResourceTypeString() const;
     int getItemQuantity(Ware ware) const;
 
     void setItemQuantity(Ware ware, int newQuantity);

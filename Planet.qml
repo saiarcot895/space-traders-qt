@@ -11,6 +11,8 @@ Item {
     anchors.left: parent.horizontalCenter
 
     property string planetName
+    property string techLevel
+    property string resourceType
     property color planetColor
     property double planetRadius
     property bool isCurrentPlanet
@@ -58,7 +60,7 @@ Item {
                     mouseEffect.brightness = 0;
                     systemLabelRectangle.visible = false;
                 }
-                onClicked: setPlanet(planetName)
+                onClicked: setPlanet(planetName, techLevel, resourceType)
             }
         }
 

@@ -12,6 +12,8 @@ Image {
     z: -1
 
     property string planetName
+    property string techLevel
+    property string resourceType
     property bool smallIcon: parent !== null && parent.width <= navigationPageButton.width + marketplaceButton.width + shipyardButton.width + 24
 
     Button {
@@ -107,12 +109,49 @@ Image {
 
         Label {
             id: planetNameDisplay
-            anchors.top: parent.top
-            anchors.topMargin: 8
+            anchors.verticalCenter: planetNameLabel.verticalCenter
             anchors.left: planetNameLabel.right
             anchors.leftMargin: 6
             color: "white"
             text: planetName
+        }
+
+        Label {
+            id: techLevelLabel
+            anchors.top: planetNameLabel.bottom
+            anchors.topMargin: 6
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            color: "white"
+            text: "Tech Level: "
+        }
+
+        Label {
+            id: techLevelDisplay
+            anchors.verticalCenter: techLevelLabel.verticalCenter
+            anchors.left: techLevelLabel.right
+            anchors.leftMargin: 6
+            color: "white"
+            text: techLevel
+        }
+
+        Label {
+            id: resourceTypeLabel
+            anchors.top: techLevelLabel.bottom
+            anchors.topMargin: 6
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            color: "white"
+            text: "Resource Type: "
+        }
+
+        Label {
+            id: resourceTypeDisplay
+            anchors.verticalCenter: resourceTypeLabel.verticalCenter
+            anchors.left: resourceTypeLabel.right
+            anchors.leftMargin: 6
+            color: "white"
+            text: resourceType
         }
 
         Button {
@@ -139,18 +178,20 @@ Image {
         }
     }
 
-    function createPlanetButtons(name, color, radius, isCurrentPlanet) {
+    function createPlanetButtons(name, techLevel, resourceType, color, radius, isCurrentPlanet) {
         var component = Qt.createComponent("Planet.qml");
-        var sprite = component.createObject(solarSystemView, {"planetName": name, "planetColor": color,
-                                                "planetRadius": radius, "isCurrentPlanet": isCurrentPlanet});
+        var sprite = component.createObject(solarSystemView, {"planetName": name, "techLevel": techLevel, "resourceType": resourceType,
+                                                "planetColor": color, "planetRadius": radius, "isCurrentPlanet": isCurrentPlanet});
 
         if (sprite === null) {
             console.log("Error creating object");
         }
     }
 
-    function setPlanet(name) {
+    function setPlanet(name, techLevel, resourceType) {
         planetName = name;
+        image1.techLevel = techLevel;
+        image1.resourceType = resourceType;
         planetInfoPane.visible = true;
     }
 

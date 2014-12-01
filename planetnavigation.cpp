@@ -26,6 +26,8 @@ void PlanetNavigation::showPlanetNavigationPage() {
         const Planet planet = planets.at(i);
         QMetaObject::invokeMethod(navigationRectangle, "createPlanetButtons",
                                   Q_ARG(QVariant, planet.getName()),
+                                  Q_ARG(QVariant, planet.getTechLevelString()),
+                                  Q_ARG(QVariant, planet.getResourceTypeString()),
                                   Q_ARG(QVariant, planet.getColor()),
                                   Q_ARG(QVariant, planet.getRadius()),
                                   Q_ARG(QVariant, planet == currentPlanet));

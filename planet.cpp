@@ -68,8 +68,64 @@ Planet::TechLevel Planet::getTechLevel() const {
     return data->techLevel;
 }
 
+QString Planet::getTechLevelString() const {
+    switch (data->techLevel) {
+    case Planet::PreAgriculture:
+        return QStringLiteral("Pre-Agriculture");
+    case Planet::Agriculture:
+        return QStringLiteral("Agriculture");
+    case Planet::Medieval:
+        return QStringLiteral("Medieval");
+    case Planet::Renaissance:
+        return QStringLiteral("Renaissance");
+    case Planet::EarlyIndustrial:
+        return QStringLiteral("Early Industrial");
+    case Planet::Industrial:
+        return QStringLiteral("Industrial");
+    case Planet::PostIndustrial:
+        return QStringLiteral("Post-Industrial");
+    case Planet::HiTech:
+        return QStringLiteral("Hi-Tech");
+    default:
+        return QString();
+    }
+}
+
 Planet::ResourceTypes Planet::getResourceType() const {
     return data->resourceTypes;
+}
+
+QString Planet::getResourceTypeString() const {
+    switch (data->resourceTypes) {
+    case Planet::NoSpecializedResources:
+        return QStringLiteral("No Specialized Resources");
+    case Planet::MineralRich:
+        return QStringLiteral("Mineral-Rich");
+    case Planet::MineralPoor:
+        return QStringLiteral("Mineral-Poor");
+    case Planet::Desert:
+        return QStringLiteral("Desert");
+    case Planet::LotsOfWater:
+        return QStringLiteral("Lots of Warer");
+    case Planet::RichSoil:
+        return QStringLiteral("Rich Soil");
+    case Planet::PoorSoil:
+        return QStringLiteral("Poor Soil");
+    case Planet::RichFauna:
+        return QStringLiteral("Rich Fauna");
+    case Planet::Lifeless:
+        return QStringLiteral("Lifeless");
+    case Planet::WeirdMushrooms:
+        return QStringLiteral("Weird Mushrooms");
+    case Planet::LotsOfHerbs:
+        return QStringLiteral("Lots of Herbs");
+    case Planet::Artistic:
+        return QStringLiteral("Artistic");
+    case Planet::Warlike:
+        return QStringLiteral("Warlike");
+    default:
+        return QString();
+    }
 }
 
 int Planet::getItemQuantity(Ware ware) const {
