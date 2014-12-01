@@ -6,8 +6,8 @@ public:
     QString name;
     QMap<QString, Planet> planets;
     QColor color;
-    double x;
-    double y;
+    int x;
+    int y;
 };
 
 SolarSystem::SolarSystem(QString name) : data(new SolarSystemData)
@@ -163,7 +163,7 @@ SolarSystem::SolarSystem(QString name) : data(new SolarSystemData)
     }
 }
 
-SolarSystem::SolarSystem(QString name, double x, double y, QMap<QString, Planet> planets)
+SolarSystem::SolarSystem(QString name, int x, int y, QMap<QString, Planet> planets)
     : data(new SolarSystemData)
 {
     data->name = name;
@@ -191,11 +191,11 @@ QMap<QString, Planet> SolarSystem::getPlanets() const {
     return data->planets;
 }
 
-double SolarSystem::getX() const {
+int SolarSystem::getX() const {
     return data->x;
 }
 
-double SolarSystem::getY() const {
+int SolarSystem::getY() const {
     return data->y;
 }
 
@@ -231,8 +231,8 @@ QDataStream& operator<<(QDataStream& stream, const SolarSystem solarSystem) {
 
 QDataStream& operator>>(QDataStream& stream, SolarSystem& solarSystem) {
     QString name;
-    double x;
-    double y;
+    int x;
+    int y;
     QMap<QString, Planet> planets;
 
     stream >> name;

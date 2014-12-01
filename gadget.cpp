@@ -1,6 +1,7 @@
 #include "gadget.h"
 #include <QSharedData>
 #include <QHash>
+#include <QDataStream>
 
 class GadgetData : public QSharedData {
 public:
@@ -74,6 +75,38 @@ bool operator==(const Gadget& gadget1, const Gadget& gadget2) {
 
 uint qHash(const Gadget& gadget) {
     return qHash(gadget.getType());
+}
+
+QDataStream& operator<<(QDataStream& stream, const Gadget gadget) {
+    stream << gadget.getType();
+
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Gadget& gadget) {
+    Gadget::GadgetType type;
+
+    stream >> type;
+
+    gadget = Gadget(type);
+
+    return stream;
+}
+
+QDataStream& operator<<(QDataStream& stream, const Gadget::GadgetType gadgetType) {
+    stream << gadgetType;
+
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Gadget::GadgetType& gadgetType) {
+    int gadgetTypeInt;
+
+    stream >> gadgetTypeInt;
+
+    gadgetType = static_cast<Gadget::GadgetType>(gadgetTypeInt);
+
+    return stream;
 }
 
 Gadget::~Gadget()

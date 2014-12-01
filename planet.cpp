@@ -4,7 +4,7 @@
 class PlanetData : public QSharedData {
 public:
     QString name;
-    double radius;
+    int radius;
     QColor color;
     Planet::TechLevel techLevel = Planet::UnknownLevel;
     Planet::ResourceTypes resourceTypes = Planet::UnknownResource;
@@ -26,7 +26,7 @@ Planet::Planet(QString name) : data(new PlanetData)
     produceWares();
 }
 
-Planet::Planet(QString name, double radius, TechLevel techLevel, ResourceTypes resourceTypes) :
+Planet::Planet(QString name, int radius, TechLevel techLevel, ResourceTypes resourceTypes) :
     data(new PlanetData) {
     data->name = name;
     data->radius = radius;
@@ -55,7 +55,8 @@ void Planet::produceWares() {
 QString Planet::getName() const {
     return data->name;
 }
-double Planet::getRadius() const {
+
+int Planet::getRadius() const {
     return data->radius;
 }
 
@@ -107,7 +108,7 @@ QDataStream& operator<<(QDataStream& stream, const Planet planet) {
 
 QDataStream& operator>>(QDataStream& stream, Planet& planet) {
     QString name;
-    double radius;
+    int radius;
     int techLevelInt;
     int resourceTypeInt;
 

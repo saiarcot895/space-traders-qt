@@ -41,4 +41,10 @@ private:
 bool operator==(const Gadget& gadget1, const Gadget& gadget2);
 uint qHash(const Gadget& gadget);
 
+QDataStream& operator<<(QDataStream& stream, const Gadget gadget);
+QDataStream& operator>>(QDataStream& stream, Gadget& gadget);
+
+QDataStream& operator<<(QDataStream& stream, const Gadget::GadgetType gadgetType);
+QDataStream& operator>>(QDataStream& stream, Gadget::GadgetType& gadgetType);
+
 #endif // GADGET_H

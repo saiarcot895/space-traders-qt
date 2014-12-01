@@ -41,4 +41,10 @@ private:
 bool operator==(const Shield& shield1, const Shield& shield2);
 uint qHash(const Shield& shield);
 
+QDataStream& operator<<(QDataStream& stream, const Shield shield);
+QDataStream& operator>>(QDataStream& stream, Shield& shield);
+
+QDataStream& operator<<(QDataStream& stream, const Shield::ShieldType shieldType);
+QDataStream& operator>>(QDataStream& stream, Shield::ShieldType& shieldType);
+
 #endif // SHIELD_H

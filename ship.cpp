@@ -211,6 +211,8 @@ QDataStream& operator<<(QDataStream& stream, const Ship ship) {
     stream << ship.getItems();
     stream << ship.getHealth();
     stream << ship.getFuel();
+    stream << ship.getGadgets();
+    stream << ship.getShields();
 
     return stream;
 }
@@ -220,11 +222,15 @@ QDataStream& operator>>(QDataStream& stream, Ship& ship) {
     QMap<Ware, int> items;
     int health;
     int fuel;
+    QSet<Gadget> gadgets;
+    QSet<Shield> shields;
 
     stream >> shipType;
     stream >> items;
     stream >> health;
     stream >> fuel;
+    stream >> gadgets;
+    stream >> shields;
 
     ship = Ship(static_cast<Ship::ShipType>(shipType));
     for (int i = 0; i < Ware::SIZE_GOOD; i++) {
@@ -233,6 +239,16 @@ QDataStream& operator>>(QDataStream& stream, Ship& ship) {
     }
     ship.setHealth(health);
     ship.setFuel(fuel);
+
+    const QList<Gadget> gadgetsList = gadgets.values();
+    for (int i = 0; i < gadgetsList.size(); i++) {
+        ship.addGadget(gadgetsList.at(i));
+    }
+
+    const QList<Shield> shieldsList = shields.values();
+    for (int i = 0; i < shieldsList.size(); i++) {
+        ship.addShield(shieldsList.at(i));
+    }
 
     return stream;
 }

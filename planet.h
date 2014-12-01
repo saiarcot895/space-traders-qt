@@ -52,10 +52,10 @@ public:
         SIZE_RESOURCE // DO NOT MOVE OR REMOVE
     };
 
-    Planet(QString name, double radius, TechLevel techLevel, ResourceTypes resourceTypes);
+    Planet(QString name, int radius, TechLevel techLevel, ResourceTypes resourceTypes);
 
     QString getName() const;
-    double getRadius() const;
+    int getRadius() const;
     QColor getColor() const;
     TechLevel getTechLevel() const;
     ResourceTypes getResourceType() const;

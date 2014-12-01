@@ -1,6 +1,7 @@
 #include "shield.h"
 #include <QSharedData>
 #include <QHash>
+#include <QDataStream>
 
 class ShieldData : public QSharedData {
 public:
@@ -85,6 +86,38 @@ bool operator==(const Shield& shield1, const Shield& shield2) {
 
 uint qHash(const Shield& shield) {
     return qHash(shield.getType());
+}
+
+QDataStream& operator<<(QDataStream& stream, const Shield shield) {
+    stream << shield.getType();
+
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Shield& shield) {
+    Shield::ShieldType shieldType;
+
+    stream >> shieldType;
+
+    shield = Shield(shieldType);
+
+    return stream;
+}
+
+QDataStream& operator<<(QDataStream& stream, const Shield::ShieldType shieldType) {
+    stream << (int)shieldType;
+
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Shield::ShieldType& shieldType) {
+    int shieldTypeInt;
+
+    stream >> shieldTypeInt;
+
+    shieldType = static_cast<Shield::ShieldType>(shieldTypeInt);
+
+    return stream;
 }
 
 Shield::~Shield()
