@@ -252,6 +252,8 @@ Image {
     function zoomMap(scaling) {
         mapRegion.contentWidth *= scaling;
         mapRegion.contentHeight *= scaling;
+        mapRegion.contentX *= scaling;
+        mapRegion.contentY *= scaling;
         for (var i in mapRegion.contentItem.children) {
             var item = mapRegion.contentItem.children[i];
             item.x *= scaling;
