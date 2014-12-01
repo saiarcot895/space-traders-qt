@@ -83,6 +83,54 @@ Image {
         anchors.leftMargin: 8
         anchors.right: parent.right
         anchors.rightMargin: 8
+
+        Rectangle {
+            id: sun
+            color: "yellow"
+            border.width: 0
+            border.color: Qt.rgba(1.0, 1.0, 0.5, 0.8)
+            clip: true
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: radius
+            height: radius
+            radius: 50
+
+            ParallelAnimation {
+                id: outward
+                running: true
+                PropertyAnimation {
+                    target: sun
+                    property: "border.width"
+                    to: 7
+                    duration: 750
+                }
+                PropertyAnimation {
+                    target: sun
+                    property: "radius"
+                    to: 64
+                    duration: 750
+                }
+                onStopped: inward.start()
+            }
+
+            ParallelAnimation {
+                id: inward
+                PropertyAnimation {
+                    target: sun
+                    property: "border.width"
+                    to: 0
+                    duration: 750
+                }
+                PropertyAnimation {
+                    target: sun
+                    property: "radius"
+                    to: 50
+                    duration: 750
+                }
+                onStopped: outward.start()
+            }
+        }
     }
 
     Rectangle {
