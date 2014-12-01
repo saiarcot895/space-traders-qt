@@ -12,7 +12,7 @@ Image {
     z: -1
 
     property string planetName
-    property bool smallIcon: parent.width <= navigationPageButton.width + marketplaceButton.width + shipyardButton.width + 24
+    property bool smallIcon: parent !== null && parent.width <= navigationPageButton.width + marketplaceButton.width + shipyardButton.width + 24
 
     Button {
         id: navigationPageButton

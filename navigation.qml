@@ -18,6 +18,9 @@ Image {
     property int fuelCapacity
     property int currentFuel
 
+    property bool useSmallButtons: parent !== null && parent.width <= zoomInButton.width + zoomOutButton.width
+                                   + planetButton.width + fuelBar.width + fuelLabel.width + 38
+
     Button {
         id: planetButton
         anchors.top: parent.top
@@ -34,6 +37,18 @@ Image {
         anchors.left: parent.left
         anchors.leftMargin: 8
         text: "Zoom In"
+        visible: !useSmallButtons
+        onClicked: zoomMap(4 / 3)
+    }
+
+    Button {
+        id: zoomInButtonSmall
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        text: "+"
+        visible: useSmallButtons
         onClicked: zoomMap(4 / 3)
     }
 
@@ -44,11 +59,25 @@ Image {
         anchors.left: zoomInButton.right
         anchors.leftMargin: 6
         text: "Zoom Out"
+        visible: !useSmallButtons
+        onClicked: zoomMap(3 / 4)
+    }
+
+    Button {
+        id: zoomOutButtonSmall
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.left: zoomInButtonSmall.right
+        anchors.leftMargin: 6
+        text: "-"
+        visible: useSmallButtons
         onClicked: zoomMap(3 / 4)
     }
 
     ProgressBar {
         id: fuelBar
+        anchors.left: fuelLabel.right
+        anchors.leftMargin: 6
         anchors.right: parent.right
         anchors.rightMargin: 8
         anchors.top: parent.top
@@ -60,8 +89,8 @@ Image {
 
     Label {
         id: fuelLabel
-        anchors.right: fuelBar.left
-        anchors.rightMargin: 6
+        anchors.left: planetButton.right
+        anchors.leftMargin: 6
         anchors.verticalCenter: fuelBar.verticalCenter
         text: "⛽"
         color: "white"
