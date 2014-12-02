@@ -26,13 +26,14 @@ Planet::Planet(QString name) : data(new PlanetData)
     produceWares();
 }
 
-Planet::Planet(QString name, int radius, TechLevel techLevel, ResourceTypes resourceTypes) :
+Planet::Planet(QString name, int radius, TechLevel techLevel, ResourceTypes resourceTypes, QMap<Ware, int> items) :
     data(new PlanetData) {
     data->name = name;
     data->radius = radius;
     data->color = QColor(qrand() % 256, qrand() % 256, qrand() % 256, 127);
     data->techLevel = techLevel;
     data->resourceTypes = resourceTypes;
+    data->items = items;
 }
 
 Planet::Planet(const Planet &rhs) :
@@ -128,6 +129,10 @@ QString Planet::getResourceTypeString() const {
     }
 }
 
+QMap<Ware, int> Planet::getItems() const {
+    return data->items;
+}
+
 int Planet::getItemQuantity(Ware ware) const {
     return data->items.value(ware);
 }
@@ -158,6 +163,7 @@ QDataStream& operator<<(QDataStream& stream, const Planet planet) {
     stream << planet.getRadius();
     stream << planet.getTechLevel();
     stream << planet.getResourceType();
+    stream << planet.getItems();
 
     return stream;
 }
@@ -167,13 +173,15 @@ QDataStream& operator>>(QDataStream& stream, Planet& planet) {
     int radius;
     int techLevelInt;
     int resourceTypeInt;
+    QMap<Ware, int> items;
 
     stream >> name;
     stream >> radius;
     stream >> techLevelInt;
     stream >> resourceTypeInt;
+    stream >> items;
 
-    planet = Planet(name, radius, static_cast<Planet::TechLevel>(techLevelInt), static_cast<Planet::ResourceTypes>(resourceTypeInt));
+    planet = Planet(name, radius, static_cast<Planet::TechLevel>(techLevelInt), static_cast<Planet::ResourceTypes>(resourceTypeInt), items);
 
     return stream;
 }

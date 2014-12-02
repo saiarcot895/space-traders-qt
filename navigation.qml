@@ -210,6 +210,7 @@ Image {
             text: "Travel to " + solarSystemName
             onClicked: {
                 navigation.travelToSolarSystem(solarSystemName);
+                mainController.saveData();
                 solarSystemInfoPane.visible = false;
             }
         }

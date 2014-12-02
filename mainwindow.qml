@@ -21,6 +21,7 @@ Image {
     Button {
         id: button2
         text: qsTr("Continue")
+        enabled: mainController.isDataLoadable()
         anchors.bottom: button3.top
         anchors.bottomMargin: 8
         anchors.right: parent.right

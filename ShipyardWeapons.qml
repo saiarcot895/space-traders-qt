@@ -187,7 +187,10 @@ Item {
                 anchors.rightMargin: 8
                 enabled: !displayItemInfo.bought
                 text: "Buy Weapon"
-                onClicked: shipyard.buyWeapon(gridView1.currentIndex)
+                onClicked: {
+                    shipyard.buyWeapon(gridView1.currentIndex);
+                    mainController.saveData();
+                }
             }
 
             Button {
@@ -198,7 +201,10 @@ Item {
                 anchors.rightMargin: 8
                 enabled: displayItemInfo.bought
                 text: "Sell Weapon"
-                onClicked: shipyard.sellWeapon(gridView1.currentIndex)
+                onClicked: {
+                    shipyard.sellWeapon(gridView1.currentIndex);
+                    mainController.saveData();
+                }
             }
 
             Label {

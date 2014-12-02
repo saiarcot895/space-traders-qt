@@ -221,6 +221,7 @@ Image {
             text: "Travel to " + planetName
             onClicked: {
                 planetNavigation.travelToPlanet(planetName);
+                mainController.saveData();
                 planetInfoPane.visible = false;
             }
         }

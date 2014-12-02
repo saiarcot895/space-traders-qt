@@ -370,7 +370,10 @@ Item {
                 anchors.rightMargin: 8
                 enabled: displayItemInfo.shipName !== "" && displayItemInfo.currentShipName !== displayItemInfo.shipName
                 text: "Buy Ship"
-                onClicked: shipyard.buyShip(gridView1.currentIndex)
+                onClicked: {
+                    shipyard.buyShip(gridView1.currentIndex);
+                    mainController.saveData();
+                }
             }
         }
     }

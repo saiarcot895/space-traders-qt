@@ -52,7 +52,7 @@ public:
         SIZE_RESOURCE // DO NOT MOVE OR REMOVE
     };
 
-    Planet(QString name, int radius, TechLevel techLevel, ResourceTypes resourceTypes);
+    Planet(QString name, int radius, TechLevel techLevel, ResourceTypes resourceTypes, QMap<Ware, int> items);
 
     QString getName() const;
     int getRadius() const;
@@ -61,6 +61,7 @@ public:
     QString getTechLevelString() const;
     ResourceTypes getResourceType() const;
     QString getResourceTypeString() const;
+    QMap<Ware, int> getItems() const;
     int getItemQuantity(Ware ware) const;
 
     void setItemQuantity(Ware ware, int newQuantity);

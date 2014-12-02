@@ -186,6 +186,7 @@ Image {
         anchors.bottomMargin: 8
         onClicked: {
             marketplace.saveChanges();
+            mainController.saveData();
             mainController.showPlanetNavigationPage();
         }
     }

@@ -163,7 +163,10 @@ Item {
                 anchors.rightMargin: 8
                 enabled: !displayItemInfo.bought
                 text: "Buy Shield"
-                onClicked: shipyard.buyShield(gridView1.currentIndex)
+                onClicked: {
+                    shipyard.buyShield(gridView1.currentIndex);
+                    mainController.saveData();
+                }
             }
 
             Button {
@@ -174,7 +177,10 @@ Item {
                 anchors.rightMargin: 8
                 enabled: displayItemInfo.bought
                 text: "Sell Shield"
-                onClicked: shipyard.sellShield(gridView1.currentIndex)
+                onClicked: {
+                    shipyard.sellShield(gridView1.currentIndex);
+                    mainController.saveData();
+                }
             }
 
             Label {
