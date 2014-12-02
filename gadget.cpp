@@ -94,7 +94,7 @@ QDataStream& operator>>(QDataStream& stream, Gadget& gadget) {
 }
 
 QDataStream& operator<<(QDataStream& stream, const Gadget::GadgetType gadgetType) {
-    stream << gadgetType;
+    stream << (int)gadgetType;
 
     return stream;
 }
