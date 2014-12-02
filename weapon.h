@@ -36,4 +36,10 @@ private:
 bool operator==(const Weapon& weapon1, const Weapon& weapon2);
 uint qHash(const Weapon& weapon);
 
+QDataStream& operator<<(QDataStream& stream, const Weapon weapon);
+QDataStream& operator>>(QDataStream& stream, Weapon& weapon);
+
+QDataStream& operator<<(QDataStream& stream, const Weapon::WeaponType weaponType);
+QDataStream& operator>>(QDataStream& stream, Weapon::WeaponType& weaponType);
+
 #endif // WEAPON_H

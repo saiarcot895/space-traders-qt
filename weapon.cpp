@@ -1,6 +1,7 @@
 #include "weapon.h"
 #include <QSharedData>
 #include <QHash>
+#include <QDataStream>
 
 class WeaponData : public QSharedData {
 public:
@@ -69,6 +70,38 @@ bool operator==(const Weapon& weapon1, const Weapon& weapon2) {
 
 uint qHash(const Weapon& weapon) {
     return qHash(weapon.getType());
+}
+
+QDataStream& operator<<(QDataStream& stream, const Weapon weapon) {
+    stream << weapon.getType();
+
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Weapon& weapon) {
+    Weapon::WeaponType weaponType;
+
+    stream >> weaponType;
+
+    weapon = Weapon(weaponType);
+
+    return stream;
+}
+
+QDataStream& operator<<(QDataStream& stream, const Weapon::WeaponType weaponType) {
+    stream << (int)weaponType;
+
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Weapon::WeaponType& weaponType) {
+    int weaponTypeInt;
+
+    stream >> weaponTypeInt;
+
+    weaponType = static_cast<Weapon::WeaponType>(weaponTypeInt);
+
+    return stream;
 }
 
 Weapon::~Weapon()
