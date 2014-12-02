@@ -118,6 +118,8 @@ void Shipyard::buyShip(int index) {
                               Q_ARG(QVariant, newShip.getName()),
                               Q_ARG(QVariant, newShip.getCargoCapacity()),
                               Q_ARG(QVariant, newShip.getGadgetCapacity()),
+                              Q_ARG(QVariant, newShip.getShieldCapacity()),
+                              Q_ARG(QVariant, newShip.getWeaponCapacity()),
                               Q_ARG(QVariant, newShip.getMaxHealth()),
                               Q_ARG(QVariant, newShip.getMaxFuel()),
                               Q_ARG(QVariant, newShip.getCost()));
