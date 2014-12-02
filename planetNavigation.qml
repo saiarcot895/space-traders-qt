@@ -49,10 +49,20 @@ Image {
     }
 
     Button {
-        id: shipyardButton
+        id: fuelButton
         anchors.top: parent.top
         anchors.topMargin: 8
         anchors.right: marketplaceButton.left
+        anchors.rightMargin: 6
+        text: "Fuel"
+        onClicked: mainController.showFuelStation()
+    }
+
+    Button {
+        id: shipyardButton
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.right: fuelButton.left
         anchors.rightMargin: 6
         text: "Shipyard"
         visible: !smallIcon
@@ -63,7 +73,7 @@ Image {
         id: smallShipyardButton
         anchors.top: parent.top
         anchors.topMargin: 8
-        anchors.right: marketplaceButton.left
+        anchors.right: fuelButton.left
         anchors.rightMargin: 6
         text: "🚀"
         visible: smallIcon

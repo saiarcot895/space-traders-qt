@@ -21,7 +21,9 @@ SOURCES += main.cpp \
     shipyard.cpp \
     gadget.cpp \
     shield.cpp \
-    weapon.cpp
+    weapon.cpp \
+    randomevent.cpp \
+    fuelstation.cpp
 
 RESOURCES += qml.qrc
 
@@ -48,4 +50,6 @@ HEADERS += \
     shipyard.h \
     gadget.h \
     shield.h \
-    weapon.h
+    weapon.h \
+    randomevent.h \
+    fuelstation.h

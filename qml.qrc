@@ -19,5 +19,6 @@
         <file>ShipyardGadgets.qml</file>
         <file>ShipyardShields.qml</file>
         <file>ShipyardWeapons.qml</file>
+        <file>fuelStation.qml</file>
     </qresource>
 </RCC>

@@ -11,6 +11,7 @@
 #include "planetnavigation.h"
 #include "marketplace.h"
 #include "shipyard.h"
+#include "fuelstation.h"
 
 #include "galaxy.h"
 #include "player.h"
@@ -29,6 +30,7 @@ public:
     Q_INVOKABLE void showPlanetNavigationPage();
     Q_INVOKABLE void showMarketplace();
     Q_INVOKABLE void showShipyard();
+    Q_INVOKABLE void showFuelStation();
 
     void produceWaresForAllPlanets();
 
@@ -47,6 +49,7 @@ private:
     PlanetNavigation* planetNavigation;
     Marketplace* marketplace;
     Shipyard* shipyard;
+    FuelStation* fuelStation;
 
     Galaxy galaxy = Galaxy::getInstance();
     Player player = Player::getInstance();
