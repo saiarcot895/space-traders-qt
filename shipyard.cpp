@@ -1,7 +1,6 @@
 #include "shipyard.h"
 #include "player.h"
 #include "ship.h"
-#include "gadget.h"
 
 #include <QVariant>
 
@@ -75,6 +74,22 @@ void Shipyard::instantiateShieldsTab() {
                                   Q_ARG(QVariant, shield.getPrice()),
                                   Q_ARG(QVariant, shield.getStrength()),
                                   Q_ARG(QVariant, player.getShip().getShields().contains(shield)));
+    }
+}
+
+void Shipyard::instantiateWeaponsTab() {
+    Player player = Player::getInstance();
+    QObject* shipyardWeapons = rootObject->findChild<QObject*>("shipyardWeapons");
+    shipyardWeapons->setProperty("creditsAvailable", player.getCredits());
+
+    for (int i = 0; i < Weapon::SIZE_WEAPON_TYPE; i++) {
+        Weapon weapon(static_cast<Weapon::WeaponType>(i));
+        QMetaObject::invokeMethod(shipyardWeapons, "createWeapon",
+                                  Q_ARG(QVariant, weapon.getName()),
+                                  Q_ARG(QVariant, weapon.getPrice()),
+                                  Q_ARG(QVariant, weapon.getShieldDamage()),
+                                  Q_ARG(QVariant, weapon.getShipDamage()),
+                                  Q_ARG(QVariant, player.getShip().getWeapons().contains(weapon)));
     }
 }
 
@@ -226,4 +241,66 @@ void Shipyard::sellShield(int index) {
 
     player.setCredits(player.getCredits() + shield.getPrice());
     shipyardShields->setProperty("creditsAvailable", player.getCredits());
+}
+
+void Shipyard::buyWeapon(int index) {
+    Weapon::WeaponType weaponType = static_cast<Weapon::WeaponType>(index);
+    Weapon weapon(weaponType);
+
+    Player player = Player::getInstance();
+    QObject* shipyardWeapons = rootObject->findChild<QObject*>("shipyardWeapons");
+
+    QVariant itemModelVariant;
+    QMetaObject::invokeMethod(shipyardWeapons, "getWeapon",
+                              Q_RETURN_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, index));
+    QObject* itemModel = itemModelVariant.value<QObject*>();
+
+    if (player.getCredits() < weapon.getPrice()) {
+        QMetaObject::invokeMethod(shipyardWeapons, "showMessage",
+                                  Q_ARG(QVariant, QStringLiteral("Not enough credits!")));
+        return;
+    }
+
+    if (player.getShip().getWeapons().size() >= player.getShip().getWeaponCapacity()) {
+        QMetaObject::invokeMethod(shipyardWeapons, "showMessage",
+                                  Q_ARG(QVariant, QStringLiteral("No room for a weapon!")));
+        return;
+    }
+
+    player.getShip().addWeapon(weapon);
+
+    itemModel->setProperty("bought", true);
+    QMetaObject::invokeMethod(shipyardWeapons, "setWeapon",
+                              Q_ARG(QVariant, index),
+                              Q_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, true));
+
+    player.setCredits(player.getCredits() - weapon.getPrice());
+    shipyardWeapons->setProperty("creditsAvailable", player.getCredits());
+}
+
+void Shipyard::sellWeapon(int index) {
+    Weapon::WeaponType weaponType = static_cast<Weapon::WeaponType>(index);
+    Weapon weapon(weaponType);
+
+    Player player = Player::getInstance();
+    QObject* shipyardWeapons = rootObject->findChild<QObject*>("shipyardWeapons");
+
+    QVariant itemModelVariant;
+    QMetaObject::invokeMethod(shipyardWeapons, "getWeapon",
+                              Q_RETURN_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, index));
+    QObject* itemModel = itemModelVariant.value<QObject*>();
+
+    player.getShip().removeWeapon(weapon);
+
+    itemModel->setProperty("bought", false);
+    QMetaObject::invokeMethod(shipyardWeapons, "setWeapon",
+                              Q_ARG(QVariant, index),
+                              Q_ARG(QVariant, itemModelVariant),
+                              Q_ARG(QVariant, true));
+
+    player.setCredits(player.getCredits() + weapon.getPrice());
+    shipyardWeapons->setProperty("creditsAvailable", player.getCredits());
 }

@@ -18,5 +18,6 @@
         <file>SolarSystemAndroid.qml</file>
         <file>ShipyardGadgets.qml</file>
         <file>ShipyardShields.qml</file>
+        <file>ShipyardWeapons.qml</file>
     </qresource>
 </RCC>

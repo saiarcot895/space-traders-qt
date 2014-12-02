@@ -10,6 +10,7 @@
 #include "ware.h"
 #include "gadget.h"
 #include "shield.h"
+#include "weapon.h"
 
 class ShipData;
 
@@ -59,6 +60,8 @@ public:
     int getMaxFuel() const;
     QSet<Gadget> getGadgets() const;
     int getGadgetCapacity() const;
+    QSet<Weapon> getWeapons() const;
+    int getWeaponCapacity() const;
     QSet<Shield> getShields() const;
     int getShieldCapacity() const;
 
@@ -67,6 +70,8 @@ public:
     void setFuel(int fuel);
     bool addGadget(Gadget gadget);
     bool removeGadget(Gadget gadget);
+    bool addWeapon(Weapon weapon);
+    bool removeWeapon(Weapon weapon);
     bool addShield(Shield shield);
     bool removeShield(Shield shield);
 

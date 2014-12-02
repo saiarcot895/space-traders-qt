@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     planetnavigation.cpp \
     shipyard.cpp \
     gadget.cpp \
-    shield.cpp
+    shield.cpp \
+    weapon.cpp
 
 RESOURCES += qml.qrc
 
@@ -46,4 +47,5 @@ HEADERS += \
     planetnavigation.h \
     shipyard.h \
     gadget.h \
-    shield.h
+    shield.h \
+    weapon.h

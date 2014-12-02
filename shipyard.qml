@@ -44,6 +44,9 @@ Image {
         }
         Tab {
             title: "Weapons"
+            sourceComponent: ShipyardWeapons {
+            }
+            onLoaded: shipyard.instantiateWeaponsTab()
         }
         Tab {
             title: "Shields"
