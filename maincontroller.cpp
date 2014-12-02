@@ -67,6 +67,22 @@ void MainController::showShipyard() {
     shipyard->showShipyard();
 }
 
+void MainController::produceWaresForAllPlanets() {
+    QList<SolarSystem> solarSystems = Galaxy::getInstance().getSolarSystems();
+    for (int i = 0; i < solarSystems.size(); i++) {
+        SolarSystem solarSystem = solarSystems.at(i);
+        if (!(qrand() % 5)) {
+            continue;
+        }
+
+        QList<Planet> planets = solarSystem.getPlanets().values();
+        for (int j = 0; j < planets.size(); j++) {
+            Planet planet = planets.at(j);
+            planet.replenishWares();
+        }
+    }
+}
+
 void MainController::saveData() {
 #if defined(Q_OS_ANDROID)
     QFile file(QDir::homePath() + QStringLiteral("/file.dat"));

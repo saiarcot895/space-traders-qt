@@ -12,6 +12,7 @@ class PlanetData;
 
 class Planet : public QObject
 {
+    friend class MainController;
 public:
     Planet();
     Planet(QString name);
@@ -65,6 +66,9 @@ public:
     int getItemQuantity(Ware ware) const;
 
     void setItemQuantity(Ware ware, int newQuantity);
+
+protected:
+    void replenishWares();
 
 private:
     void produceWares();

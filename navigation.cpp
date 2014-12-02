@@ -1,4 +1,5 @@
 #include "navigation.h"
+#include "maincontroller.h"
 #include <QVariant>
 #include <QtMath>
 
@@ -66,4 +67,6 @@ void Navigation::travelToSolarSystem(QString solarSystem) {
     QMetaObject::invokeMethod(navigationRectangle, "setNewCurrentPlanet",
                               Q_ARG(QVariant, destination.getName()));
     navigationRectangle->setProperty("currentFuel", player.getShip().getFuel());
+
+    static_cast<MainController*>(parent())->produceWaresForAllPlanets();
 }

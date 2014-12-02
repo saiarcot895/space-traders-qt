@@ -42,6 +42,21 @@ Planet::Planet(const Planet &rhs) :
 {
 }
 
+void Planet::replenishWares() {
+    for (int i = 0; i < Ware::SIZE_GOOD; i++) {
+        Ware ware(static_cast<Ware::Good>(i));
+        if (data->techLevel < ware.getMinimumTechLevelToProduce()) {
+            data->items.insert(ware, 0);
+        } else {
+            if (data->techLevel == ware.getTechLevelProduction()) {
+                data->items.insert(ware, data->items.value(ware) + 2);
+            } else {
+                data->items.insert(ware, data->items.value(ware) + 1);
+            }
+        }
+    }
+}
+
 void Planet::produceWares() {
     for (int i = 0; i < Ware::SIZE_GOOD; i++) {
         Ware ware(static_cast<Ware::Good>(i));

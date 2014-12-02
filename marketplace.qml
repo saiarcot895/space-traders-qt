@@ -57,7 +57,8 @@ Image {
                 onClicked: {
                     gridView1.currentIndex = index;
                     displayItemInfo.ware = ware;
-                    displayItemInfo.price = price;
+                    displayItemInfo.buyPrice = buyPrice;
+                    displayItemInfo.sellPrice = sellPrice;
                     displayItemInfo.planetQuantity = planetQuantity;
                     displayItemInfo.shipQuantity = shipQuantity;
                 }
@@ -99,28 +100,51 @@ Image {
             id: displayItemInfo
 
             property string ware
-            property int price
+            property int buyPrice
+            property int sellPrice
             property int planetQuantity
             property int shipQuantity
 
             Item {
-                id: itemPriceGroup
+                id: itemBuyPriceGroup
                 anchors.top: parent.top
                 anchors.topMargin: 8
                 anchors.horizontalCenter: parent.horizontalCenter
-                implicitHeight: priceDisplayLabel.height
-                implicitWidth: priceLabel.width + priceDisplayLabel.width + 6
+                implicitHeight: buyPriceDisplayLabel.height
+                implicitWidth: buyPriceLabel.width + buyPriceDisplayLabel.width + 6
 
                 Label {
-                    id: priceLabel
-                    text: qsTr("Price: ")
+                    id: buyPriceLabel
+                    text: qsTr("Buy Price: ")
                     color: "orange"
                 }
                 Label {
-                    id: priceDisplayLabel
-                    anchors.left: priceLabel.right
+                    id: buyPriceDisplayLabel
+                    anchors.left: buyPriceLabel.right
                     anchors.leftMargin: 6
-                    text: displayItemInfo.price
+                    text: displayItemInfo.buyPrice
+                    color: "orange"
+                }
+            }
+
+            Item {
+                id: itemSellPriceGroup
+                anchors.top: itemBuyPriceGroup.bottom
+                anchors.topMargin: 6
+                anchors.horizontalCenter: parent.horizontalCenter
+                implicitHeight: sellPriceDisplayLabel.height
+                implicitWidth: sellPriceLabel.width + sellPriceDisplayLabel.width + 6
+
+                Label {
+                    id: sellPriceLabel
+                    text: qsTr("Sell Price: ")
+                    color: "orange"
+                }
+                Label {
+                    id: sellPriceDisplayLabel
+                    anchors.left: sellPriceLabel.right
+                    anchors.leftMargin: 6
+                    text: displayItemInfo.sellPrice
                     color: "orange"
                 }
             }
@@ -129,7 +153,7 @@ Image {
                 id: quantityPlanetLabel
                 text: qsTr("Quantity on planet: ") + displayItemInfo.planetQuantity
                 color: "orange"
-                anchors.top: itemPriceGroup.bottom
+                anchors.top: itemSellPriceGroup.bottom
                 anchors.topMargin: 6
                 anchors.left: parent.left
                 anchors.leftMargin: 8
@@ -149,7 +173,7 @@ Image {
                 id: quantityShipLabel
                 text: qsTr("Quantity on ship: ") + displayItemInfo.shipQuantity
                 color: "orange"
-                anchors.top: itemPriceGroup.bottom
+                anchors.top: itemSellPriceGroup.bottom
                 anchors.topMargin: 6
                 anchors.right: parent.right
                 anchors.rightMargin: 8
@@ -196,8 +220,8 @@ Image {
         z: 1
     }
 
-    function createProduct(ware, price, planetQuantity, shipQuantity) {
-        gridView1.model.append({"ware": ware, "price": price,
+    function createProduct(ware, buyPrice, sellPrice, planetQuantity, shipQuantity) {
+        gridView1.model.append({"ware": ware, "buyPrice": buyPrice, "sellPrice": sellPrice,
                                    "planetQuantity": planetQuantity, "shipQuantity": shipQuantity});
     }
 
@@ -209,7 +233,8 @@ Image {
         gridView1.model.set(index, product);
         if (updateInfoDisplay) {
             displayItemInfo.ware = product.ware;
-            displayItemInfo.price = product.price;
+            displayItemInfo.buyPrice = product.buyPrice;
+            displayItemInfo.sellPrice = product.sellPrice;
             displayItemInfo.planetQuantity = product.planetQuantity;
             displayItemInfo.shipQuantity = product.shipQuantity;
         }

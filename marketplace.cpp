@@ -29,9 +29,12 @@ void Marketplace::showMarketplace() {
         int price = ware.getBasePrice() + ware.getPriceIncreasePerTechLevel()
                 * (planet.getTechLevel() - ware.getMinimumTechLevelToProduce());
         price += ((qrand() % 250) / 250.0) * ware.getVariance();
+        int buyPrice = price * (1 - 0.02 * player.getTraderSkill());
+        int sellPrice = price * (1 + 0.02 * player.getTraderSkill()) * 0.85;
         QMetaObject::invokeMethod(marketplaceScreen, "createProduct",
                                   Q_ARG(QVariant, ware.getName()),
-                                  Q_ARG(QVariant, price),
+                                  Q_ARG(QVariant, buyPrice),
+                                  Q_ARG(QVariant, sellPrice),
                                   Q_ARG(QVariant, planet.getItemQuantity(ware)),
                                   Q_ARG(QVariant, player.getShip().getItemQuantity(ware)));
     }
@@ -49,7 +52,7 @@ void Marketplace::buyItem(int index) {
                               Q_ARG(QVariant, index));
 
     QObject* itemModel = itemModelVariant.value<QObject*>();
-    int price = itemModel->property("price").toInt();
+    int price = itemModel->property("buyPrice").toInt();
 
     Player player = Player::getInstance();
 
@@ -91,7 +94,7 @@ void Marketplace::sellItem(int index) {
                               Q_ARG(QVariant, index));
 
     QObject* itemModel = itemModelVariant.value<QObject*>();
-    int price = itemModel->property("price").toInt();
+    int price = itemModel->property("sellPrice").toInt();
 
     creditChanges += price;
     --quantityChanges;

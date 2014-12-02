@@ -30,6 +30,8 @@ public:
     Q_INVOKABLE void showMarketplace();
     Q_INVOKABLE void showShipyard();
 
+    void produceWaresForAllPlanets();
+
     Q_INVOKABLE void saveData();
     Q_INVOKABLE void loadData();
     Q_INVOKABLE bool isDataLoadable();
