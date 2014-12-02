@@ -32,6 +32,7 @@ public:
 
     Q_INVOKABLE void saveData();
     Q_INVOKABLE void loadData();
+    Q_INVOKABLE bool isDataLoadable();
 
 private:
     QQmlApplicationEngine* engine;

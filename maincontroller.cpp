@@ -68,7 +68,11 @@ void MainController::showShipyard() {
 }
 
 void MainController::saveData() {
+#if defined(Q_OS_ANDROID)
     QFile file(QDir::homePath() + QStringLiteral("/file.dat"));
+#else
+    QFile file(QDir::currentPath() + QStringLiteral("/file.dat"));
+#endif
     file.open(QIODevice::WriteOnly);
 
     QDataStream out(&file);
@@ -78,7 +82,14 @@ void MainController::saveData() {
 }
 
 void MainController::loadData() {
+    if (!isDataLoadable()) {
+        return;
+    }
+#if defined(Q_OS_ANDROID)
     QFile file(QDir::homePath() + QStringLiteral("/file.dat"));
+#else
+    QFile file(QDir::currentPath() + QStringLiteral("/file.dat"));
+#endif
     file.open(QIODevice::ReadOnly);
 
     QDataStream in(&file);
@@ -87,6 +98,16 @@ void MainController::loadData() {
     in >> galaxy;
     in >> player;
     file.close();
+}
+
+bool MainController::isDataLoadable() {
+#if defined(Q_OS_ANDROID)
+    QFile file(QDir::homePath() + QStringLiteral("/file.dat"));
+#else
+    QFile file(QDir::currentPath() + QStringLiteral("/file.dat"));
+#endif
+
+    return file.exists();
 }
 
 MainController::~MainController() {
