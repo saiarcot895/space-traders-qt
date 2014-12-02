@@ -45,6 +45,8 @@ Item {
                     displayItemInfo.shipName = shipName;
                     displayItemInfo.cargoCapacity = cargoCapacity;
                     displayItemInfo.gadgetCapacity = gadgetCapacity;
+                    displayItemInfo.shieldCapacity = shieldCapacity;
+                    displayItemInfo.weaponCapacity = weaponCapacity;
                     displayItemInfo.maxHealth = maxHealth;
                     displayItemInfo.maxFuel = maxFuel;
                     displayItemInfo.cost = cost;
@@ -89,6 +91,8 @@ Item {
             property string currentShipName
             property int currentCargoCapacity
             property int currentGadgetCapacity
+            property int currentShieldCapacity
+            property int currentWeaponCapacity
             property int currentMaxHealth
             property int currentMaxFuel
             property int currentCost
@@ -96,6 +100,8 @@ Item {
             property string shipName
             property int cargoCapacity
             property int gadgetCapacity
+            property int shieldCapacity
+            property int weaponCapacity
             property int maxHealth
             property int maxFuel
             property int cost
@@ -197,8 +203,72 @@ Item {
             }
 
             Item {
-                id: maxHealthGroup
+                id: shieldCapacityGroup
                 anchors.top: gadgetCapacityGroup.bottom
+                anchors.topMargin: 6
+                anchors.left: parent.left
+                anchors.leftMargin: 8
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+                implicitHeight: Math.max(currentShieldCapacity.height, shieldCapacityLabel.height, newShieldCapacity.height)
+
+                Label {
+                    id: currentShieldCapacity
+                    anchors.left: parent.left
+                    anchors.leftMargin: 6
+                    text: displayItemInfo.currentShieldCapacity
+                    color: "blue"
+                }
+                Label {
+                    id: shieldCapacityLabel
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Shield Capacity")
+                    color: "blue"
+                }
+                Label {
+                    id: newShieldCapacity
+                    anchors.right: parent.right
+                    anchors.rightMargin: 6
+                    text: displayItemInfo.shieldCapacity
+                    color: "blue"
+                }
+            }
+
+            Item {
+                id: weaponCapacityGroup
+                anchors.top: shieldCapacityGroup.bottom
+                anchors.topMargin: 6
+                anchors.left: parent.left
+                anchors.leftMargin: 8
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+                implicitHeight: Math.max(currentWeaponCapacity.height, weaponCapacityLabel.height, newWeaponCapacity.height)
+
+                Label {
+                    id: currentWeaponCapacity
+                    anchors.left: parent.left
+                    anchors.leftMargin: 6
+                    text: displayItemInfo.currentWeaponCapacity
+                    color: "blue"
+                }
+                Label {
+                    id: weaponCapacityLabel
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Weapon Capacity")
+                    color: "blue"
+                }
+                Label {
+                    id: newWeaponCapacity
+                    anchors.right: parent.right
+                    anchors.rightMargin: 6
+                    text: displayItemInfo.weaponCapacity
+                    color: "blue"
+                }
+            }
+
+            Item {
+                id: maxHealthGroup
+                anchors.top: weaponCapacityGroup.bottom
                 anchors.topMargin: 6
                 anchors.left: parent.left
                 anchors.leftMargin: 8
@@ -310,9 +380,10 @@ Item {
         z: 1
     }
 
-    function createShip(shipName, cargoCapacity, gadgetCapacity, maxHealth, maxFuel, cost) {
+    function createShip(shipName, cargoCapacity, gadgetCapacity, shieldCapacity, weaponCapacity, maxHealth, maxFuel, cost) {
         gridView1.model.append({"shipName": shipName, "cargoCapacity": cargoCapacity, "gadgetCapacity": gadgetCapacity,
-                                   "maxHealth": maxHealth, "maxFuel": maxFuel, "cost": cost});
+                                   "shieldCapacity": shieldCapacity, "weaponCapacity": weaponCapacity, "maxHealth": maxHealth,
+                                   "maxFuel": maxFuel, "cost": cost});
     }
 
     function getShip(index) {
@@ -325,16 +396,20 @@ Item {
             displayItemInfo.shipName = product.shipName;
             displayItemInfo.cargoCapacity = product.cargoCapacity;
             displayItemInfo.gadgetCapacity = product.gadgetCapacity;
+            displayItemInfo.shieldCapacity = product.shieldCapacity;
+            displayItemInfo.weaponCapacity = product.weaponCapacity;
             displayItemInfo.maxHealth = product.maxHealth;
             displayItemInfo.maxFuel = product.maxFuel;
             displayItemInfo.cost = product.cost;
         }
     }
 
-    function setCurrentShip(shipName, cargoCapacity, gadgetCapacity, maxHealth, maxFuel, cost) {
+    function setCurrentShip(shipName, cargoCapacity, gadgetCapacity, shieldCapacity, weaponCapacity, maxHealth, maxFuel, cost) {
         displayItemInfo.currentShipName = shipName;
         displayItemInfo.currentCargoCapacity = cargoCapacity;
         displayItemInfo.currentGadgetCapacity = gadgetCapacity;
+        displayItemInfo.currentShieldCapacity = shieldCapacity;
+        displayItemInfo.currentWeaponCapacity = weaponCapacity;
         displayItemInfo.currentMaxHealth = maxHealth;
         displayItemInfo.currentMaxFuel = maxFuel;
         displayItemInfo.currentCost = cost;

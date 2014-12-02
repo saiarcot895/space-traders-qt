@@ -31,6 +31,8 @@ void Shipyard::instantiateShipTab() {
                               Q_ARG(QVariant, currentShip.getName()),
                               Q_ARG(QVariant, currentShip.getCargoCapacity()),
                               Q_ARG(QVariant, currentShip.getGadgetCapacity()),
+                              Q_ARG(QVariant, currentShip.getShieldCapacity()),
+                              Q_ARG(QVariant, currentShip.getWeaponCapacity()),
                               Q_ARG(QVariant, currentShip.getMaxHealth()),
                               Q_ARG(QVariant, currentShip.getMaxFuel()),
                               Q_ARG(QVariant, currentShip.getCost()));
@@ -41,6 +43,8 @@ void Shipyard::instantiateShipTab() {
                                   Q_ARG(QVariant, ship.getName()),
                                   Q_ARG(QVariant, ship.getCargoCapacity()),
                                   Q_ARG(QVariant, ship.getGadgetCapacity()),
+                                  Q_ARG(QVariant, ship.getShieldCapacity()),
+                                  Q_ARG(QVariant, ship.getWeaponCapacity()),
                                   Q_ARG(QVariant, ship.getMaxHealth()),
                                   Q_ARG(QVariant, ship.getMaxFuel()),
                                   Q_ARG(QVariant, ship.getCost()));
